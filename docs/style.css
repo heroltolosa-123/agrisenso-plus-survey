@@ -317,6 +317,12 @@ select.input-select:focus {
   pointer-events: none;
 }
 
+.datetime-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.input-datetime { max-width: 220px; }
+.input-datetime:disabled { background: #f2f0ea; color: var(--gray); }
+.na-checkbox { display: flex; align-items: center; gap: 6px; font-size: 14.5px; color: var(--gray); cursor: pointer; }
+.na-checkbox input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--green); cursor: pointer; }
+
 .choice-group { display: flex; flex-direction: column; gap: 6px; }
 .choice-row {
   display: flex;

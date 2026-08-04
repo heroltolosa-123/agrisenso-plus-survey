@@ -210,6 +210,43 @@ this fix carries forward automatically — no per-question manual work needed.
 
 ---
 
+## 7b. Predetermined fields for dates, times, regions, and long option lists
+
+Several fields were converted from free text to structured inputs, so
+enumerators never have to guess a format or type an answer that already
+has a fixed set of valid values:
+
+- **Dates** (Date of Version, Date of Interview, Consent Confirmation
+  date) now use the browser's native date picker (`mm/dd/yyyy`) instead of
+  a free-text box — no more "8/4/26" vs "04-08-2026" ambiguity.
+- **Times** (Interview Start/End Time, Closing Statement End Time) use a
+  native time picker the same way.
+- Both date and time fields have their own **N/A checkbox** right next to
+  the picker (since a date/time input can't literally hold the text
+  "N/A") — checking it disables the picker and records N/A, satisfying
+  the required-field rule for genuinely inapplicable cases.
+- **Region** (under A1. Location of Interview) is now a dropdown of the
+  Philippines' 18 official regions — including Negros Island Region,
+  re-established in 2024 (confirmed against the PSA's Philippine Standard
+  Geographic Code as of this writing) — instead of free text, so region
+  names are always spelled and formatted consistently across every
+  response.
+- **Province, Municipality/City, and Barangay** stay as free text (there
+  is no reliable way to hardcode the country's ~1,600+ municipalities or
+  42,000+ barangays into a dropdown without risking incorrect entries),
+  but each now shows a concrete example as a placeholder — e.g. Province
+  shows "e.g. Nueva Ecija" — so it's clear at a glance what level of
+  detail and format is expected.
+- **Questionnaire Version** shows an example placeholder ("e.g. v1.0")
+  for the same reason.
+
+Any single-choice question with more than 6 options (Borrower Segment,
+livelihood type, educational attainment, etc. — about 35 questions per
+instrument) already renders as a dropdown rather than a long list of
+radio buttons, per the earlier UI update.
+
+---
+
 ## 8. Updating the questionnaire later
 
 1. Re-export the revised Word doc to Markdown and isolate each instrument's
@@ -265,10 +302,19 @@ environment can't reach Google's or GitHub's live servers directly:
 - **The front-matter parsing fix**: confirmed the previously-buggy intro
   section now has zero required fields and renders as plain instructional
   text, both in the parsed schema and in an actual rendered screenshot.
+- **Date/time pickers and the Region dropdown**: confirmed native
+  `<input type="date">`/`<input type="time">` render correctly with a
+  working N/A checkbox that disables the picker and satisfies the
+  required-field check; confirmed the 18-option Region dropdown renders,
+  submits the exact selected value, and — since it's a single_choice field
+  with more than 6 options — automatically gets the same dropdown/N/A/
+  validation treatment as any other long list. Verified visually with a
+  rendered screenshot showing all 18 regions.
 - **Real rendered screenshots** (Chromium via Playwright, not just jsdom):
-  desktop and mobile views of the chooser screen and a mid-survey section
-  with a live dropdown, confirmed visually correct — plus a full 14-section
-  click-through with zero browser console errors.
+  desktop and mobile views of the chooser screen, a mid-survey section
+  with a live dropdown, the date/time picker fields, and the open Region
+  dropdown showing all 18 options — plus a full 14-section click-through
+  with zero browser console errors.
 
 **What's still untested** (can't be done from this environment): an actual
 live deployment on `script.google.com`, real GitHub Pages/Render hosting,

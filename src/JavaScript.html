@@ -335,6 +335,8 @@
       case 'multi_choice': return buildChoiceField(field);
       case 'scale_1_5': return buildScaleField(field);
       case 'matrix': return buildMatrixField(field);
+      case 'date': return buildDateTimeField(field, 'date');
+      case 'time': return buildDateTimeField(field, 'time');
       default: return buildTextField(field);
     }
   }
@@ -347,10 +349,52 @@
     var input = document.createElement(long ? 'textarea' : 'input');
     if (!long) input.type = 'text';
     input.className = 'input-text';
-    input.placeholder = 'Type your answer (or N/A if not applicable)';
+    input.placeholder = field.hint ? field.hint + ' \u2014 or N/A if not applicable' : 'Type your answer (or N/A if not applicable)';
     input.value = state.answers[field.field_id] || '';
     input.addEventListener('input', function () { setAnswer(field.field_id, input.value); });
     wrap.appendChild(input);
+    return wrap;
+  }
+
+  /** Native date/time pickers — these give a fixed, unambiguous format
+   * (the browser handles locale display) instead of free-typed dates like
+   * "8/4/26" vs "04-08-2026" that are easy to misread or miskey. An
+   * explicit "Not applicable" checkbox stands in for the usual N/A text,
+   * since a date/time input can't hold the literal string "N/A". */
+  function buildDateTimeField(field, kind) {
+    var wrap = el('div', 'field');
+    wrap.setAttribute('data-field-id', field.field_id);
+    wrap.appendChild(el('label', 'field-label', field.label));
+
+    var row = el('div', 'datetime-row');
+    var input = document.createElement('input');
+    input.type = kind;
+    input.className = 'input-text input-datetime';
+    var saved = state.answers[field.field_id] || '';
+    var isNA = saved === 'N/A';
+    if (saved && !isNA) input.value = saved;
+    input.disabled = isNA;
+    input.addEventListener('input', function () { setAnswer(field.field_id, input.value); });
+    row.appendChild(input);
+
+    var naLabelWrap = el('label', 'na-checkbox');
+    var naCheck = document.createElement('input');
+    naCheck.type = 'checkbox';
+    naCheck.checked = isNA;
+    naCheck.addEventListener('change', function () {
+      input.disabled = naCheck.checked;
+      if (naCheck.checked) {
+        input.value = '';
+        setAnswer(field.field_id, 'N/A');
+      } else {
+        setAnswer(field.field_id, input.value);
+      }
+    });
+    naLabelWrap.appendChild(naCheck);
+    naLabelWrap.appendChild(document.createTextNode(' N/A'));
+    row.appendChild(naLabelWrap);
+
+    wrap.appendChild(row);
     return wrap;
   }
 

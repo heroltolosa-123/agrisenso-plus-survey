@@ -25,12 +25,13 @@
             {
               "field_id": "QUESTIONNAIR_intro_1",
               "label": "Questionnaire Version",
-              "type": "text"
+              "type": "text",
+              "hint": "e.g. v1.0"
             },
             {
               "field_id": "QUESTIONNAIR_intro_2",
               "label": "Date of Version",
-              "type": "text"
+              "type": "date"
             },
             {
               "field_id": "QUESTIONNAIR_intro_3",
@@ -55,17 +56,17 @@
             {
               "field_id": "QUESTIONNAIR_intro_7",
               "label": "Date of Interview",
-              "type": "text"
+              "type": "date"
             },
             {
               "field_id": "QUESTIONNAIR_intro_8",
               "label": "Interview Start Time",
-              "type": "text"
+              "type": "time"
             },
             {
               "field_id": "QUESTIONNAIR_intro_9",
               "label": "Interview End Time",
-              "type": "text"
+              "type": "time"
             },
             {
               "field_id": "QUESTIONNAIR_intro_10",
@@ -210,7 +211,7 @@
             {
               "field_id": "Consent_Confirmation_3",
               "label": "Date",
-              "type": "text"
+              "type": "date"
             },
             {
               "field_id": "Consent_Confirmation_4",
@@ -233,22 +234,45 @@
             {
               "field_id": "A1_1",
               "label": "Region",
-              "type": "text"
+              "type": "single_choice",
+              "options": [
+                "National Capital Region (NCR)",
+                "Cordillera Administrative Region (CAR)",
+                "Region I – Ilocos Region",
+                "Region II – Cagayan Valley",
+                "Region III – Central Luzon",
+                "Region IV-A – CALABARZON",
+                "MIMAROPA Region",
+                "Region V – Bicol Region",
+                "Region VI – Western Visayas",
+                "Region VII – Central Visayas",
+                "Region VIII – Eastern Visayas",
+                "Region IX – Zamboanga Peninsula",
+                "Region X – Northern Mindanao",
+                "Region XI – Davao Region",
+                "Region XII – SOCCSKSARGEN",
+                "Region XIII – Caraga",
+                "Negros Island Region (NIR)",
+                "Bangsamoro Autonomous Region in Muslim Mindanao (BARMM)"
+              ]
             },
             {
               "field_id": "A1_2",
               "label": "Province",
-              "type": "text"
+              "type": "text",
+              "hint": "e.g. Nueva Ecija"
             },
             {
               "field_id": "A1_3",
               "label": "Municipality/City",
-              "type": "text"
+              "type": "text",
+              "hint": "e.g. Muñoz City, or the specific municipality"
             },
             {
               "field_id": "A1_4",
               "label": "Barangay",
-              "type": "text"
+              "type": "text",
+              "hint": "e.g. Malasin (as recorded on the sampling frame)"
             },
             {
               "field_id": "A1_5",
@@ -2878,7 +2902,7 @@
             {
               "field_id": "CLOSING_STAT_intro_1",
               "label": "End Time",
-              "type": "text"
+              "type": "time"
             }
           ]
         }
