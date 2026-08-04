@@ -1,187 +1,184 @@
-# AGRISENSO Plus Baseline Survey — Google Apps Script Web App
+# AGRISENSO Plus Baseline Survey — Standalone Web Site + Google Sheets Backend
 
-A Google Sheets–native survey app for the DRVN/ACPC AGRISENSO Plus
-Baseline Study questionnaires. No server, no hosting bill, no separate
-database — Google Sheets *is* the database, and Google hosts the app for
-you at a `script.google.com` URL.
+A real, shareable website (not a `script.google.com` link) for the
+DRVN/ACPC AGRISENSO Plus Baseline Study questionnaires, backed by Google
+Sheets as the database.
 
 - **Instrument A** — AGRISENSO Plus Borrowers (122 questions / 226 data fields)
 - **Instrument B** — Non-Borrower Comparison Group (103 questions / 173 data fields)
 
-Every checkbox, fill-in blank, 1–5 confidence scale, and matrix/grid
-question from the questionnaire is reproduced as a form field. This was
-tested end-to-end against a mocked Sheets backend (header creation, row
-appends, duplicate-header prevention, and exact column-ID matching between
-the browser form and the sheet) before being handed to you — see
-"How this was verified" at the bottom.
+**Architecture:**
+- `docs/` — a plain static website (HTML/CSS/JS, no build step) that renders
+  the whole survey. You publish this with GitHub Pages (or Render, Netlify,
+  any static host) and get a normal URL to share with enumerators.
+- `src/` — a small Google Apps Script project, bound to your Google Sheet,
+  that exposes the questionnaire and accepts submissions as a JSON API.
+  This is the *only* part that touches Google's infrastructure — the site
+  your users see is entirely yours.
 
-It works offline mid-interview: if the connection drops after the page has
-loaded, the browser queues the response (via `localStorage`) and a **Sync
-Pending Now** button retries later.
-
----
-
-## 1. Set up the Google Sheet + Apps Script project
-
-1. Create a new Google Sheet (this will be your survey database) — e.g.
-   "AGRISENSO Plus Baseline Data".
-2. In the Sheet, go to **Extensions → Apps Script**. This opens a script
-   project already *bound* to your Sheet (so it can read/write it with no
-   API keys or credentials at all).
-3. Delete the default empty `Code.gs` content, then create each file in
-   this project matching the ones in `src/` here:
-   - `Code.gs`
-   - `Schema_A.gs`
-   - `Schema_B.gs`
-   - `Index.html` (File → New → HTML file)
-   - `JavaScript.html` (File → New → HTML file)
-   - `Stylesheet.html` (File → New → HTML file)
-   - Open **Project Settings → appsscript.json** (or the manifest file) and
-     replace its contents with `src/appsscript.json` here.
-4. Copy-paste each file's contents from this project into the matching file
-   in the Apps Script editor, then **Save** (Ctrl/Cmd+S).
-
-   *(Prefer not to copy-paste six files by hand? See Section 4 — `clasp` can
-   push the whole `src/` folder in one command, and lets you keep the
-   project in GitHub too.)*
-
-5. (Optional but recommended) In the Apps Script editor, select the
-   `setupSheetsManually` function from the function dropdown and click
-   **Run** once. This pre-creates both data tabs and their `_Dictionary`
-   reference tabs before your first live interview. The first authorization
-   prompt will ask you to approve the script's access to the Sheet — that's
-   expected and safe (it's your own script acting on your own Sheet).
+The site talks to the Apps Script backend over `fetch()`, the same way any
+website talks to any API. Everything else (offline queueing, section
+navigation, all field types) works exactly as before.
 
 ---
 
-## 2. Deploy it as a web app
+## 1. Deploy the backend (Apps Script + Google Sheet)
 
-1. In the Apps Script editor: **Deploy → New deployment**.
-2. Click the gear icon next to "Select type" → **Web app**.
-3. Settings:
-   - **Execute as:** *Me (your account)* — this lets the form write to the
-     Sheet even for people who don't have a Google account themselves.
-   - **Who has access:** *Anyone* (or *Anyone within [your org]* if you want
-     to restrict it to people signed into your organization's Google
-     Workspace).
-4. Click **Deploy**, then **Authorize access** and approve the permissions
-   (this is your own script; the warning screen is normal for
-   self-deployed Apps Script projects — click "Advanced" → "Go to
-   [project name] (unsafe)" if prompted, then Allow).
-5. Copy the **Web app URL** it gives you — that's the survey link. Share it
-   with your enumerators (as a bookmark, QR code, etc.).
+1. Create a new Google Sheet (this is your survey database).
+2. **Extensions → Apps Script**. This opens a script project bound to your
+   Sheet (no API keys needed).
+3. Create these files in the Apps Script editor and paste in the matching
+   contents from `src/` in this project:
+   - `Code.gs`, `Schema_A.gs`, `Schema_B.gs` (Script files)
+   - `Index.html`, `JavaScript.html`, `Stylesheet.html`, `Assets.html` (HTML files)
+   - Replace the manifest (gear icon → Project Settings → show
+     `appsscript.json`) with `src/appsscript.json`.
 
-**Updating later:** whenever you change any file, use **Deploy → Manage
-deployments → (pencil icon) → New version → Deploy** so the live URL picks
-up the change. Just saving the file in the editor does *not* update the
-public link.
+   *(`Index.html`/`JavaScript.html`/`Stylesheet.html`/`Assets.html` are only
+   needed if you also want the survey reachable directly at the Apps Script
+   URL as a fallback — the standalone site in `docs/` doesn't need them to
+   function, but `Code.gs` does need `Index.html` to exist or `doGet()`'s
+   HTML fallback will error. Simplest: include all seven files as above.)*
+
+4. Run `setupSheetsManually` once from the function dropdown to pre-create
+   both data tabs (approve the authorization prompt — this is your script
+   acting on your own Sheet).
+5. **Deploy → New deployment → Web app**:
+   - Execute as: **Me**
+   - Who has access: **Anyone**
+6. Click **Deploy**, authorize, and copy the **Web app URL**
+   (`https://script.google.com/macros/s/AKfycb.../exec`). This is your
+   backend URL — you'll paste it into the site next.
+
+**Test it's alive:** open `<that URL>?action=ping` in a browser — you
+should see `{"ok":true,"message":"AGRISENSO Plus survey backend is reachable."}`.
 
 ---
 
-## 3. Using the app in the field
+## 2. Point the site at your backend
 
-1. Open the Web app URL → choose **Instrument A** or **Instrument B**.
-2. Work through the sections with **Previous / Next** (in the questionnaire's
-   own order: Survey Instrument info → Questionnaire Administration →
-   Introduction & Consent → Sections A–H → Enumerator Final Review →
-   Interview Notes → Closing Statement).
-3. Click **Submit Response**. The app saves a permanent local copy in the
-   browser and tries to write it to the Sheet immediately; if there's no
-   signal, it queues the response and tells you so — nothing is lost.
-4. **Sync Pending Now** retries any queued responses on that device/browser.
-   The instrument-picker screen shows how many are still waiting.
-5. Answers auto-save to that browser as you go, so an accidental tab close
-   mid-interview can be resumed (you'll be asked "Resume in-progress
-   response?" next time that instrument is opened on the same device).
+1. Open `docs/config.js`.
+2. Replace the placeholder with the URL from Step 1:
+   ```js
+   var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycb.../exec";
+   ```
+3. Save.
 
-### Where the data ends up
+---
+
+## 3. Publish the site
+
+### Option A — GitHub Pages (recommended, free, works with the git repo you already have)
+1. Push this project to GitHub (see Section 5 below if you haven't).
+2. On GitHub: **Settings → Pages**.
+3. Under "Build and deployment", set **Source: Deploy from a branch**,
+   **Branch: main**, **Folder: /docs**. Save.
+4. GitHub gives you a URL like `https://heroltolosa-123.github.io/agrisenso-plus-survey/`
+   within a minute or two. That's your shareable survey link.
+5. Whenever you push changes to `docs/`, the site updates automatically
+   (usually within a minute).
+
+### Option B — Render (static site)
+1. In Render: **New → Static Site**, connect your GitHub repo.
+2. **Root directory:** leave blank (repo root). **Publish directory:** `docs`.
+3. No build command needed (it's plain HTML/CSS/JS).
+4. Deploy — Render gives you a `.onrender.com` URL (or attach your own domain).
+
+### Option C — Netlify / any static host
+Point it at the `docs/` folder the same way; no build step required.
+
+---
+
+## 4. Using the app in the field
+
+Same as before — open the site URL, pick an instrument, work through
+sections with Previous/Next, Submit at the end. Responses are saved to a
+local backup in the browser and posted to your Google Sheet; if there's no
+signal, the response queues locally and **Sync Pending Now** retries later.
+See Section 6 for where the data lands in the Sheet.
+
+**Caveats specific to this hosting split:**
+- The site and the backend are two different addresses now. If you ever
+  redeploy the Apps Script backend and get a *new* `/exec` URL (this can
+  happen if you create a brand-new deployment instead of updating an
+  existing one), update `docs/config.js` and republish the site, or every
+  submission will fail.
+- Prefer **Deploy → Manage deployments → pencil icon → New version** over
+  creating a brand-new deployment when you update `Code.gs`/`Schema_*.gs` —
+  that keeps the same `/exec` URL so you never have to touch `config.js`
+  again after the first setup.
+
+---
+
+## 5. Push to GitHub (if not already)
+
+```bash
+cd webapp
+git remote add origin https://github.com/<you>/<repo>.git
+git push -u origin main
+```
+
+If `git push` asks for a password, GitHub requires a Personal Access
+Token instead (Settings → Developer settings → Personal access tokens →
+generate one with the `repo` scope, paste it in as the password).
+
+---
+
+## 6. Where the data ends up
+
 In your Google Sheet:
 - `Instrument_A_Borrowers` / `Instrument_B_NonBorrowers` — one row per
   response. Row 1 = stable field IDs, row 2 = full question text (frozen).
 - `Instrument_A_Borrowers_Dictionary` / `..._Dictionary` — a two-column
-  `field_id → question text` lookup, handy when analyzing the data later
-  (e.g. in R or Excel, join on `field_id`).
-
-### Important caveats
-- The device needs internet to **load** the survey page the first time;
-  after that, brief connection drops during the interview are tolerated
-  (see above), but the browser tab must not be closed before syncing if
-  you're offline.
-- Because this uses `localStorage`, "resume" and "pending" only work on the
-  *same device and browser* the interview started on — it isn't shared
-  across devices until it syncs to the Sheet.
-- Skip/routing logic (e.g. "ask only if A2 = Individual Borrower") is shown
-  as an on-screen instruction under the question, not auto-hidden —
-  enumerators should still follow the printed routing notes.
-- Do a **pilot run** before real fieldwork: submit a couple of test
-  responses, confirm they land correctly in the Sheet, then delete those
-  test rows.
+  `field_id → question text` lookup for analysis later.
 
 ---
 
-## 4. Optional: manage the project with `clasp` + GitHub
+## 7. Updating the questionnaire later
 
-Since you mentioned Git — Apps Script itself is hosted by Google (there's
-no separate server to put on Render for this path), but you can absolutely
-keep the *source* in GitHub and push it to Apps Script from your Mac with
-Google's official CLI, `clasp`.
-
-```bash
-npm install -g @google/clasp
-clasp login                     # opens a browser to authorize your Google account
-
-# Link to the Apps Script project created in Section 1:
-# (Apps Script editor -> Project Settings -> Script ID -> copy it)
-cp .clasp.json.example .clasp.json
-# edit .clasp.json and paste your Script ID into "scriptId"
-
-clasp push                      # uploads everything in src/ to Apps Script
-clasp deploy                    # creates/updates a deployment (or use the editor's Deploy UI)
-clasp open                      # opens the project in the browser
-```
-
-From then on: edit files under `src/`, `git commit` / `git push` to GitHub
-as normal for version history, and run `clasp push` (then re-deploy) to
-publish changes to the live survey.
-
----
-
-## 5. Updating the questionnaire later
-
-If ACPC revises the instrument:
-1. Export the updated Word doc to Markdown (`pandoc -t gfm file.docx -o out.md`)
-   and isolate each instrument's section.
-2. Run `tools/parse_questionnaire.py` on it to produce updated
-   `questions_A.json` / `questions_B.json`.
+1. Re-export the revised Word doc to Markdown and isolate each instrument's
+   section (see `tools/parse_questionnaire.py`'s docstring for the pandoc
+   command).
+2. Run `tools/parse_questionnaire.py` to produce updated
+   `tools/questions_A.json` / `questions_B.json`.
 3. Run `tools/generate_gs_schema.py` to regenerate `src/Schema_A.gs` /
    `src/Schema_B.gs`.
-4. Push/copy the updated files to Apps Script and redeploy (Section 2).
-
-The app rebuilds every screen from these two files — no other code changes
-needed for question wording/option changes. Structural changes (new field
-types) would need updates to `Code.gs` and `JavaScript.html`.
+4. Paste the updated `Schema_*.gs` into the Apps Script editor and
+   redeploy (Deploy → Manage deployments → New version).
+5. `docs/` needs no changes — it renders whatever schema the backend
+   serves.
 
 ---
 
-## 6. How this was verified
+## 8. How this was verified
 
-Since this project can't be deployed to Google's servers from this
-environment, before handing it to you it was tested with Node.js against a
-mock of the Apps Script/Sheets API to check the parts most likely to break
-silently:
-- **All 226 (Instrument A) / 173 (Instrument B) field IDs the browser form
-  generates match exactly, in the same order,** the columns the server
-  expects — including every matrix/grid cell — so no answer silently gets
-  dropped or lands in the wrong column.
-- A full mock submission round-trip: header row created correctly (282 /
-  210 columns including `submission_id`/`submitted_at`), frozen, a real
-  `submitResponse` call places each answer in the right column, a second
-  submission does **not** duplicate/rewrite the header, and the
-  `_Dictionary` tab is populated correctly.
-- All `.gs` and embedded `.html` script files pass Node's JavaScript syntax
-  checker.
+Everything below was tested with Node.js (including a real DOM via jsdom
+simulating an actual browser) before being handed to you, since this
+environment can't reach Google's or GitHub's live servers directly:
 
-What wasn't (and can't be, from here) tested: an actual deployment on
-`script.google.com`, real Google authorization prompts, and the live
-mobile/desktop browser rendering — hence the pilot-run recommendation in
-Section 3.
+- All `.gs` files and `docs/app.js` pass JavaScript syntax checks.
+- **Every one of the 226 (Instrument A) / 173 (Instrument B) field IDs the
+  static site generates matches exactly, in the same order,** the columns
+  the Apps Script backend expects — so no answer lands in the wrong column
+  or gets silently dropped.
+- A mocked `Code.gs` backend (fake `SpreadsheetApp`) confirmed
+  `doGet(?action=schema)`, `doGet(?action=ping)`, and
+  `doPost({action:'submit'})` all behave correctly, including invalid-input
+  and malformed-JSON error handling.
+- A full jsdom run: loaded `docs/index.html` and `docs/app.js` in a real
+  DOM, clicked through the instrument picker, filled in fields, submitted,
+  and confirmed the posted data reaches a mock backend correctly shaped —
+  then separately confirmed that when the network fails mid-submission,
+  the response is correctly queued to `localStorage` for later sync.
+
+**What's still untested** (can't be done from this environment): an actual
+live deployment on `script.google.com`, real GitHub Pages/Render hosting,
+and Apps Script's real CORS behavior in a live browser. The `text/plain`
+Content-Type trick used in `docs/app.js`'s POST request is a
+well-established pattern for calling Apps Script cross-origin without
+triggering a CORS preflight it can't answer — but do the pilot-run test
+below before real fieldwork regardless.
+
+**Pilot test before real fieldwork:** open your published site, submit 2–3
+test responses, confirm they appear correctly in the Sheet, then delete
+those test rows.

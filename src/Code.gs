@@ -2,10 +2,10 @@
  * AGRISENSO Plus Baseline Survey — Apps Script backend.
  *
  * This script is bound to the Google Sheet that acts as the survey's
- * database. It serves an HTML web app (Index.html) and exposes two
- * functions to the client via google.script.run:
- *   - getSchema(instrumentKey)      -> the questionnaire structure
- *   - submitResponse(key, values)   -> appends one row to the right tab
+ * database. It can serve the survey two ways:
+ *   1. As a self-contained HTML page at its own /exec URL (google.script.run).
+ *   2. As a JSON API for a separately-hosted front end (see docs/), via
+ *      GET ?action=schema&instrument=A and POST {action:"submit",...}.
  *
  * QUESTIONS_A / QUESTIONS_B come from Schema_A.gs / Schema_B.gs
  * (auto-generated — see parse_questionnaire.py in the project source).
@@ -18,13 +18,54 @@ var TAB_NAMES = {
 
 // ---------------------------------------------------------------------
 // Web app entry point
+//
+// Two ways to reach this backend:
+//   1. Open the deployed /exec URL directly in a browser -> serves the
+//      full HTML survey (same as before).
+//   2. Call it as a JSON API from a site hosted elsewhere (GitHub Pages,
+//      Render, etc. — see docs/ in the project) via:
+//        GET  <url>?action=schema&instrument=A
+//        POST <url>   body: {"action":"submit","instrument":"A","values":{...}}
+//      POST requests must use Content-Type: text/plain to avoid a CORS
+//      preflight that Apps Script web apps can't answer; the body is
+//      still parsed as JSON on this end regardless of that header.
 // ---------------------------------------------------------------------
 function doGet(e) {
+  var action = e && e.parameter && e.parameter.action;
+  if (action === 'schema') {
+    var key = e.parameter.instrument;
+    if (key !== 'A' && key !== 'B') return jsonOutput_({ ok: false, error: 'invalid instrument' });
+    return jsonOutput_(getSchema(key));
+  }
+  if (action === 'ping') {
+    return jsonOutput_({ ok: true, message: 'AGRISENSO Plus survey backend is reachable.' });
+  }
   return HtmlService.createTemplateFromFile('Index')
     .evaluate()
     .setTitle('AGRISENSO Plus Baseline Survey')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function doPost(e) {
+  try {
+    var body = JSON.parse(e.postData.contents);
+    if (body.action === 'submit') {
+      if (body.instrument !== 'A' && body.instrument !== 'B') {
+        return jsonOutput_({ ok: false, error: 'invalid instrument' });
+      }
+      var result = submitResponse(body.instrument, body.values || {});
+      return jsonOutput_(result);
+    }
+    return jsonOutput_({ ok: false, error: 'unknown action: ' + body.action });
+  } catch (err) {
+    return jsonOutput_({ ok: false, error: String(err) });
+  }
+}
+
+function jsonOutput_(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function include(filename) {

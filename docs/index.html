@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AGRISENSO Plus Baseline Survey</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>AGRISENSO Plus Baseline Survey</h1>
+    <div id="progress"></div>
+  </header>
+  <div id="statusBar"></div>
+
+  <main id="app"></main>
+
+  <footer class="navbar" id="navbar" style="display:none;">
+    <button id="prevBtn">&#9664; Previous</button>
+    <div class="navgroup">
+      <button id="syncBtn" class="link">Sync Pending Now</button>
+      <button id="menuBtn" class="link">&#8592; Menu</button>
+    </div>
+    <button id="nextBtn">Next &#9654;</button>
+    <button id="submitBtn" class="primary" style="display:none;">Submit Response</button>
+  </footer>
+
+  <div class="spinner-overlay" id="spinner">Working&hellip;</div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
