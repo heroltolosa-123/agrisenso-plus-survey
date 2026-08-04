@@ -121,16 +121,19 @@
     setStatus('');
     app.innerHTML = '';
     var wrap = el('div', 'chooser');
-    wrap.appendChild(el('h2', null, 'Select the questionnaire to administer'));
+    wrap.appendChild(el('div', 'hero-banner'));
+    var card = el('div', 'card');
+    card.appendChild(el('h2', null, 'Select the questionnaire to administer'));
     ['A', 'B'].forEach(function (key) {
       var btn = el('button', 'big', INSTRUMENT_TITLES[key]);
       btn.addEventListener('click', function () { startInstrument(key); });
-      wrap.appendChild(btn);
+      card.appendChild(btn);
       var n = pendingCount(key);
       if (n) {
-        wrap.appendChild(el('div', 'pending-note', 'Instrument ' + key + ': ' + n + ' response(s) waiting to sync on this device.'));
+        card.appendChild(el('div', 'pending-note', 'Instrument ' + key + ': ' + n + ' response(s) waiting to sync on this device.'));
       }
     });
+    wrap.appendChild(card);
     app.appendChild(wrap);
   }
 
