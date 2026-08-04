@@ -151,7 +151,7 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "INTRODUCTION_intro_1",
-              "label": "Good day. My name is (, and I am)",
+              "label": "Enumerator: Read the following statement to the respondent. Good day. My name is (, and I am)",
               "type": "text"
             }
           ]
@@ -335,13 +335,21 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "A4_1",
-              "label": "For individual borrower: Name of borrower",
-              "type": "text"
+              "label": "Name of borrower",
+              "type": "text",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             },
             {
               "field_id": "A4_2",
               "label": "Name of borrowing organization / enterprise",
-              "type": "text"
+              "type": "text",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Organizational / enterprise borrower"
+              }
             }
           ]
         },
@@ -394,13 +402,17 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "A7_1",
-              "label": "Ask only if A2 = Individual Borrower. Is the respondent the individual named as the borrower under the AGRISENSO Plus loan agreement?",
+              "label": "Is the respondent the individual named as the borrower under the AGRISENSO Plus loan agreement?",
               "type": "single_choice",
               "options": [
                 "Yes",
                 "No"
               ],
-              "allow_other": false
+              "allow_other": false,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             },
             {
               "field_id": "A7_2",
@@ -431,7 +443,7 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "A8_1",
-              "label": "Ask only if A2 = Organizational / Enterprise Borrower. What is the respondent’s role in the organization or enterprise?",
+              "label": "What is the respondent’s role in the organization or enterprise?",
               "type": "single_choice",
               "options": [
                 "Owner / Proprietor",
@@ -443,7 +455,11 @@ var QUESTIONS_A = {
                 "Authorized Representative",
                 "Other (specify): ____________________"
               ],
-              "allow_other": true
+              "allow_other": true,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Organizational / enterprise borrower"
+              }
             },
             {
               "field_id": "A8_2",
@@ -517,25 +533,33 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "B1_1",
-              "label": "For Individual Borrowers:",
+              "label": "Respondent Sex",
               "type": "single_choice",
               "options": [
                 "Male",
                 "Female",
                 "Prefer not to answer"
               ],
-              "allow_other": false
+              "allow_other": false,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             },
             {
               "field_id": "B1_2",
-              "label": "For Organizational / Enterprise Borrowers: Record the sex of the representative only for field documentation. Do not interpret this as the sex classification of the borrowing organization.",
+              "label": "Record the sex of the representative only for field documentation. Do not interpret this as the sex classification of the borrowing organization.",
               "type": "single_choice",
               "options": [
                 "Male",
                 "Female",
                 "Prefer not to answer"
               ],
-              "allow_other": false
+              "allow_other": false,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Organizational / enterprise borrower"
+              }
             }
           ]
         },
@@ -547,7 +571,11 @@ var QUESTIONS_A = {
             {
               "field_id": "B2_1",
               "label": "Age in completed years",
-              "type": "text"
+              "type": "number",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             },
             {
               "field_id": "B2_2",
@@ -570,7 +598,7 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "B3_1",
-              "label": "For Individual Borrowers only.",
+              "label": "Highest Educational Attainment",
               "type": "single_choice",
               "options": [
                 "No formal schooling",
@@ -586,7 +614,11 @@ var QUESTIONS_A = {
                 "Other: ____________________",
                 "Prefer not to answer"
               ],
-              "allow_other": true
+              "allow_other": true,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             }
           ]
         },
@@ -597,7 +629,7 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "B4_1",
-              "label": "For Individual Borrowers only.",
+              "label": "Civil Status",
               "type": "single_choice",
               "options": [
                 "Single",
@@ -608,7 +640,11 @@ var QUESTIONS_A = {
                 "Other: ____________________",
                 "Prefer not to answer"
               ],
-              "allow_other": true
+              "allow_other": true,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             }
           ]
         },
@@ -619,8 +655,12 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "B5_1",
-              "label": "Total household members (persons)",
-              "type": "text"
+              "label": "Including yourself, how many persons usually live in your household? Total household members (persons)",
+              "type": "number",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             }
           ]
         },
@@ -631,8 +671,12 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "B6_1",
-              "label": "Number (persons)",
-              "type": "text"
+              "label": "How many household members aged 18 years or older currently earn income or are actively engaged in farming, fishing, employment, business, or another livelihood? (persons)",
+              "type": "number",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             }
           ]
         },
@@ -643,8 +687,12 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "B7_1",
-              "label": "Number (persons)",
-              "type": "text"
+              "label": "How many household members are primarily dependent on other household members for financial support? (persons)",
+              "type": "number",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             }
           ]
         },
@@ -655,8 +703,12 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "B8_1",
-              "label": "Estimated amount: PHP",
-              "type": "text"
+              "label": "Thinking about all sources of income received by your household, what is your household's estimated average monthly income? Estimated amount: PHP",
+              "type": "number",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             },
             {
               "field_id": "B8_2",
@@ -693,7 +745,7 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "B9_1",
-              "label": "For Individual Borrowers only. What is the main source of livelihood or income of your household?",
+              "label": "What is the main source of livelihood or income of your household?",
               "type": "single_choice",
               "options": [
                 "Crop farming",
@@ -710,7 +762,11 @@ var QUESTIONS_A = {
                 "Pension / retirement income",
                 "Other: ____________________"
               ],
-              "allow_other": true
+              "allow_other": true,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             }
           ]
         },
@@ -721,18 +777,22 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "B10_1",
-              "label": "For Individual Borrowers only. Do you identify as a member of an Indigenous Cultural Community / Indigenous Peoples group?",
+              "label": "Do you identify as a member of an Indigenous Cultural Community / Indigenous Peoples group?",
               "type": "single_choice",
               "options": [
                 "Yes",
                 "No",
                 "Prefer not to answer"
               ],
-              "allow_other": false
+              "allow_other": false,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             },
             {
               "field_id": "B10_2",
-              "label": "IP Group / Community",
+              "label": "If Yes and willing to specify IP Group / Community",
               "type": "text"
             }
           ]
@@ -744,14 +804,18 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "B11_1",
-              "label": "For Individual Borrowers only. Do you identify as a person with disability?",
+              "label": "Do you identify as a person with disability?",
               "type": "single_choice",
               "options": [
                 "Yes",
                 "No",
                 "Prefer not to answer"
               ],
-              "allow_other": false
+              "allow_other": false,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             }
           ]
         },
@@ -772,13 +836,17 @@ var QUESTIONS_A = {
             },
             {
               "field_id": "B12_2",
-              "label": "For individual borrower:",
+              "label": "Mobile Phone Access",
               "type": "single_choice",
               "options": [
                 "Own phone",
                 "Shared / household phone"
               ],
-              "allow_other": false
+              "allow_other": false,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             }
           ]
         },
@@ -865,7 +933,7 @@ var QUESTIONS_A = {
             {
               "field_id": "C3_1",
               "label": "For how many years have you or the organization/enterprise been engaged in this principal activity? (years)",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "C3_2",
@@ -885,7 +953,7 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "C4_1",
-              "label": "Total area used for the principal activity",
+              "label": "Ask where land or production area is applicable. Total area used for the principal activity",
               "type": "text"
             },
             {
@@ -901,7 +969,7 @@ var QUESTIONS_A = {
             },
             {
               "field_id": "C4_3",
-              "label": "Unit",
+              "label": "Area actually cultivated / utilized during the most recent cycle Unit",
               "type": "text"
             },
             {
@@ -1021,8 +1089,8 @@ var QUESTIONS_A = {
             },
             {
               "field_id": "C7_4",
-              "label": "Estimated yield per hectare",
-              "type": "text"
+              "label": "Where applicable Estimated yield per hectare",
+              "type": "number"
             },
             {
               "field_id": "C7_5",
@@ -1049,7 +1117,7 @@ var QUESTIONS_A = {
             {
               "field_id": "C8_1",
               "label": "During the past 12 months, how many production cycles or cropping seasons did you complete for the principal commodity? (cycle(s))",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "C8_2",
@@ -1218,8 +1286,8 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "C13_1",
-              "label": "Estimated total: PHP",
-              "type": "text"
+              "label": "Approximately how much did you or your organization spend on production or operating costs during the most recent completed cycle/period? Estimated total: PHP",
+              "type": "number"
             },
             {
               "field_id": "C13_2",
@@ -1257,7 +1325,7 @@ var QUESTIONS_A = {
             {
               "field_id": "C14_1",
               "label": "Approximately how much in gross sales or revenue did you or the organization earn from the principal activity during the same reference period, before expenses? Estimated gross sales/revenue: PHP",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "C14_2",
@@ -1279,7 +1347,7 @@ var QUESTIONS_A = {
             {
               "field_id": "C15_1",
               "label": "After deducting production or operating expenses, approximately how much was the net income or profit during the same reference period? Estimated net income/profit: PHP",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "C15_2",
@@ -1405,8 +1473,8 @@ var QUESTIONS_A = {
             },
             {
               "field_id": "C18_2",
-              "label": "Approximate proportion lost (%)",
-              "type": "text"
+              "label": "If Yes Approximate proportion lost (%)",
+              "type": "number"
             },
             {
               "field_id": "C18_3",
@@ -1897,17 +1965,17 @@ var QUESTIONS_A = {
             {
               "field_id": "E2_1",
               "label": "Application month/year",
-              "type": "text"
+              "type": "month"
             },
             {
               "field_id": "E2_2",
               "label": "Loan agreement / approval month/year",
-              "type": "text"
+              "type": "month"
             },
             {
               "field_id": "E2_3",
               "label": "Loan release month/year",
-              "type": "text"
+              "type": "month"
             },
             {
               "field_id": "E2_4",
@@ -1951,17 +2019,17 @@ var QUESTIONS_A = {
             {
               "field_id": "E4_1",
               "label": "Amount Applied For: PHP",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "E4_2",
               "label": "Amount Approved under Agreement: PHP",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "E4_3",
               "label": "Amount Released to Date: PHP",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "E4_4",
@@ -2018,7 +2086,7 @@ var QUESTIONS_A = {
             {
               "field_id": "E6_1",
               "label": "Reported interest rate (%)",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "E6_2",
@@ -2041,7 +2109,7 @@ var QUESTIONS_A = {
             {
               "field_id": "E7_1",
               "label": "Response (years)",
-              "type": "text"
+              "type": "number"
             }
           ]
         },
@@ -2158,7 +2226,7 @@ var QUESTIONS_A = {
             {
               "field_id": "E12_1",
               "label": "Approximately how many documents were required? (documents)",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "E12_2",
@@ -2183,7 +2251,7 @@ var QUESTIONS_A = {
             {
               "field_id": "E13_1",
               "label": "Approximately how many visits to LANDBANK or another relevant office were necessary? (visits)",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "E13_2",
@@ -2204,13 +2272,13 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "E14_1",
-              "label": "PHP",
-              "type": "text"
+              "label": "Estimated transportation/travel cost PHP",
+              "type": "number"
             },
             {
               "field_id": "E14_2",
-              "label": "PHP",
-              "type": "text"
+              "label": "Other application/document-related cost PHP",
+              "type": "number"
             },
             {
               "field_id": "E14_3",
@@ -2241,7 +2309,7 @@ var QUESTIONS_A = {
             {
               "field_id": "E15_2",
               "label": "If repeat: Total number of AGRISENSO Plus loans, including current loan",
-              "type": "text"
+              "type": "number"
             }
           ]
         },
@@ -2560,8 +2628,8 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "F6_1",
-              "label": "PHP",
-              "type": "text"
+              "label": "How much additional financing would have been needed? PHP",
+              "type": "number"
             },
             {
               "field_id": "F6_2",
@@ -2756,7 +2824,7 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "G7_1",
-              "label": "Individual Borrowers only. How often do you keep farm/enterprise funds separate from household/personal funds?",
+              "label": "How often do you keep farm/enterprise funds separate from household/personal funds?",
               "type": "single_choice",
               "options": [
                 "Always",
@@ -2765,7 +2833,11 @@ var QUESTIONS_A = {
                 "Rarely",
                 "Never"
               ],
-              "allow_other": false
+              "allow_other": false,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             }
           ]
         },
@@ -3025,7 +3097,7 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "G16_table1",
-              "label": "Individual Borrowers Who usually has the main say?",
+              "label": "Who usually has the main say?",
               "type": "matrix",
               "columns": [
                 "Decision",
@@ -3089,11 +3161,15 @@ var QUESTIONS_A = {
                   "☐",
                   "☐"
                 ]
-              ]
+              ],
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual borrower"
+              }
             },
             {
               "field_id": "G16_table2",
-              "label": "Organizational / Enterprise Borrowers",
+              "label": "Financing and Enterprise Decision-Making",
               "type": "matrix",
               "columns": [
                 "Decision",
@@ -3157,7 +3233,11 @@ var QUESTIONS_A = {
                   "☐",
                   "☐"
                 ]
-              ]
+              ],
+              "condition": {
+                "field": "A2_1",
+                "equals": "Organizational / enterprise borrower"
+              }
             }
           ]
         },
@@ -3570,7 +3650,7 @@ var QUESTIONS_A = {
           "fields": [
             {
               "field_id": "CLOSING_STAT_intro_1",
-              "label": "End Time",
+              "label": "Thank you very much for your time and for sharing your experience. The information you provided will form part of the AGRISENSO Plus Baseline Study and will help ACPC better understand the conditions, financing needs, and experiences of AGRISENSO Plus borrowers. Your responses will be handled in accordance with the confidentiality and data-protection arrangements explained at the start of the interview. End Time",
               "type": "time"
             }
           ]

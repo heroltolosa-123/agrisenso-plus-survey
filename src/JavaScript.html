@@ -164,6 +164,250 @@
     }
   }
 
+  var AUTO_NA = 'N/A (auto \u2014 not applicable based on your answer above)';
+
+  function conditionMet(cond) {
+    return (state.answers[cond.field] || '') === cond.equals;
+  }
+
+  function setFieldEnabled(wrap, enabled) {
+    wrap.querySelectorAll('input, select, textarea').forEach(function (el) { el.disabled = !enabled; });
+  }
+
+  function clearFieldUI(wrap) {
+    wrap.querySelectorAll('input[type=radio], input[type=checkbox]').forEach(function (el) { el.checked = false; });
+    wrap.querySelectorAll('input[type=text], input[type=date], input[type=time], input[type=month], input[type=number], textarea')
+      .forEach(function (el) { el.value = ''; });
+    wrap.querySelectorAll('select').forEach(function (el) { el.value = ''; });
+  }
+
+  /** Wires up "Ask only if..." conditional fields for the currently
+   * rendered section: when the referenced field's answer doesn't match
+   * the condition, the dependent field is automatically grayed out,
+   * disabled, and filled with N/A — no manual click needed. If the
+   * dependency's answer later changes so the condition is met, the field
+   * re-enables and clears back to blank so it can be genuinely answered.
+   * Runs once immediately (covers drafts/back-navigation) and again on
+   * every change/input inside the section. */
+  function wireConditions(section) {
+    var conditionalFields = [];
+    section.questions.forEach(function (q) {
+      q.fields.forEach(function (f) { if (f.condition) conditionalFields.push(f); });
+    });
+    if (!conditionalFields.length) return;
+
+    function reconcile() {
+      conditionalFields.forEach(function (f) {
+        var isMatrix = f.type === 'matrix';
+        var selector = isMatrix
+          ? '[data-matrix-field="' + cssEscape(f.field_id) + '"]'
+          : '[data-field-id="' + cssEscape(f.field_id) + '"]';
+        var wrap = document.querySelector(selector);
+        if (!wrap) return;
+        var met = conditionMet(f.condition);
+        var currentlyGrayed = wrap.classList.contains('field-grayed');
+        var cellIds = isMatrix ? matrixCellIdList(f) : [f.field_id];
+
+        if (met) {
+          if (currentlyGrayed) {
+            wrap.classList.remove('field-grayed');
+            setFieldEnabled(wrap, true);
+            cellIds.forEach(function (id) {
+              if (state.answers[id] === AUTO_NA) state.answers[id] = '';
+            });
+            clearFieldUI(wrap);
+            saveDraft();
+          }
+        } else {
+          if (!currentlyGrayed) {
+            wrap.classList.add('field-grayed');
+            clearFieldUI(wrap);
+            setFieldEnabled(wrap, false);
+          }
+          cellIds.forEach(function (id) {
+            if (state.answers[id] !== AUTO_NA) setAnswer(id, AUTO_NA);
+          });
+        }
+      });
+    }
+
+    app.addEventListener('change', reconcile);
+    app.addEventListener('input', reconcile);
+    reconcile();
+  }
+
+  // ---------------------------------------------------------------
+  // Location cascade: Region -> Province -> City/Municipality ->
+  // Barangay, backed by the free PSGC API (psgc.gitlab.io). This is a
+  // pure enhancement: Province/Municipality/Barangay already work as
+  // plain text fields with example hints (see buildTextField), so if the
+  // API is unreachable, slow, or returns something unexpected at any
+  // step, that step's field simply stays as-is — the form is never
+  // blocked on this. Only Region itself (a small, fixed, offline list)
+  // is authoritative and always available.
+  // ---------------------------------------------------------------
+  var PSGC_BASE = 'https://psgc.gitlab.io/api';
+  var psgcRegionCodeCache = null;
+
+  function psgcName(item) {
+    return item.name || item.regionName || item.provinceName || item.cityName
+      || item.municipalityName || item.brgyName || item.districtName || '';
+  }
+  function psgcCode(item) {
+    return item.code || item.regionCode || item.provinceCode || item.cityCode
+      || item.municipalityCode || item.brgyCode || item.psgc10DigitCode || '';
+  }
+  function psgcFetch(url) {
+    return fetch(url).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function (data) {
+      if (!Array.isArray(data) || !data.length) throw new Error('empty or unexpected response');
+      return data;
+    });
+  }
+
+  /** Swaps a plain text field's input for a populated <select>, keeping
+   * the same wrap element (and its data-field-id) so validation and
+   * highlighting keep working unchanged. Returns the new <select>, or
+   * null if the wrap isn't in its plain-text state (already swapped, or
+   * missing). */
+  function swapToLocationSelect(wrap, items, placeholderText, onPick) {
+    if (!wrap) return null;
+    var existingInput = wrap.querySelector('input.input-text');
+    if (!existingInput) return null;
+
+    var selWrap = el('div', 'select-wrap');
+    var select = document.createElement('select');
+    select.className = 'input-select';
+    var ph = document.createElement('option');
+    ph.value = '';
+    ph.textContent = placeholderText;
+    ph.disabled = true;
+    ph.selected = true;
+    select.appendChild(ph);
+    items.forEach(function (it) {
+      var name = psgcName(it);
+      if (!name) return;
+      var opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      opt.setAttribute('data-psgc-code', psgcCode(it));
+      select.appendChild(opt);
+    });
+
+    var fieldId = wrap.getAttribute('data-field-id');
+    select.addEventListener('change', function () {
+      setAnswer(fieldId, select.value);
+      var opt = select.options[select.selectedIndex];
+      if (onPick) onPick(opt.getAttribute('data-psgc-code'), select.value);
+    });
+
+    existingInput.replaceWith(selWrap);
+    selWrap.appendChild(select);
+    return select;
+  }
+
+  function ensureRegionCodeMap() {
+    if (psgcRegionCodeCache) return Promise.resolve(psgcRegionCodeCache);
+    return psgcFetch(PSGC_BASE + '/regions/').then(function (list) {
+      var map = {};
+      list.forEach(function (r) { map[psgcName(r).toLowerCase()] = psgcCode(r); });
+      psgcRegionCodeCache = map;
+      return map;
+    });
+  }
+
+  // Distinctive tokens per region that should appear in the live API's
+  // name however it happens to punctuate/format it (e.g. "Region III
+  // (Central Luzon)" vs "Region III - Central Luzon" vs "Central Luzon").
+  // Keyed by the exact display strings used in the Region dropdown.
+  var REGION_MATCH_TOKENS = {
+    'National Capital Region (NCR)': ['ncr', 'national capital'],
+    'Cordillera Administrative Region (CAR)': ['car', 'cordillera'],
+    'Region I \u2013 Ilocos Region': ['region i', 'ilocos'],
+    'Region II \u2013 Cagayan Valley': ['region ii', 'cagayan valley'],
+    'Region III \u2013 Central Luzon': ['region iii', 'central luzon'],
+    'Region IV-A \u2013 CALABARZON': ['iv-a', 'iva', 'calabarzon'],
+    'MIMAROPA Region': ['mimaropa'],
+    'Region V \u2013 Bicol Region': ['region v', 'bicol'],
+    'Region VI \u2013 Western Visayas': ['region vi', 'western visayas'],
+    'Region VII \u2013 Central Visayas': ['region vii', 'central visayas'],
+    'Region VIII \u2013 Eastern Visayas': ['region viii', 'eastern visayas'],
+    'Region IX \u2013 Zamboanga Peninsula': ['region ix', 'zamboanga'],
+    'Region X \u2013 Northern Mindanao': ['region x', 'northern mindanao'],
+    'Region XI \u2013 Davao Region': ['region xi', 'davao'],
+    'Region XII \u2013 SOCCSKSARGEN': ['region xii', 'soccsksargen', 'soccsksargen'],
+    'Region XIII \u2013 Caraga': ['region xiii', 'caraga'],
+    'Negros Island Region (NIR)': ['nir', 'negros island'],
+    'Bangsamoro Autonomous Region in Muslim Mindanao (BARMM)': ['barmm', 'bangsamoro'],
+  };
+
+  function findRegionCode(displayName, map) {
+    var target = displayName.toLowerCase();
+    if (map[target]) return map[target];
+    var tokens = REGION_MATCH_TOKENS[displayName] || [target];
+    for (var k in map) {
+      if (!map.hasOwnProperty(k)) continue;
+      for (var i = 0; i < tokens.length; i++) {
+        if (k.indexOf(tokens[i]) !== -1) return map[k];
+      }
+    }
+    return null;
+  }
+
+  function enhanceLocationCascade() {
+    var regionWrap = document.querySelector('[data-field-id="A1_1"]');
+    var provinceWrap = document.querySelector('[data-field-id="A1_2"]');
+    var cityWrap = document.querySelector('[data-field-id="A1_3"]');
+    var brgyWrap = document.querySelector('[data-field-id="A1_4"]');
+    if (!regionWrap || !provinceWrap || !cityWrap || !brgyWrap) return; // not this section
+
+    var regionSelect = regionWrap.querySelector('select.input-select');
+    if (!regionSelect) return;
+
+    function onCitySelected(cityCode) {
+      if (!cityCode) return;
+      psgcFetch(PSGC_BASE + '/cities-municipalities/' + cityCode + '/barangays/')
+        .then(function (brgys) {
+          swapToLocationSelect(brgyWrap, brgys, 'Select a barangay\u2026');
+        })
+        .catch(function () { /* leave barangay as free text */ });
+    }
+
+    function onProvinceSelected(provinceCode) {
+      if (!provinceCode) return;
+      psgcFetch(PSGC_BASE + '/provinces/' + provinceCode + '/cities-municipalities/')
+        .then(function (cities) {
+          swapToLocationSelect(cityWrap, cities, 'Select a municipality/city\u2026', function (cityCode) {
+            onCitySelected(cityCode);
+          });
+        })
+        .catch(function () { /* leave city/municipality as free text */ });
+    }
+
+    regionSelect.addEventListener('change', function () {
+      var regionName = regionSelect.value;
+      if (!regionName) return;
+      ensureRegionCodeMap()
+        .then(function (map) {
+          var code = findRegionCode(regionName, map);
+          if (!code) throw new Error('no matching region code');
+          return psgcFetch(PSGC_BASE + '/regions/' + code + '/provinces/');
+        })
+        .then(function (provinces) {
+          swapToLocationSelect(provinceWrap, provinces, 'Select a province\u2026', function (provinceCode) {
+            onProvinceSelected(provinceCode);
+          });
+        })
+        .catch(function () {
+          // Region has no provinces (e.g. NCR) or the API is unreachable —
+          // Province/Municipality/Barangay simply stay as free text with
+          // their example hints. Nothing more to do.
+        });
+    });
+  }
+
   function setStatus(msg, ok) {
     statusBar.textContent = msg;
     statusBar.className = 'show' + (ok === true ? ' ok' : ok === 'error' ? ' err' : '');
@@ -316,6 +560,9 @@
       app.appendChild(qbox);
     });
 
+    wireConditions(section);
+    enhanceLocationCascade();
+
     progressEl.textContent = 'Instrument ' + state.instrument + ' \u2014 Section ' + (idx + 1) + ' of ' +
       state.schema.sections.length + ': ' + section.title;
     renderRowsProgress(idx, state.schema.sections.length);
@@ -335,8 +582,10 @@
       case 'multi_choice': return buildChoiceField(field);
       case 'scale_1_5': return buildScaleField(field);
       case 'matrix': return buildMatrixField(field);
-      case 'date': return buildDateTimeField(field, 'date');
-      case 'time': return buildDateTimeField(field, 'time');
+      case 'date': return buildPickerField(field, 'date');
+      case 'time': return buildPickerField(field, 'time');
+      case 'month': return buildPickerField(field, 'month');
+      case 'number': return buildPickerField(field, 'number');
       default: return buildTextField(field);
     }
   }
@@ -356,12 +605,14 @@
     return wrap;
   }
 
-  /** Native date/time pickers — these give a fixed, unambiguous format
-   * (the browser handles locale display) instead of free-typed dates like
-   * "8/4/26" vs "04-08-2026" that are easy to misread or miskey. An
-   * explicit "Not applicable" checkbox stands in for the usual N/A text,
-   * since a date/time input can't hold the literal string "N/A". */
-  function buildDateTimeField(field, kind) {
+  /** Native date/time/month/number pickers — these give a fixed,
+   * unambiguous format (the browser handles locale display, and numeric
+   * fields reject non-numeric keystrokes / show a numeric keypad on
+   * mobile) instead of free-typed answers that are easy to mistype or
+   * misread. An explicit "Not applicable" checkbox stands in for the
+   * usual N/A text, since none of these input types can literally hold
+   * the string "N/A". */
+  function buildPickerField(field, kind) {
     var wrap = el('div', 'field');
     wrap.setAttribute('data-field-id', field.field_id);
     wrap.appendChild(el('label', 'field-label', field.label));
@@ -370,6 +621,12 @@
     var input = document.createElement('input');
     input.type = kind;
     input.className = 'input-text input-datetime';
+    if (kind === 'number') {
+      input.step = 'any';
+      input.min = '0';
+      input.inputMode = 'decimal';
+      input.placeholder = field.hint || '0';
+    }
     var saved = state.answers[field.field_id] || '';
     var isNA = saved === 'N/A';
     if (saved && !isNA) input.value = saved;

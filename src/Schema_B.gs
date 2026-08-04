@@ -151,7 +151,7 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "INTRODUCTION_intro_1",
-              "label": "Good day. My name is (, and I am)",
+              "label": "Enumerator: Read the following statement to the respondent. Good day. My name is (, and I am)",
               "type": "text"
             }
           ]
@@ -335,13 +335,21 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "A4_1",
-              "label": "For individual respondent: Name",
-              "type": "text"
+              "label": "Name",
+              "type": "text",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             },
             {
               "field_id": "A4_2",
               "label": "Name of organization / enterprise",
-              "type": "text"
+              "type": "text",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Organizational / enterprise respondent"
+              }
             }
           ]
         },
@@ -411,13 +419,17 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "A8_1",
-              "label": "Ask only if A2 = Individual Respondent. Is the respondent at least 18 years old?",
+              "label": "Is the respondent at least 18 years old?",
               "type": "single_choice",
               "options": [
                 "Yes",
                 "No"
               ],
-              "allow_other": false
+              "allow_other": false,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             },
             {
               "field_id": "A8_2",
@@ -438,7 +450,7 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "A9_1",
-              "label": "Ask only if A2 = Organizational / Enterprise Respondent. What is your role?",
+              "label": "What is your role?",
               "type": "single_choice",
               "options": [
                 "Owner / Proprietor",
@@ -450,7 +462,11 @@ var QUESTIONS_B = {
                 "Authorized Representative",
                 "Other: ____________________"
               ],
-              "allow_other": true
+              "allow_other": true,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Organizational / enterprise respondent"
+              }
             },
             {
               "field_id": "A9_2",
@@ -515,8 +531,12 @@ var QUESTIONS_B = {
             },
             {
               "field_id": "B1_2",
-              "label": "For organizational respondents: Record the sex of the representative only. Do not interpret this as the sex classification of the organization.",
-              "type": "text"
+              "label": "Record the sex of the representative only. Do not interpret this as the sex classification of the organization.",
+              "type": "text",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Organizational / enterprise respondent"
+              }
             }
           ]
         },
@@ -528,7 +548,11 @@ var QUESTIONS_B = {
             {
               "field_id": "B2_1",
               "label": "Age in completed years",
-              "type": "text"
+              "type": "number",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             },
             {
               "field_id": "B2_2",
@@ -551,7 +575,7 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "B3_1",
-              "label": "Individual Respondents only.",
+              "label": "Highest Educational Attainment",
               "type": "single_choice",
               "options": [
                 "No formal schooling",
@@ -567,7 +591,11 @@ var QUESTIONS_B = {
                 "Other: ____________________",
                 "Prefer not to answer"
               ],
-              "allow_other": true
+              "allow_other": true,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             }
           ]
         },
@@ -578,7 +606,7 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "B4_1",
-              "label": "Individual Respondents only.",
+              "label": "Civil Status",
               "type": "single_choice",
               "options": [
                 "Single",
@@ -589,7 +617,11 @@ var QUESTIONS_B = {
                 "Other: ____________________",
                 "Prefer not to answer"
               ],
-              "allow_other": true
+              "allow_other": true,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             }
           ]
         },
@@ -601,7 +633,11 @@ var QUESTIONS_B = {
             {
               "field_id": "B5_1",
               "label": "Total household members (persons)",
-              "type": "text"
+              "type": "number",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             }
           ]
         },
@@ -612,8 +648,12 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "B6_1",
-              "label": "Individual Respondents only. Number of adult household members currently earning or engaged in farming, fishing, employment, business, or livelihood (persons)",
-              "type": "text"
+              "label": "Number of adult household members currently earning or engaged in farming, fishing, employment, business, or livelihood (persons)",
+              "type": "number",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             }
           ]
         },
@@ -624,8 +664,12 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "B7_1",
-              "label": "Individual Respondents only. Number primarily dependent on others for financial support (persons)",
-              "type": "text"
+              "label": "Number primarily dependent on others for financial support (persons)",
+              "type": "number",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             }
           ]
         },
@@ -637,7 +681,11 @@ var QUESTIONS_B = {
             {
               "field_id": "B8_1",
               "label": "Estimated amount: PHP",
-              "type": "text"
+              "type": "number",
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             },
             {
               "field_id": "B8_2",
@@ -674,7 +722,7 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "B9_1",
-              "label": "Individual Respondents only.",
+              "label": "Primary Household Livelihood",
               "type": "single_choice",
               "options": [
                 "Crop farming",
@@ -691,7 +739,11 @@ var QUESTIONS_B = {
                 "Pension / retirement income",
                 "Other: ____________________"
               ],
-              "allow_other": true
+              "allow_other": true,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             }
           ]
         },
@@ -702,14 +754,18 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "B10_1",
-              "label": "Individual Respondents only. Do you identify as a member of an Indigenous Cultural Community / Indigenous Peoples group?",
+              "label": "Do you identify as a member of an Indigenous Cultural Community / Indigenous Peoples group?",
               "type": "single_choice",
               "options": [
                 "Yes",
                 "No",
                 "Prefer not to answer"
               ],
-              "allow_other": false
+              "allow_other": false,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             },
             {
               "field_id": "B10_2",
@@ -725,14 +781,18 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "B11_1",
-              "label": "Individual Respondents only. Do you identify as a person with disability?",
+              "label": "Do you identify as a person with disability?",
               "type": "single_choice",
               "options": [
                 "Yes",
                 "No",
                 "Prefer not to answer"
               ],
-              "allow_other": false
+              "allow_other": false,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             }
           ]
         },
@@ -846,7 +906,7 @@ var QUESTIONS_B = {
             {
               "field_id": "C3_1",
               "label": "Response (years)",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "C3_2",
@@ -866,7 +926,7 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "C4_1",
-              "label": "Total area",
+              "label": "Where applicable. Total area",
               "type": "text"
             },
             {
@@ -1003,7 +1063,7 @@ var QUESTIONS_B = {
             {
               "field_id": "C7_4",
               "label": "Estimated yield per hectare where applicable",
-              "type": "text"
+              "type": "number"
             }
           ]
         },
@@ -1183,8 +1243,8 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "C13_1",
-              "label": "PHP",
-              "type": "text"
+              "label": "Estimated total for most recent cycle/period PHP",
+              "type": "number"
             },
             {
               "field_id": "C13_2",
@@ -1205,8 +1265,8 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "C14_1",
-              "label": "PHP",
-              "type": "text"
+              "label": "Estimated gross sales/revenue during same period PHP",
+              "type": "number"
             },
             {
               "field_id": "C14_2",
@@ -1228,7 +1288,7 @@ var QUESTIONS_B = {
             {
               "field_id": "C15_1",
               "label": "PHP",
-              "type": "text"
+              "type": "number"
             },
             {
               "field_id": "C15_2",
@@ -1354,8 +1414,8 @@ var QUESTIONS_B = {
             },
             {
               "field_id": "C18_2",
-              "label": "Approximate proportion lost (%)",
-              "type": "text"
+              "label": "If Yes Approximate proportion lost (%)",
+              "type": "number"
             },
             {
               "field_id": "C18_3",
@@ -1823,7 +1883,7 @@ var QUESTIONS_B = {
             {
               "field_id": "E2_1",
               "label": "If Yes or Not sure, select all that apply.",
-              "type": "multi_choice",
+              "type": "month",
               "options": [
                 "Inputs",
                 "Labor",
@@ -1851,8 +1911,8 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "E3_1",
-              "label": "PHP",
-              "type": "text"
+              "label": "Approximately how much financing would currently be needed? PHP",
+              "type": "number"
             },
             {
               "field_id": "E3_2",
@@ -2054,9 +2114,9 @@ var QUESTIONS_B = {
           "instructions": "",
           "fields": [
             {
-              "field_id": "F1_1",
-              "label": "Confidence in understanding interest, loan term, repayment schedules, grace periods, and fees: 1 2 3 4 5",
-              "type": "text"
+              "field_id": "F1_likert1",
+              "label": "Confidence in understanding interest, loan term, repayment schedules, grace periods, and fees:",
+              "type": "scale_1_5"
             }
           ]
         },
@@ -2066,9 +2126,9 @@ var QUESTIONS_B = {
           "instructions": "",
           "fields": [
             {
-              "field_id": "F2_1",
-              "label": "Confidence in comparing financing options: 1 2 3 4 5",
-              "type": "text"
+              "field_id": "F2_likert1",
+              "label": "Confidence in comparing financing options:",
+              "type": "scale_1_5"
             }
           ]
         },
@@ -2078,9 +2138,9 @@ var QUESTIONS_B = {
           "instructions": "",
           "fields": [
             {
-              "field_id": "F3_1",
-              "label": "Confidence in preparing a simple farm/enterprise budget: 1 2 3 4 5",
-              "type": "text"
+              "field_id": "F3_likert1",
+              "label": "Confidence in preparing a simple farm/enterprise budget:",
+              "type": "scale_1_5"
             }
           ]
         },
@@ -2090,9 +2150,9 @@ var QUESTIONS_B = {
           "instructions": "",
           "fields": [
             {
-              "field_id": "F4_1",
-              "label": "Confidence in understanding how interest, duration, and charges affect repayment: 1 2 3 4 5",
-              "type": "text"
+              "field_id": "F4_likert1",
+              "label": "Confidence in understanding how interest, duration, and charges affect repayment:",
+              "type": "scale_1_5"
             }
           ]
         },
@@ -2102,9 +2162,9 @@ var QUESTIONS_B = {
           "instructions": "",
           "fields": [
             {
-              "field_id": "F5_1",
-              "label": "Confidence in assessing whether expected income can meet repayments: 1 2 3 4 5",
-              "type": "text"
+              "field_id": "F5_likert1",
+              "label": "Confidence in assessing whether expected income can meet repayments:",
+              "type": "scale_1_5"
             }
           ]
         },
@@ -2114,9 +2174,9 @@ var QUESTIONS_B = {
           "instructions": "",
           "fields": [
             {
-              "field_id": "F6_1",
-              "label": "Confidence in planning repayment against expected income/production cycles: 1 2 3 4 5",
-              "type": "text"
+              "field_id": "F6_likert1",
+              "label": "Confidence in planning repayment against expected income/production cycles:",
+              "type": "scale_1_5"
             }
           ]
         },
@@ -2127,7 +2187,7 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "F7_1",
-              "label": "Individual Respondents only.",
+              "label": "Separation of Household and Enterprise Finances",
               "type": "single_choice",
               "options": [
                 "Always",
@@ -2136,7 +2196,11 @@ var QUESTIONS_B = {
                 "Rarely",
                 "Never"
               ],
-              "allow_other": false
+              "allow_other": false,
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             }
           ]
         },
@@ -2397,7 +2461,7 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "F16_table1",
-              "label": "Individual Respondents",
+              "label": "Financing and Enterprise Decision-Making",
               "type": "matrix",
               "columns": [
                 "Decision",
@@ -2461,11 +2525,15 @@ var QUESTIONS_B = {
                   "☐",
                   "☐"
                 ]
-              ]
+              ],
+              "condition": {
+                "field": "A2_1",
+                "equals": "Individual respondent"
+              }
             },
             {
               "field_id": "F16_table2",
-              "label": "Organizational / Enterprise Respondents",
+              "label": "Financing and Enterprise Decision-Making",
               "type": "matrix",
               "columns": [
                 "Decision",
@@ -2529,7 +2597,11 @@ var QUESTIONS_B = {
                   "☐",
                   "☐"
                 ]
-              ]
+              ],
+              "condition": {
+                "field": "A2_1",
+                "equals": "Organizational / enterprise respondent"
+              }
             }
           ]
         },
@@ -2539,9 +2611,9 @@ var QUESTIONS_B = {
           "instructions": "",
           "fields": [
             {
-              "field_id": "F17_1",
-              "label": "1 2 3 4 5",
-              "type": "text"
+              "field_id": "F17_likert1",
+              "label": "Overall Financial-Management Confidence",
+              "type": "scale_1_5"
             }
           ]
         }
@@ -2903,7 +2975,7 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "CLOSING_STAT_intro_1",
-              "label": "End Time",
+              "label": "Thank you very much for your time and for sharing your experience and views. The information you provided will form part of the AGRISENSO Plus Baseline Study and will help ACPC better understand the agricultural financing needs and access conditions of individuals and organizations that have not availed themselves of AGRISENSO Plus financing. Your responses will be handled in accordance with the confidentiality and data-protection arrangements explained at the beginning of the interview. End Time",
               "type": "time"
             }
           ]

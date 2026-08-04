@@ -261,6 +261,19 @@ main { max-width: 1040px; margin: 0 auto; padding: 26px 24px 120px; }
   font-weight: 700;
   margin-bottom: 8px;
 }
+.field.field-grayed {
+  opacity: .5;
+  pointer-events: none;
+  transition: opacity .25s var(--ease);
+}
+.field.field-grayed::before {
+  content: "Not applicable \2014 skipped automatically based on your answer above.";
+  display: block;
+  color: var(--gray);
+  font-size: 12.5px;
+  font-style: italic;
+  margin-bottom: 6px;
+}
 @keyframes shake {
   10%, 90% { transform: translateX(-1px); }
   20%, 80% { transform: translateX(2px); }

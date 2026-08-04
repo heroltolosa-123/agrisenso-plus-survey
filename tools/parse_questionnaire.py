@@ -83,12 +83,30 @@ def make_field_from_checkboxes(qid, idx, label, options):
 
 def parse_blank_line(qid, idx, line, fallback_label=""):
     # e.g. "Age in completed years: ____" or "**Total household members:** ____ persons"
+    # Also handles the case where a real question accumulated across prior
+    # lines (fallback_label) is followed by a line with its own short inline
+    # label and the blank itself (e.g. "How many...?" then "Number: ____
+    # persons") — the accumulated question is the real label; a generic
+    # inline filler word like "Number:"/"Amount:" is dropped as redundant.
     before = BLANK_RE.split(line)[0]
     after_parts = BLANK_RE.split(line)
     suffix = after_parts[-1].strip() if len(after_parts) > 1 else ""
-    label = clean(before).rstrip(":").strip()
-    if not label:
-        label = clean(fallback_label).rstrip(":").strip() or "Response"
+    label_from_line = clean(before).rstrip(":").strip()
+    label_from_pending = clean(fallback_label).rstrip(":").strip()
+    GENERIC_FILLERS = {"number", "amount", "total", "response", "value"}
+
+    if label_from_pending and label_from_line:
+        if label_from_line.lower() in GENERIC_FILLERS:
+            label = label_from_pending
+        else:
+            label = label_from_pending + " " + label_from_line
+    elif label_from_pending:
+        label = label_from_pending
+    elif label_from_line:
+        label = label_from_line
+    else:
+        label = "Response"
+
     if suffix and len(suffix) < 20 and not re.search(r"[☐]", suffix):
         label = f"{label} ({suffix.strip()})" if suffix.strip() else label
     return {
@@ -159,7 +177,7 @@ def parse_section_block(section_id, section_title, qid, heading, body_lines):
             continue
 
         # Likert "Response: 1 2 3 4 5"
-        if re.match(r"^\**Response:?\**\s*1\s*2\s*3\s*4\s*5", clean(line), re.I):
+        if re.match(r"^\**(response:?)?\**\s*1\s*2\s*3\s*4\s*5\s*$", clean(line), re.I):
             group_idx += 1
             fields.append({
                 "field_id": f"{qid}_likert{group_idx}",
@@ -293,6 +311,11 @@ def parse_instrument(md_text, instrument_label):
                     "type": "text",
                 })
                 q["instructions"] = ""
+
+    # Drop trailing/boundary-bleed sections that ended up with zero
+    # questions (e.g. the markdown slice for one instrument catching the
+    # first heading line of the next instrument in the source document).
+    sections = [s for s in sections if s["questions"]]
 
     return {"instrument": instrument_label, "sections": sections}
 
