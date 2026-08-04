@@ -131,10 +131,53 @@ In your Google Sheet:
   response. Row 1 = stable field IDs, row 2 = full question text (frozen).
 - `Instrument_A_Borrowers_Dictionary` / `..._Dictionary` — a two-column
   `field_id → question text` lookup for analysis later.
+- Column B on every response is **`response_no`** — an auto-generated,
+  human-readable primary key like `AGRISENSO-A-00017`, sequential per
+  instrument. `submission_id` (column A, a UUID) also stays as a
+  guaranteed-unique internal key; use `response_no` for anything you'd
+  reference by hand (tracking sheets, field logs, data cleaning notes).
+
+### One-time cleanup before going live
+If you already ran pilot tests (as recommended), your sheet likely has a
+few stray tabs from that testing — safe to delete:
+- **`Sheet1`** — Google's empty default tab, unused.
+- **`Sheet2`** / **`undefined_Dictionary`** (or any tab literally named
+  `undefined`) — created by an early test submission where the instrument
+  wasn't correctly identified. Harmless, just clutter — delete both.
+- Any **test data rows** already in `Instrument_A_Borrowers` /
+  `Instrument_B_NonBorrowers` — delete the row(s), keeping the 2 header rows.
+
+Do this cleanup *before* your first real interview, since `response_no`
+numbering counts existing rows — leftover test rows would make your first
+real response start at `-00002` instead of `-00001`.
 
 ---
 
-## 7. Updating the questionnaire later
+## 7. Required fields — no more blank submissions
+
+Every question in the form is now mandatory. **Next** and **Submit** both
+check that every question on the relevant page(s) has an answer, and will
+not proceed otherwise — the unanswered question(s) get a red outline and a
+message tells you how many are still missing. **Submit** re-checks the
+*entire* questionnaire (not just the last page) and jumps back to the
+first incomplete section if anything was missed earlier.
+
+For questions that genuinely don't apply to a given respondent (skip
+logic, e.g. "Ask only if Individual Borrower"), every choice-type question
+automatically gets an **"N/A — Not applicable"** option, and text
+questions accept a typed `N/A` — so "required" never forces an enumerator
+to invent an answer, it only prevents *accidental* blanks. This is what
+was happening in your pilot test for Instrument B: the submission went
+through with everything empty except the timestamp, precisely because
+nothing enforced completion before.
+
+See `guide/AGRISENSO_Plus_Survey_Enumerator_Guide.docx` for the
+enumerator-facing explanation of how this works — share that file (or a
+printed copy) with your field team before their first interview.
+
+---
+
+## 8. Updating the questionnaire later
 
 1. Re-export the revised Word doc to Markdown and isolate each instrument's
    section (see `tools/parse_questionnaire.py`'s docstring for the pandoc
@@ -150,7 +193,7 @@ In your Google Sheet:
 
 ---
 
-## 8. How this was verified
+## 9. How this was verified
 
 Everything below was tested with Node.js (including a real DOM via jsdom
 simulating an actual browser) before being handed to you, since this
@@ -170,6 +213,18 @@ environment can't reach Google's or GitHub's live servers directly:
   and confirmed the posted data reaches a mock backend correctly shaped —
   then separately confirmed that when the network fails mid-submission,
   the response is correctly queued to `localStorage` for later sync.
+- **Sequential `response_no` generation** confirmed correct and gap-free
+  across multiple submissions against a mock sheet.
+- **Required-field validation**: confirmed `Next` blocks and highlights a
+  blank field; confirmed `Submit` re-validates every section and jumps to
+  the first incomplete one; confirmed every choice/scale/matrix field
+  automatically gains a working N/A option that satisfies the requirement;
+  confirmed the identical behavior for the `google.script.run` variant used
+  on the direct Apps Script page.
+- **The strongest check**: a jsdom run that completed and submitted the
+  entire real Instrument A questionnaire — all 14 sections, 280 fields —
+  end to end, then confirmed zero blank values among the 280 submitted
+  answers.
 
 **What's still untested** (can't be done from this environment): an actual
 live deployment on `script.google.com`, real GitHub Pages/Render hosting,
@@ -180,5 +235,7 @@ triggering a CORS preflight it can't answer — but do the pilot-run test
 below before real fieldwork regardless.
 
 **Pilot test before real fieldwork:** open your published site, submit 2–3
-test responses, confirm they appear correctly in the Sheet, then delete
-those test rows.
+test responses (try leaving something blank on purpose to confirm it's
+blocked, and try the N/A option once), confirm the good ones appear
+correctly in the Sheet with sequential `response_no` values, then delete
+those test rows and any stray tabs per Section 6.

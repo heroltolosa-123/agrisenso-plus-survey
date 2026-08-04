@@ -93,9 +93,90 @@
     });
   }
 
+  var NA_LABEL = 'N/A \u2014 Not applicable (per skip instructions)';
+
+  /** Every choice-type field automatically gets an N/A option (unless it
+   * already has an equivalent one) so a question that legitimately doesn't
+   * apply to this respondent can still be answered \u2014 "required" never
+   * means "force an answer that doesn't make sense". */
+  function withNA(options) {
+    var hasNA = options.some(function (o) { return /not applicable|\bn\.?\/?a\.?\b/i.test(o); });
+    return hasNA ? options : options.concat([NA_LABEL]);
+  }
+
+  function matrixCellIdList(field) {
+    var numeric = isNumericMatrix(field.columns);
+    var ids = [];
+    field.rows.forEach(function (rowLabel) {
+      var rslug = slug(rowLabel);
+      if (numeric) {
+        field.columns.slice(1).forEach(function (c) { ids.push(field.field_id + '__' + rslug + '__' + slug(c)); });
+      } else {
+        ids.push(field.field_id + '__' + rslug);
+      }
+    });
+    return ids;
+  }
+
+  /** All answer-key IDs a section expects \u2014 one per field, or one per
+   * matrix cell/row. Pure function of the schema (no DOM), so it can be
+   * used to validate any section regardless of what's currently rendered. */
+  function sectionFieldIds(section) {
+    var ids = [];
+    section.questions.forEach(function (q) {
+      q.fields.forEach(function (field) {
+        if (field.type === 'matrix') {
+          matrixCellIdList(field).forEach(function (id) { ids.push(id); });
+        } else {
+          ids.push(field.field_id);
+        }
+      });
+    });
+    return ids;
+  }
+
+  /** IDs in this section with no non-blank answer yet. */
+  function validateSection(idx) {
+    var section = state.schema.sections[idx];
+    return sectionFieldIds(section).filter(function (id) {
+      return !state.answers[id] || !String(state.answers[id]).trim();
+    });
+  }
+
+  /** Scans every section in document order; returns the first one with
+   * unanswered fields, or null if the whole response is complete. */
+  function validateAll() {
+    for (var i = 0; i < state.schema.sections.length; i++) {
+      var missing = validateSection(i);
+      if (missing.length) return { sectionIndex: i, missing: missing };
+    }
+    return null;
+  }
+
+  function clearHighlights() {
+    document.querySelectorAll('.field-missing').forEach(function (el) { el.classList.remove('field-missing'); });
+  }
+
+  function highlightMissing(missingIds) {
+    clearHighlights();
+    var missingSet = {};
+    missingIds.forEach(function (id) { missingSet[id] = true; });
+    document.querySelectorAll('[data-field-id]').forEach(function (w) {
+      if (missingSet[w.getAttribute('data-field-id')]) w.classList.add('field-missing');
+    });
+    document.querySelectorAll('[data-matrix-field]').forEach(function (w) {
+      var cellIds = JSON.parse(w.getAttribute('data-cell-ids') || '[]');
+      if (cellIds.some(function (id) { return missingSet[id]; })) w.classList.add('field-missing');
+    });
+    var first = document.querySelector('.field-missing');
+    if (first && typeof first.scrollIntoView === 'function') {
+      first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
   function setStatus(msg, ok) {
     statusBar.textContent = msg;
-    statusBar.className = 'show' + (ok ? ' ok' : '');
+    statusBar.className = 'show' + (ok === true ? ' ok' : ok === 'error' ? ' err' : '');
     if (!msg) statusBar.classList.remove('show');
   }
 
@@ -104,6 +185,21 @@
   function setAnswer(id, value) {
     state.answers[id] = value;
     saveDraft();
+    if (String(value).trim()) {
+      var w = document.querySelector('[data-field-id="' + cssEscape(id) + '"]');
+      if (w) w.classList.remove('field-missing');
+      document.querySelectorAll('[data-matrix-field]').forEach(function (mw) {
+        var cellIds = JSON.parse(mw.getAttribute('data-cell-ids') || '[]');
+        if (cellIds.indexOf(id) !== -1) {
+          var stillMissing = cellIds.some(function (cid) { return !state.answers[cid] || !String(state.answers[cid]).trim(); });
+          if (!stillMissing) mw.classList.remove('field-missing');
+        }
+      });
+    }
+  }
+
+  function cssEscape(s) {
+    return String(s).replace(/["\\]/g, '\\$&');
   }
 
   // ---------------------------------------------------------------
@@ -206,6 +302,8 @@
     var section = state.schema.sections[idx];
     app.innerHTML = '';
     app.appendChild(el('div', 'section-title', 'Section ' + section.section_id + ' \u2014 ' + section.title));
+    app.appendChild(el('div', 'required-banner',
+      'All questions in this survey are required. If a question genuinely doesn\u2019t apply to this respondent, choose the "N/A \u2014 Not applicable" option (or type N/A) rather than leaving it blank.'));
 
     section.questions.forEach(function (q) {
       var qbox = el('div', 'question');
@@ -236,11 +334,13 @@
 
   function buildTextField(field) {
     var wrap = el('div', 'field');
+    wrap.setAttribute('data-field-id', field.field_id);
     wrap.appendChild(el('label', 'field-label', field.label));
     var long = field.label.length > 70 || /^(why|reason|brief)/i.test(field.label);
     var input = document.createElement(long ? 'textarea' : 'input');
     if (!long) input.type = 'text';
     input.className = 'input-text';
+    input.placeholder = 'Type your answer (or N/A if not applicable)';
     input.value = state.answers[field.field_id] || '';
     input.addEventListener('input', function () { setAnswer(field.field_id, input.value); });
     wrap.appendChild(input);
@@ -249,14 +349,16 @@
 
   function buildChoiceField(field) {
     var wrap = el('div', 'field');
+    wrap.setAttribute('data-field-id', field.field_id);
     wrap.appendChild(el('label', 'field-label', field.label));
     var isMulti = field.type === 'multi_choice';
+    var options = withNA(field.options);
     var group = el('div', 'choice-group');
     var refs = [];
     var savedVal = state.answers[field.field_id] || '';
     var savedSet = isMulti ? savedVal.split('; ').filter(Boolean) : null;
 
-    field.options.forEach(function (opt, i) {
+    options.forEach(function (opt, i) {
       var disp = optionDisplay(opt);
       var row = el('div', 'choice-row');
       var input = document.createElement('input');
@@ -330,33 +432,38 @@
 
   function buildScaleField(field) {
     var wrap = el('div', 'field');
+    wrap.setAttribute('data-field-id', field.field_id);
     wrap.appendChild(el('label', 'field-label', field.label));
     var row = el('div', 'scale-row');
     var saved = state.answers[field.field_id] || '';
-    for (var i = 1; i <= 5; i++) {
-      var domId = field.field_id + '_s' + i;
+    var values = ['1', '2', '3', '4', '5', 'N/A'];
+    values.forEach(function (v) {
+      var domId = field.field_id + '_s' + v;
       var input = document.createElement('input');
       input.type = 'radio';
       input.name = field.field_id;
       input.id = domId;
-      input.value = String(i);
-      if (saved === String(i)) input.checked = true;
+      input.value = v;
+      if (saved === v) input.checked = true;
       input.addEventListener('change', function () {
         var picked = row.querySelector('input[name="' + field.field_id + '"]:checked');
         setAnswer(field.field_id, picked ? picked.value : '');
       });
       var lbl = document.createElement('label');
       lbl.setAttribute('for', domId);
-      lbl.textContent = String(i);
+      lbl.textContent = v;
       row.appendChild(input);
       row.appendChild(lbl);
-    }
+    });
     wrap.appendChild(row);
     return wrap;
   }
 
   function buildMatrixField(field) {
     var wrap = el('div', 'field');
+    var cellIds = matrixCellIdList(field);
+    wrap.setAttribute('data-matrix-field', field.field_id);
+    wrap.setAttribute('data-cell-ids', JSON.stringify(cellIds));
     wrap.appendChild(el('label', 'field-label bold', field.label));
 
     var numeric = isNumericMatrix(field.columns);
@@ -382,6 +489,7 @@
           var input = document.createElement('input');
           input.type = 'text';
           input.className = 'input-text';
+          input.placeholder = 'N/A if none';
           input.value = state.answers[cellId] || '';
           input.addEventListener('input', function () { setAnswer(cellId, input.value); });
           td.appendChild(input);
@@ -390,7 +498,7 @@
         table.appendChild(tr);
       });
     } else {
-      var choices = field.columns.slice(1);
+      var choices = withNA(field.columns.slice(1));
       field.rows.forEach(function (rowLabel) {
         var tr = document.createElement('tr');
         var td0 = document.createElement('td'); td0.textContent = rowLabel; tr.appendChild(td0);
@@ -428,9 +536,16 @@
   // Navigation
   // ---------------------------------------------------------------
   prevBtn.addEventListener('click', function () {
-    if (state.sectionIndex > 0) renderSection(state.sectionIndex - 1);
+    if (state.sectionIndex > 0) { clearHighlights(); renderSection(state.sectionIndex - 1); }
   });
   nextBtn.addEventListener('click', function () {
+    var missing = validateSection(state.sectionIndex);
+    if (missing.length) {
+      highlightMissing(missing);
+      setStatus(missing.length + ' question(s) on this page still need an answer \u2014 highlighted in red below. Use N/A where a question doesn\u2019t apply.', 'error');
+      return;
+    }
+    setStatus('');
     if (state.sectionIndex < state.schema.sections.length - 1) renderSection(state.sectionIndex + 1);
   });
   menuBtn.addEventListener('click', function () {
@@ -443,19 +558,25 @@
   // Submit + offline sync
   // ---------------------------------------------------------------
   submitBtn.addEventListener('click', function () {
-    var answered = Object.keys(state.answers).filter(function (k) { return String(state.answers[k]).trim(); }).length;
-    if (answered < 5 && !confirm('Only ' + answered + ' field(s) have been filled in. Submit anyway?')) return;
+    var problem = validateAll();
+    if (problem) {
+      if (problem.sectionIndex !== state.sectionIndex) renderSection(problem.sectionIndex);
+      highlightMissing(problem.missing);
+      var sectionTitle = state.schema.sections[problem.sectionIndex].title;
+      setStatus(problem.missing.length + ' question(s) in "' + sectionTitle + '" still need an answer before this response can be submitted \u2014 highlighted in red below.', 'error');
+      return;
+    }
 
     var payload = { instrument: state.instrument, values: JSON.parse(JSON.stringify(state.answers)) };
     submitBtn.disabled = true;
     showSpinner(true);
 
-    apiSubmit(state.instrument, payload.values).then(function () {
+    apiSubmit(state.instrument, payload.values).then(function (res) {
       showSpinner(false);
       submitBtn.disabled = false;
       appendToArray(backupKey(), payload);
       clearDraft();
-      setStatus('Response submitted to Google Sheets.', true);
+      setStatus('Response ' + (res && res.responseNo ? res.responseNo + ' ' : '') + 'submitted to Google Sheets.', true);
       afterSubmit();
     }).catch(function (err) {
       showSpinner(false);

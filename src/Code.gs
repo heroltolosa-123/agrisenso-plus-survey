@@ -160,27 +160,40 @@ function submitResponse(instrumentKey, values) {
     ensureHeaders_(sheet, columns);
     ensureDictionary_(ss, tabName, columns);
 
+    var responseNo = nextResponseNumber_(sheet, instrumentKey);
     var submissionId = Utilities.getUuid();
     var submittedAt = new Date();
-    var row = [submissionId, submittedAt].concat(columns.map(function (c) {
+    var row = [submissionId, responseNo, submittedAt].concat(columns.map(function (c) {
       var v = values[c[0]];
       return (v === undefined || v === null) ? '' : v;
     }));
     sheet.appendRow(row);
-    return { ok: true, submissionId: submissionId };
+    return { ok: true, submissionId: submissionId, responseNo: responseNo };
   } finally {
     lock.releaseLock();
   }
 }
 
+/** Sequential, human-readable primary key per instrument, e.g.
+ * "AGRISENSO-A-00001". Computed under the same script lock that guards
+ * the append, so numbering stays gap-free and collision-free even with
+ * concurrent submissions. Row count excludes the 2 frozen header rows. */
+function nextResponseNumber_(sheet, instrumentKey) {
+  var lastRow = sheet.getLastRow();
+  var n = Math.max(0, lastRow - 2) + 1;
+  var prefix = instrumentKey === 'A' ? 'AGRISENSO-A' : 'AGRISENSO-B';
+  return prefix + '-' + ('00000' + n).slice(-5);
+}
+
 function ensureHeaders_(sheet, columns) {
-  var ids = ['submission_id', 'submitted_at'].concat(columns.map(function (c) { return c[0]; }));
+  var ids = ['submission_id', 'response_no', 'submitted_at'].concat(columns.map(function (c) { return c[0]; }));
   var existing = sheet.getLastColumn() > 0
     ? sheet.getRange(1, 1, 1, Math.min(sheet.getLastColumn(), ids.length)).getValues()[0]
     : [];
   var matches = existing.length === ids.length && ids.every(function (id, i) { return existing[i] === id; });
   if (!matches) {
-    var labels = ['submission_id', 'submitted_at (server time)'].concat(columns.map(function (c) { return c[1]; }));
+    var labels = ['submission_id', 'response_no (auto-generated primary no.)', 'submitted_at (server time)']
+      .concat(columns.map(function (c) { return c[1]; }));
     sheet.getRange(1, 1, 1, ids.length).setValues([ids]);
     sheet.getRange(2, 1, 1, labels.length).setValues([labels]);
     sheet.setFrozenRows(2);
