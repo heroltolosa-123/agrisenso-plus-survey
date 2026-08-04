@@ -1,0 +1,2918 @@
+// Auto-generated from the DRVN Inception Report questionnaire.
+// Do not hand-edit; regenerate with parse_questionnaire.py + this script.
+var QUESTIONS_B = {
+  "instrument": "Instrument B - Non-Borrower Comparison Group",
+  "sections": [
+    {
+      "section_id": "SURVEY_INSTR",
+      "title": "SURVEY INSTRUMENT B – NON-BORROWER COMPARISON GROUP",
+      "questions": [
+        {
+          "qid": "SURVEY_INSTR_intro",
+          "heading": "SURVEY INSTRUMENT B – NON-BORROWER COMPARISON GROUP",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "SURVEY_INSTR_intro_1",
+              "label": "Target Respondents: Eligible or potentially eligible individuals or organizations that do not have, and have not previously had, an AGRISENSO Plus Program loan agreement with LANDBANK and that have been selected under the approved comparison-group sampling framework. Operational Definition of Non-Borrower Comparison Respondent: For purposes of this Baseline Study, a Non-Borrower Comparison Respondent refers to an individual or organization that: - does not currently have an AGRISENSO Plus Program loan agreement with LANDBANK; - has not previously had an AGRISENSO Plus Program loan agreement with LANDBANK; and - meets the eligibility and comparison-group selection criteria established under the approved sampling framework. A comparison respondent may have never applied for AGRISENSO Plus or may have previously inquired, attempted to apply, submitted an application that was incomplete, withdrawn, or declined, subject to the final approved comparison-group criteria. Instructions to Enumerator: Administer this questionnaire only to respondents included in the approved Non-Borrower Comparison Group sampling frame or authorized replacement list. Verify eligibility before proceeding. For organizational or enterprise respondents, the interviewee must be an authorized or sufficiently knowledgeable representative who can provide information about the organization’s operations, financing needs, financial practices, and agricultural or enterprise activities.",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "QUESTIONNAIR",
+      "title": "Questionnaire Administration and Quality-Control Information",
+      "questions": [
+        {
+          "qid": "QUESTIONNAIR_intro",
+          "heading": "Questionnaire Administration and Quality-Control Information",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "QUESTIONNAIR_intro_1",
+              "label": "Questionnaire Version",
+              "type": "text"
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_2",
+              "label": "Date of Version",
+              "type": "text"
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_3",
+              "label": "Questionnaire Control Number",
+              "type": "text"
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_4",
+              "label": "Comparison-Group Sampling Frame ID",
+              "type": "text"
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_5",
+              "label": "Enumerator Name / ID",
+              "type": "text"
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_6",
+              "label": "Supervisor Name / ID",
+              "type": "text"
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_7",
+              "label": "Date of Interview",
+              "type": "text"
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_8",
+              "label": "Interview Start Time",
+              "type": "text"
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_9",
+              "label": "Interview End Time",
+              "type": "text"
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_10",
+              "label": "Language Primarily Used:",
+              "type": "single_choice",
+              "options": [
+                "Filipino",
+                "English",
+                "Local language/dialect (specify): ____________________",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_11",
+              "label": "Interview Mode:",
+              "type": "single_choice",
+              "options": [
+                "Face-to-face",
+                "Other approved mode (specify): ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_12",
+              "label": "Interview Outcome:",
+              "type": "single_choice",
+              "options": [
+                "Completed",
+                "Partially completed",
+                "Respondent refused",
+                "Respondent unavailable",
+                "Respondent ineligible",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_13",
+              "label": "Supervisor Verification:",
+              "type": "single_choice",
+              "options": [
+                "Completed",
+                "Pending"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_14",
+              "label": "Data Verification Status:",
+              "type": "single_choice",
+              "options": [
+                "Verified",
+                "Pending verification"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_15",
+              "label": "Random Phone Back-check:",
+              "type": "single_choice",
+              "options": [
+                "Completed",
+                "Not selected"
+              ],
+              "allow_other": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "INTRODUCTION",
+      "title": "Introduction and Informed Consent",
+      "questions": [
+        {
+          "qid": "INTRODUCTION_intro",
+          "heading": "Introduction and Informed Consent",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "INTRODUCTION_intro_1",
+              "label": "Good day. My name is (, and I am)",
+              "type": "text"
+            },
+            {
+              "field_id": "INTRODUCTION_intro_2",
+              "label": "part of the research team of DRVN Business Consulting Co., which has been engaged by the Agricultural Credit Policy Council (ACPC) to conduct the Baseline Study of the Agriculture Growth and Resource Integration through Strategic and Enhanced Delivery of Support and Opportunities or AGRISENSO Plus Program. You have been invited to participate as part of the study’s Non-Borrower Comparison Group. This means that you, or the organization or enterprise you represent, do not currently have and have not previously had an AGRISENSO Plus Program loan agreement with LANDBANK. The survey aims to understand the characteristics, financing needs, current sources of financing, farm, fishery, organizational or enterprise conditions, and experiences of farmers, fisherfolk, organizations, and agriculture-related enterprises that have not availed themselves of AGRISENSO Plus financing. Your participation is voluntary. You may decline to answer any question or stop the interview at any time. Your participation or decision not to participate will not affect your eligibility for AGRISENSO Plus or any other government program, your relationship with LANDBANK or ACPC, or your access to government services. The interview is expected to take approximately 30 to 45 minutes, depending on the questions applicable to you. Some questions concern income, financing, borrowing, farm or enterprise performance, and financial practices. You may decline to answer any question that you consider sensitive or that you are unable to answer. There is no guaranteed direct or financial benefit from participating. However, your responses may help ACPC better understand agricultural financing needs and barriers and identify areas for improving access to financing and related support. Your responses will be treated confidentially and handled in accordance with Republic Act No. 10173, or the Data Privacy Act of 2012, and applicable research and data-protection protocols. Study findings will generally be reported in aggregate or de-identified form. The research team may contact a sample of respondents after the interview solely to confirm that the interview occurred or to validate selected information for research quality-assurance purposes.",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "Consent_to_Participa",
+          "heading": "Consent to Participate",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "Consent_to_Participa_1",
+              "label": "Do you voluntarily agree to participate?",
+              "type": "single_choice",
+              "options": [
+                "Yes – Proceed",
+                "No – End interview and thank respondent"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "Consent_for_Possible",
+          "heading": "Consent for Possible Validation / Back-check",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "Consent_for_Possible_1",
+              "label": "May the research team contact you again, if necessary, for a brief validation or back-check?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "Consent_for_Possible_2",
+              "label": "*A “No” response does not affect participation in this interview.*",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "Consent_Confirmation",
+          "heading": "Consent Confirmation",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "Consent_Confirmation_1",
+              "label": "I confirm that I explained the study purpose, voluntary participation, confidentiality and data-privacy provisions, and the respondent’s right to decline questions or stop the interview. Enumerator Name",
+              "type": "text"
+            },
+            {
+              "field_id": "Consent_Confirmation_2",
+              "label": "Enumerator Signature",
+              "type": "text"
+            },
+            {
+              "field_id": "Consent_Confirmation_3",
+              "label": "Date",
+              "type": "text"
+            },
+            {
+              "field_id": "Consent_Confirmation_4",
+              "label": "Respondent Signature (Optional)",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "A",
+      "title": "Identification and Eligibility Screening",
+      "questions": [
+        {
+          "qid": "A1",
+          "heading": "Location of Interview",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "A1_1",
+              "label": "Region",
+              "type": "text"
+            },
+            {
+              "field_id": "A1_2",
+              "label": "Province",
+              "type": "text"
+            },
+            {
+              "field_id": "A1_3",
+              "label": "Municipality/City",
+              "type": "text"
+            },
+            {
+              "field_id": "A1_4",
+              "label": "Barangay",
+              "type": "text"
+            },
+            {
+              "field_id": "A1_5",
+              "label": "Island Group:",
+              "type": "single_choice",
+              "options": [
+                "Luzon",
+                "Visayas",
+                "Mindanao"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "A2",
+          "heading": "Respondent Type",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "A2_1",
+              "label": "Based on the approved comparison-group sampling frame, is the respondent:",
+              "type": "single_choice",
+              "options": [
+                "Individual respondent",
+                "Organizational / enterprise respondent"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "A3",
+          "heading": "Respondent Segment",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "A3_1",
+              "label": "Respondent Segment",
+              "type": "single_choice",
+              "options": [
+                "Small Farmer / Fisherfolk (SFF)",
+                "Agrarian Reform Beneficiary (ARB)",
+                "Farmers and Fisherfolk Cooperative / Association (FFCA)",
+                "Agrarian Reform Beneficiary Organization (ARBO)",
+                "Barangay Micro Business Enterprise (BMBE)",
+                "Small or Medium Enterprise (SME)",
+                "Other approved comparison category: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "A4",
+          "heading": "Respondent / Organization Name",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "A4_1",
+              "label": "For individual respondent: Name",
+              "type": "text"
+            },
+            {
+              "field_id": "A4_2",
+              "label": "For organizational / enterprise respondent: Name of organization / enterprise: *For validation purposes only and subject to applicable confidentiality protocols.*",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "A5",
+          "heading": "Current AGRISENSO Plus Loan Agreement Verification",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "A5_1",
+              "label": "Does the respondent or organization currently have an AGRISENSO Plus Program loan agreement with LANDBANK?",
+              "type": "single_choice",
+              "options": [
+                "No – Continue",
+                "Yes",
+                "Unable to verify"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "A6",
+          "heading": "Previous AGRISENSO Plus Loan Agreement",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "A6_1",
+              "label": "Has the respondent or organization ever previously had an AGRISENSO Plus Program loan agreement with LANDBANK, including one that has already been fully paid, closed, or terminated?",
+              "type": "single_choice",
+              "options": [
+                "No – Continue",
+                "Yes",
+                "Do not know / Unable to verify"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "A7",
+          "heading": "Current AGRISENSO Plus Application Status",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "A7_1",
+              "label": "Are you or your organization currently applying for, or have you previously attempted to apply for, AGRISENSO Plus financing?",
+              "type": "single_choice",
+              "options": [
+                "Never applied",
+                "Made an inquiry but did not formally apply",
+                "Started application but did not complete it",
+                "Application withdrawn",
+                "Application declined / disapproved",
+                "Application currently being processed",
+                "Approved but no loan agreement has yet been executed",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "A7_2",
+              "label": "Enumerator Note: If Approved but no loan agreement has yet been executed, refer to the supervisor to confirm whether the respondent remains eligible under the final comparison-group protocol.",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "A8",
+          "heading": "Individual Respondent Eligibility",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "A8_1",
+              "label": "Ask only if A2 = Individual Respondent. Is the respondent at least 18 years old?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "A8_2",
+              "label": "Are you directly involved in decisions concerning your farm, fishery, livelihood, or agriculture-related enterprise?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "A9",
+          "heading": "Organizational / Enterprise Respondent Eligibility",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "A9_1",
+              "label": "Ask only if A2 = Organizational / Enterprise Respondent. What is your role?",
+              "type": "single_choice",
+              "options": [
+                "Owner / Proprietor",
+                "Chairperson / President",
+                "Board Member / Director",
+                "Manager",
+                "Treasurer / Finance Officer",
+                "Other Officer",
+                "Authorized Representative",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "A9_2",
+              "label": "Are you authorized or sufficiently knowledgeable to answer questions concerning the organization’s: - agricultural or enterprise operations; - financing needs; - current financing sources; - financial practices; and - production or enterprise conditions?",
+              "type": "single_choice",
+              "options": [
+                "Yes – Continue",
+                "No"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "A10",
+          "heading": "Final Eligibility Determination",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "A10_1",
+              "label": "Final Eligibility Determination",
+              "type": "single_choice",
+              "options": [
+                "Eligible Non-Borrower Comparison Respondent – Proceed to Section B",
+                "Requires supervisor verification",
+                "Current AGRISENSO Plus borrower – Ineligible",
+                "Previous AGRISENSO Plus borrower – Ineligible",
+                "Respondent is not an eligible/knowledgeable representative",
+                "Replacement comparison respondent required"
+              ],
+              "allow_other": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "B",
+      "title": "Respondent and Household / Organization Profile",
+      "questions": [
+        {
+          "qid": "B_intro",
+          "heading": "Respondent and Household / Organization Profile",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B_intro_1",
+              "label": "Enumerator Instruction: Follow the appropriate pathway. Household questions apply only to individual respondents.",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "B1",
+          "heading": "Respondent Sex",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B1_1",
+              "label": "Respondent Sex",
+              "type": "single_choice",
+              "options": [
+                "Male",
+                "Female",
+                "Prefer not to answer"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "B1_2",
+              "label": "For organizational respondents: Record the sex of the representative only. Do not interpret this as the sex classification of the organization.",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "B2",
+          "heading": "Age",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B2_1",
+              "label": "Age in completed years",
+              "type": "text"
+            },
+            {
+              "field_id": "B2_2",
+              "label": "Age",
+              "type": "single_choice",
+              "options": [
+                "18–35",
+                "36–50",
+                "51–65",
+                "66 and above"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "B3",
+          "heading": "Highest Educational Attainment",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B3_1",
+              "label": "Individual Respondents only.",
+              "type": "single_choice",
+              "options": [
+                "No formal schooling",
+                "Elementary level",
+                "Elementary graduate",
+                "Junior High School / High School level",
+                "Junior High School / High School graduate",
+                "Senior High School level / graduate",
+                "Technical / Vocational",
+                "College level",
+                "College graduate",
+                "Postgraduate",
+                "Other: ____________________",
+                "Prefer not to answer"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "B4",
+          "heading": "Civil Status",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B4_1",
+              "label": "Individual Respondents only.",
+              "type": "single_choice",
+              "options": [
+                "Single",
+                "Married",
+                "Living with partner",
+                "Widowed",
+                "Separated",
+                "Other: ____________________",
+                "Prefer not to answer"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "B5",
+          "heading": "Household Size",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B5_1",
+              "label": "Total household members (persons)",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "B6",
+          "heading": "Economically Active Household Members",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B6_1",
+              "label": "Individual Respondents only. Number of adult household members currently earning or engaged in farming, fishing, employment, business, or livelihood (persons)",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "B7",
+          "heading": "Household Dependents",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B7_1",
+              "label": "Individual Respondents only. Number primarily dependent on others for financial support (persons)",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "B8",
+          "heading": "Estimated Average Monthly Household Income",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B8_1",
+              "label": "Estimated amount: PHP",
+              "type": "text"
+            },
+            {
+              "field_id": "B8_2",
+              "label": "Estimated Average Monthly Household Income",
+              "type": "single_choice",
+              "options": [
+                "Unable to estimate exact amount",
+                "Prefer not to provide exact amount"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "B8_3",
+              "label": "If necessary:",
+              "type": "single_choice",
+              "options": [
+                "Below PHP 10,000",
+                "PHP 10,000–19,999",
+                "PHP 20,000–39,999",
+                "PHP 40,000–59,999",
+                "PHP 60,000–99,999",
+                "PHP 100,000 and above",
+                "Do not know",
+                "Prefer not to answer"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "B9",
+          "heading": "Primary Household Livelihood",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B9_1",
+              "label": "Individual Respondents only.",
+              "type": "single_choice",
+              "options": [
+                "Crop farming",
+                "Capture fisheries",
+                "Aquaculture",
+                "Livestock",
+                "Poultry",
+                "Agricultural processing",
+                "Agricultural trading / marketing",
+                "Agricultural wage labor",
+                "Non-agricultural employment",
+                "Non-agricultural business",
+                "Remittances",
+                "Pension / retirement income",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "B10",
+          "heading": "Indigenous Peoples Identification",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B10_1",
+              "label": "Individual Respondents only. Do you identify as a member of an Indigenous Cultural Community / Indigenous Peoples group?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No",
+                "Prefer not to answer"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "B10_2",
+              "label": "If Yes and willing to specify:",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "B11",
+          "heading": "Disability Status",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B11_1",
+              "label": "Individual Respondents only. Do you identify as a person with disability?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No",
+                "Prefer not to answer"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "B12",
+          "heading": "Mobile Phone Access",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B12_1",
+              "label": "Do you or the organization have regular access to a mobile phone for communication or financial transactions?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "B12_2",
+              "label": "For individuals:",
+              "type": "single_choice",
+              "options": [
+                "Own phone",
+                "Shared / household phone"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "B13",
+          "heading": "Internet / Mobile Data Access",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "B13_1",
+              "label": "Internet / Mobile Data Access",
+              "type": "single_choice",
+              "options": [
+                "Regularly",
+                "Occasionally",
+                "Rarely",
+                "No access"
+              ],
+              "allow_other": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "C",
+      "title": "Farm, Fishery, and Enterprise Profile",
+      "questions": [
+        {
+          "qid": "C_intro",
+          "heading": "Farm, Fishery, and Enterprise Profile",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C_intro_1",
+              "label": "Enumerator Instruction: Use the same definitions and reference periods applied in the Borrower Survey to preserve comparability.",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "C1",
+          "heading": "Current Agricultural / Enterprise Activities",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C1_1",
+              "label": "Current Agricultural / Enterprise Activities",
+              "type": "single_choice",
+              "options": [
+                "Crop production",
+                "Capture fisheries",
+                "Aquaculture",
+                "Livestock",
+                "Poultry",
+                "Agricultural processing",
+                "Agricultural trading / aggregation",
+                "Input supply",
+                "Storage / warehousing",
+                "Marketing / retail",
+                "Transport / logistics",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "C2",
+          "heading": "Principal Commodity / Enterprise Activity",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C2_1",
+              "label": "Principal activity",
+              "type": "text"
+            },
+            {
+              "field_id": "C2_2",
+              "label": "Commodity/product",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "C3",
+          "heading": "Years in Operation",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C3_1",
+              "label": "Response (years)",
+              "type": "text"
+            },
+            {
+              "field_id": "C3_2",
+              "label": "Years in Operation",
+              "type": "single_choice",
+              "options": [
+                "Less than one year"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "C4",
+          "heading": "Farm / Production Area",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C4_1",
+              "label": "Total area",
+              "type": "text"
+            },
+            {
+              "field_id": "C4_2",
+              "label": "Farm / Production Area",
+              "type": "single_choice",
+              "options": [
+                "Hectares",
+                "Square meters",
+                "Other: __________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "C4_3",
+              "label": "Area utilized during most recent cycle",
+              "type": "text"
+            },
+            {
+              "field_id": "C4_4",
+              "label": "Farm / Production Area",
+              "type": "single_choice",
+              "options": [
+                "Not applicable"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "C5",
+          "heading": "Land Tenure / Access Arrangement",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C5_1",
+              "label": "Land Tenure / Access Arrangement",
+              "type": "single_choice",
+              "options": [
+                "Owned",
+                "Agrarian Reform Beneficiary / awarded land",
+                "Rented / leased",
+                "Tenant / share arrangement",
+                "Shared / communal",
+                "Borrowed / permitted use",
+                "Other: ____________________",
+                "Not applicable"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "C6",
+          "heading": "Production Scale",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C6_table1",
+              "label": "Production Scale",
+              "type": "matrix",
+              "columns": [
+                "Activity",
+                "Area / Number",
+                "Unit / Classification"
+              ],
+              "rows": [
+                "Crops",
+                "Fisheries / Aquaculture",
+                "Livestock",
+                "Poultry",
+                "Other"
+              ],
+              "raw_rows": [
+                [
+                  "Crops",
+                  "______",
+                  "ha / sq. m. / other"
+                ],
+                [
+                  "Fisheries / Aquaculture",
+                  "______",
+                  "ha / pond / cage / other"
+                ],
+                [
+                  "Livestock",
+                  "______",
+                  "heads; type: ______"
+                ],
+                [
+                  "Poultry",
+                  "______",
+                  "birds/heads; type: ______"
+                ],
+                [
+                  "Other",
+                  "______",
+                  "__________________"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "qid": "C7",
+          "heading": "Production During Most Recent Completed Cycle",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C7_1",
+              "label": "Commodity",
+              "type": "text"
+            },
+            {
+              "field_id": "C7_2",
+              "label": "Production volume",
+              "type": "text"
+            },
+            {
+              "field_id": "C7_3",
+              "label": "Unit:",
+              "type": "single_choice",
+              "options": [
+                "Kilograms",
+                "Metric tons",
+                "Cavans / sacks",
+                "Pieces",
+                "Heads / birds",
+                "Liters",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "C7_4",
+              "label": "Estimated yield per hectare where applicable",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "C8",
+          "heading": "Number of Production Cycles",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C8_1",
+              "label": "Past 12 months (cycles)",
+              "type": "text"
+            },
+            {
+              "field_id": "C8_2",
+              "label": "Number of Production Cycles",
+              "type": "single_choice",
+              "options": [
+                "Continuous production",
+                "Not applicable"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "C9",
+          "heading": "Irrigation / Water Source",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C9_1",
+              "label": "Irrigation / Water Source",
+              "type": "single_choice",
+              "options": [
+                "Irrigation system",
+                "Pump / groundwater",
+                "Rainfed",
+                "River / stream",
+                "Farm pond / reservoir",
+                "Other: ____________________",
+                "Not applicable"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "C10",
+          "heading": "Mechanization / Equipment",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C10_1",
+              "label": "Did you use machinery or mechanized equipment?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No",
+                "Not applicable"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "C10_2",
+              "label": "If Yes:",
+              "type": "single_choice",
+              "options": [
+                "Land preparation",
+                "Planting",
+                "Irrigation",
+                "Harvesting",
+                "Post-harvest",
+                "Processing",
+                "Fisheries/aquaculture",
+                "Livestock/poultry",
+                "Transport/hauling",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "C10_3",
+              "label": "Mode of access:",
+              "type": "single_choice",
+              "options": [
+                "Owned",
+                "Rented",
+                "Borrowed/shared",
+                "Cooperative-provided",
+                "Government-supported",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "C11",
+          "heading": "Major Production Inputs",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C11_1",
+              "label": "Major Production Inputs",
+              "type": "single_choice",
+              "options": [
+                "Seeds / planting materials",
+                "Fertilizer",
+                "Pesticides / crop protection",
+                "Feeds",
+                "Fingerlings / fry",
+                "Breeding stock / animals",
+                "Veterinary / animal-health inputs",
+                "Fuel",
+                "Hired labor",
+                "Packaging",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "C12",
+          "heading": "Extension / Technical Support",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C12_1",
+              "label": "During the past 12 months, did you receive extension or technical support?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "C12_2",
+              "label": "If Yes:",
+              "type": "single_choice",
+              "options": [
+                "Production technology",
+                "Fisheries/aquaculture",
+                "Livestock/poultry",
+                "Mechanization",
+                "Post-harvest/processing",
+                "Marketing / market linkage",
+                "Enterprise development",
+                "Digital/technology support",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "C12_3",
+              "label": "Provider:",
+              "type": "single_choice",
+              "options": [
+                "DA / attached agency",
+                "LGU",
+                "Cooperative / association",
+                "Financial institution",
+                "Private sector",
+                "NGO / development partner",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "C13",
+          "heading": "Production / Operating Cost",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C13_1",
+              "label": "PHP",
+              "type": "text"
+            },
+            {
+              "field_id": "C13_2",
+              "label": "Production / Operating Cost",
+              "type": "single_choice",
+              "options": [
+                "Unable to provide exact amount",
+                "Prefer not to answer"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "C14",
+          "heading": "Gross Sales / Revenue",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C14_1",
+              "label": "PHP",
+              "type": "text"
+            },
+            {
+              "field_id": "C14_2",
+              "label": "Gross Sales / Revenue",
+              "type": "single_choice",
+              "options": [
+                "Unable to estimate",
+                "Prefer not to answer"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "C15",
+          "heading": "Estimated Net Income / Profit",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C15_1",
+              "label": "PHP",
+              "type": "text"
+            },
+            {
+              "field_id": "C15_2",
+              "label": "Estimated Net Income / Profit",
+              "type": "single_choice",
+              "options": [
+                "Break-even",
+                "Net loss",
+                "Unable to estimate",
+                "Prefer not to answer"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "C16",
+          "heading": "Record Keeping",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C16_1",
+              "label": "Record Keeping",
+              "type": "single_choice",
+              "options": [
+                "Yes, regularly",
+                "Yes, occasionally",
+                "No"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "C16_2",
+              "label": "If Yes:",
+              "type": "single_choice",
+              "options": [
+                "Notebook / ledger",
+                "Receipts / invoices",
+                "Spreadsheet/computer",
+                "Mobile/digital",
+                "Formal bookkeeping/accounting",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "C17",
+          "heading": "Output Disposition",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C17_table1",
+              "label": "Output Disposition",
+              "type": "matrix",
+              "columns": [
+                "Use",
+                "Approximate %"
+              ],
+              "rows": [
+                "Sold",
+                "Consumed by household / members",
+                "Retained as seed/input/feed",
+                "Given away / other use",
+                "Lost / spoiled / wasted",
+                "Total"
+              ],
+              "raw_rows": [
+                [
+                  "Sold",
+                  "____%"
+                ],
+                [
+                  "Consumed by household / members",
+                  "____%"
+                ],
+                [
+                  "Retained as seed/input/feed",
+                  "____%"
+                ],
+                [
+                  "Given away / other use",
+                  "____%"
+                ],
+                [
+                  "Lost / spoiled / wasted",
+                  "____%"
+                ],
+                [
+                  "Total",
+                  "100%"
+                ]
+              ]
+            },
+            {
+              "field_id": "C17_2",
+              "label": "Output Disposition",
+              "type": "single_choice",
+              "options": [
+                "Unable to estimate",
+                "Not applicable"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "C18",
+          "heading": "Production / Post-Harvest Losses",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C18_1",
+              "label": "Production / Post-Harvest Losses",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No",
+                "Not applicable"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "C18_2",
+              "label": "Approximate proportion lost (%)",
+              "type": "text"
+            },
+            {
+              "field_id": "C18_3",
+              "label": "Main reason",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "C19",
+          "heading": "Main Buyers / Market Outlets",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C19_1",
+              "label": "Main Buyers / Market Outlets",
+              "type": "single_choice",
+              "options": [
+                "Local trader / consolidator",
+                "Cooperative / association",
+                "Wholesaler",
+                "Processor",
+                "Institutional buyer",
+                "Retailer",
+                "Direct-to-consumer",
+                "Government-supported market",
+                "Export",
+                "Online/digital platform",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "C20",
+          "heading": "Value-Chain Participation",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C20_1",
+              "label": "Value-Chain Participation",
+              "type": "single_choice",
+              "options": [
+                "Input supply",
+                "Production",
+                "Aggregation",
+                "Storage",
+                "Processing",
+                "Trading",
+                "Marketing",
+                "Retail",
+                "Transport/logistics",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "C21",
+          "heading": "Major Shocks During Past 12 Months",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C21_1",
+              "label": "Major Shocks During Past 12 Months",
+              "type": "single_choice",
+              "options": [
+                "Typhoon / severe storm",
+                "Flood",
+                "Drought / insufficient water",
+                "Extreme heat",
+                "Pest / disease outbreak",
+                "Livestock/poultry disease/mortality",
+                "Fisheries/aquaculture losses",
+                "Input-price increase",
+                "Decline in selling prices",
+                "Difficulty accessing markets",
+                "Damage to equipment/facilities",
+                "Other: ____________________",
+                "None"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "C21_2",
+              "label": "C21b. Main Effect",
+              "type": "single_choice",
+              "options": [
+                "Reduced production",
+                "Increased costs",
+                "Reduced sales/revenue",
+                "Loss of assets",
+                "Difficulty meeting financial obligations",
+                "Need for additional financing",
+                "Temporary interruption",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "C22",
+          "heading": "Selected Risk-Management Practices",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C22_1",
+              "label": "Selected Risk-Management Practices",
+              "type": "single_choice",
+              "options": [
+                "Diversification",
+                "Adjusted planting/production schedule",
+                "Water conservation / management",
+                "Climate-resilient varieties/breeds",
+                "Protective structures",
+                "Improved drainage",
+                "Savings / emergency fund",
+                "Insurance",
+                "Other: ____________________",
+                "None"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "C23",
+          "heading": "Agricultural / Enterprise Insurance",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "C23_1",
+              "label": "Do you currently have relevant insurance?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "C23_2",
+              "label": "If Yes: Type:",
+              "type": "single_choice",
+              "options": [
+                "Crop",
+                "Livestock",
+                "Fisheries/aquaculture",
+                "Property/equipment",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "C23_3",
+              "label": "Provider:",
+              "type": "single_choice",
+              "options": [
+                "PCIC",
+                "Private insurer",
+                "Cooperative/mutual",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "C23_4",
+              "label": "Have you filed a claim?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "C23_5",
+              "label": "If Yes:",
+              "type": "single_choice",
+              "options": [
+                "Fully paid",
+                "Partially paid",
+                "Pending",
+                "Denied",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "D",
+      "title": "AGRISENSO Plus Awareness and Application Experience",
+      "questions": [
+        {
+          "qid": "D1",
+          "heading": "Awareness of AGRISENSO Plus",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "D1_1",
+              "label": "Before this interview, had you heard of AGRISENSO Plus?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No",
+                "Not sure"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "D2",
+          "heading": "Source of Program Information",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "D2_1",
+              "label": "How did you first hear about AGRISENSO Plus?",
+              "type": "single_choice",
+              "options": [
+                "LANDBANK",
+                "ACPC / DA",
+                "Cooperative / association",
+                "LGU / agriculture office",
+                "Barangay officials",
+                "Orientation / meeting",
+                "Social media / internet",
+                "Radio / television",
+                "Printed material",
+                "Other farmers/fisherfolk/entrepreneurs",
+                "Family / friends",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "D3",
+          "heading": "Self-Assessed Understanding",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "D3_likert1",
+              "label": "How confident are you that you understand how AGRISENSO Plus works? 1 = Not at all confident 2 = Slightly confident 3 = Moderately confident 4 = Very confident 5 = Extremely confident",
+              "type": "scale_1_5"
+            }
+          ]
+        },
+        {
+          "qid": "D4",
+          "heading": "Awareness of Program Features",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "D4_table1",
+              "label": "Were you aware of:",
+              "type": "matrix",
+              "columns": [
+                "Feature",
+                "Yes",
+                "No",
+                "Not Sure"
+              ],
+              "rows": [
+                "Who may qualify",
+                "Eligible financing activities",
+                "Loan amount / ceiling",
+                "Interest / financing cost",
+                "Loan term",
+                "Grace period",
+                "Documentary requirements",
+                "Repayment requirements",
+                "Where/how to apply"
+              ],
+              "raw_rows": [
+                [
+                  "Who may qualify",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Eligible financing activities",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Loan amount / ceiling",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Interest / financing cost",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Loan term",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Grace period",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Documentary requirements",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Repayment requirements",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Where/how to apply",
+                  "☐",
+                  "☐",
+                  "☐"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "qid": "D5",
+          "heading": "Application Experience",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "D5_1",
+              "label": "Have you ever attempted to apply for AGRISENSO Plus?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "D5_2",
+              "label": "If Yes, what happened?",
+              "type": "single_choice",
+              "options": [
+                "Started but did not complete",
+                "Submitted application; still pending",
+                "Application withdrawn",
+                "Application declined/disapproved",
+                "Approved but no loan agreement executed",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "D6",
+          "heading": "Reason for Declined Application",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "D6_1",
+              "label": "If declined: Were you told the reason?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No",
+                "Do not recall"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "D6_2",
+              "label": "If Yes:",
+              "type": "single_choice",
+              "options": [
+                "Eligibility requirements",
+                "Incomplete documents",
+                "Repayment-capacity concern",
+                "Existing indebtedness / credit issue",
+                "Collateral / security",
+                "Co-maker/guarantor",
+                "Enterprise/activity did not qualify",
+                "Information could not be verified",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "D7",
+          "heading": "Reason for Withdrawal / Incomplete Application",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "D7_1",
+              "label": "Reason for Withdrawal / Incomplete Application",
+              "type": "single_choice",
+              "options": [
+                "Difficult documentary requirements",
+                "Process took too long",
+                "Travel/distance",
+                "Process difficult to understand",
+                "No longer needed financing",
+                "Obtained financing elsewhere",
+                "Concern about repayment",
+                "Loan terms/amount did not meet need",
+                "Application-related costs",
+                "Lack of ID/documentation",
+                "Digital application difficulty",
+                "Language/communication difficulty",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "E",
+      "title": "Current Financing Needs, Sources, and Access Barriers",
+      "questions": [
+        {
+          "qid": "E1",
+          "heading": "Current Need for Financing",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "E1_1",
+              "label": "Do you or the organization currently need additional financing for the farm, fishery, or enterprise?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "No",
+                "Not sure"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "E2",
+          "heading": "Purpose of Current / Anticipated Financing Need",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "E2_1",
+              "label": "If Yes or Not sure, select all that apply.",
+              "type": "multi_choice",
+              "options": [
+                "Inputs",
+                "Labor",
+                "Land preparation",
+                "Irrigation",
+                "Livestock / poultry / aquaculture inputs",
+                "Machinery/equipment",
+                "Production expansion",
+                "Post-harvest/storage",
+                "Processing/value addition",
+                "Working capital",
+                "Transport/logistics",
+                "Marketing",
+                "Diversification",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "E3",
+          "heading": "Estimated Financing Need",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "E3_1",
+              "label": "PHP",
+              "type": "text"
+            },
+            {
+              "field_id": "E3_2",
+              "label": "Estimated Financing Need",
+              "type": "single_choice",
+              "options": [
+                "Unable to estimate",
+                "Prefer not to answer"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "E4",
+          "heading": "Current Financing Sources",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "E4_1",
+              "label": "During the past 12 months, which sources have you used?",
+              "type": "single_choice",
+              "options": [
+                "Own savings / retained earnings",
+                "LANDBANK loan other than AGRISENSO Plus",
+                "Other commercial bank",
+                "Rural/cooperative bank",
+                "Cooperative credit",
+                "Microfinance institution",
+                "Other government financing program",
+                "Informal lender",
+                "Trader/buyer advance",
+                "Input supplier credit",
+                "Family/friends",
+                "Digital/online lender",
+                "Grant/financial assistance",
+                "Other: ____________________",
+                "No external financing used"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "E5",
+          "heading": "Primary Financing Source",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "E5_1",
+              "label": "Which was your main financing source?",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "E6",
+          "heading": "Adequacy of Current Financing",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "E6_1",
+              "label": "Does your current financing fully meet your farm/fishery/enterprise needs?",
+              "type": "single_choice",
+              "options": [
+                "Fully",
+                "Partly",
+                "No",
+                "Not applicable / no financing used"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "E7",
+          "heading": "Reason for Not Availing AGRISENSO Plus",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "E7_1",
+              "label": "What is the main reason you do not currently have an AGRISENSO Plus loan agreement?",
+              "type": "single_choice",
+              "options": [
+                "Was not aware of Program",
+                "Do not know how/where to apply",
+                "Do not currently need financing",
+                "Prefer own funds",
+                "Prefer another source",
+                "Do not believe I/we qualify",
+                "Could not meet requirements",
+                "Concern about repayment/debt",
+                "Process appears difficult",
+                "Lending office too far/inconvenient",
+                "Application pending",
+                "Previous application declined",
+                "Previous application withdrawn/incomplete",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "E8",
+          "heading": "Barriers to Formal Agricultural Financing",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "E8_1",
+              "label": "Which of the following make access difficult?",
+              "type": "multi_choice",
+              "options": [
+                "Lack of information",
+                "Do not know where/how to apply",
+                "Documentary requirements",
+                "Lack of IDs",
+                "Eligibility requirements",
+                "Collateral/security",
+                "Co-maker/guarantor",
+                "Distance",
+                "Travel costs",
+                "Processing/application costs",
+                "Long processing time",
+                "Complex procedures",
+                "Digital platform difficulty",
+                "Limited digital literacy",
+                "Connectivity",
+                "Language/communication",
+                "Interest/financing cost",
+                "Concern about repayment",
+                "Previous negative experience",
+                "Preference for informal/familiar source",
+                "Other: ____________________",
+                "None"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "E9",
+          "heading": "Most Significant Barrier",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "E9_1",
+              "label": "Most Significant Barrier",
+              "type": "single_choice",
+              "options": [
+                "No significant barrier"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "E10",
+          "heading": "Perceived Ease of Formal Financing Access",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "E10_1",
+              "label": "Perceived Ease of Formal Financing Access",
+              "type": "single_choice",
+              "options": [
+                "Very difficult",
+                "Difficult",
+                "Neither difficult nor easy",
+                "Easy",
+                "Very easy",
+                "Never tried / cannot assess"
+              ],
+              "allow_other": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "F",
+      "title": "Financial Knowledge and Capability",
+      "questions": [
+        {
+          "qid": "F_intro",
+          "heading": "Financial Knowledge and Capability",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F_intro_1",
+              "label": "Use the same response scales and wording as the Borrower Survey to support valid comparison.",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "F1",
+          "heading": "Understanding Financing Terms",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F1_1",
+              "label": "Confidence in understanding interest, loan term, repayment schedules, grace periods, and fees: 1 2 3 4 5",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "F2",
+          "heading": "Comparing Financing Options",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F2_1",
+              "label": "Confidence in comparing financing options: 1 2 3 4 5",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "F3",
+          "heading": "Preparing a Budget",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F3_1",
+              "label": "Confidence in preparing a simple farm/enterprise budget: 1 2 3 4 5",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "F4",
+          "heading": "Understanding Cost of Borrowing",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F4_1",
+              "label": "Confidence in understanding how interest, duration, and charges affect repayment: 1 2 3 4 5",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "F5",
+          "heading": "Assessing Repayment Capacity",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F5_1",
+              "label": "Confidence in assessing whether expected income can meet repayments: 1 2 3 4 5",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "F6",
+          "heading": "Repayment Planning",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F6_1",
+              "label": "Confidence in planning repayment against expected income/production cycles: 1 2 3 4 5",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "F7",
+          "heading": "Separation of Household and Enterprise Finances",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F7_1",
+              "label": "Individual Respondents only.",
+              "type": "single_choice",
+              "options": [
+                "Always",
+                "Often",
+                "Sometimes",
+                "Rarely",
+                "Never"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "F8",
+          "heading": "Budgeting Practice",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F8_1",
+              "label": "Budgeting Practice",
+              "type": "single_choice",
+              "options": [
+                "Always",
+                "Often",
+                "Sometimes",
+                "Rarely",
+                "Never"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "F9",
+          "heading": "Record-Keeping Practice",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F9_1",
+              "label": "Record-Keeping Practice",
+              "type": "single_choice",
+              "options": [
+                "Always",
+                "Often",
+                "Sometimes",
+                "Rarely",
+                "Never"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "F10",
+          "heading": "Repayment Planning Practice",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F10_1",
+              "label": "Ask respondents with borrowing experience. Before borrowing, do you normally identify where repayment funds will come from and when they will be available?",
+              "type": "single_choice",
+              "options": [
+                "Yes, clearly",
+                "Partly",
+                "No",
+                "Have never borrowed / Not applicable"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "F11",
+          "heading": "Savings / Financial Buffer",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F11_1",
+              "label": "Savings / Financial Buffer",
+              "type": "single_choice",
+              "options": [
+                "Regularly",
+                "Occasionally",
+                "No"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "F11_2",
+              "label": "If Yes:",
+              "type": "single_choice",
+              "options": [
+                "Emergency needs",
+                "Production costs",
+                "Operating costs",
+                "Loan repayment",
+                "Equipment",
+                "Expansion/investment",
+                "Disaster/production shocks",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "F12",
+          "heading": "Digital Financial Services",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F12_table1",
+              "label": "During the past 12 months, have you used:",
+              "type": "matrix",
+              "columns": [
+                "Service",
+                "Yes",
+                "No"
+              ],
+              "rows": [
+                "Mobile banking",
+                "Digital wallet",
+                "Digital payment to supplier/worker",
+                "Digital receipt of payment",
+                "Online bank transfer",
+                "Online/digital loan application"
+              ],
+              "raw_rows": [
+                [
+                  "Mobile banking",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Digital wallet",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Digital payment to supplier/worker",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Digital receipt of payment",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Online bank transfer",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Online/digital loan application",
+                  "☐",
+                  "☐"
+                ]
+              ]
+            },
+            {
+              "field_id": "F12_2",
+              "label": "Difficulties, if any:",
+              "type": "single_choice",
+              "options": [
+                "Connectivity",
+                "Device access",
+                "Limited digital skills",
+                "Difficult platform",
+                "Fraud/security concerns",
+                "Privacy concerns",
+                "Fees",
+                "Language/comprehension",
+                "Prefer face-to-face",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "F13",
+          "heading": "Training / Advisory Support",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F13_1",
+              "label": "During the past 12 months:",
+              "type": "single_choice",
+              "options": [
+                "Financial literacy / management",
+                "Budgeting / bookkeeping",
+                "Loan orientation / responsible borrowing",
+                "Farm/fishery management",
+                "Enterprise management",
+                "Marketing",
+                "Production technology",
+                "Digital finance",
+                "Other: ____________________",
+                "None"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "F14",
+          "heading": "Training Provider",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F14_1",
+              "label": "Training Provider",
+              "type": "single_choice",
+              "options": [
+                "ACPC / DA",
+                "LANDBANK",
+                "Other financial institution",
+                "LGU",
+                "Cooperative / association",
+                "Other government agency",
+                "Private sector",
+                "NGO / development partner",
+                "Training institution",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "F15",
+          "heading": "Usefulness of Training",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F15_1",
+              "label": "Usefulness of Training",
+              "type": "single_choice",
+              "options": [
+                "Not at all useful",
+                "Slightly useful",
+                "Moderately useful",
+                "Very useful",
+                "Extremely useful"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "F15_2",
+              "label": "Have you applied what you learned?",
+              "type": "single_choice",
+              "options": [
+                "Yes",
+                "Partly",
+                "No",
+                "Too early to assess"
+              ],
+              "allow_other": false
+            }
+          ]
+        },
+        {
+          "qid": "F16",
+          "heading": "Financing and Enterprise Decision-Making",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F16_table1",
+              "label": "Individual Respondents",
+              "type": "matrix",
+              "columns": [
+                "Decision",
+                "Respondent",
+                "Spouse/Partner",
+                "Jointly",
+                "Other Household Member",
+                "Organization",
+                "Other"
+              ],
+              "rows": [
+                "Whether to apply for financing",
+                "How borrowed funds would be used",
+                "Major investments",
+                "Marketing/buyer decisions",
+                "Major expenditures"
+              ],
+              "raw_rows": [
+                [
+                  "Whether to apply for financing",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "How borrowed funds would be used",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Major investments",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Marketing/buyer decisions",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Major expenditures",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐"
+                ]
+              ]
+            },
+            {
+              "field_id": "F16_table2",
+              "label": "Organizational / Enterprise Respondents",
+              "type": "matrix",
+              "columns": [
+                "Decision",
+                "Owner/Proprietor",
+                "Manager",
+                "Officers",
+                "Board",
+                "Members / GA",
+                "Joint/Other"
+              ],
+              "rows": [
+                "Applying for financing",
+                "Use of borrowed funds",
+                "Major investments",
+                "Marketing/buyer decisions",
+                "Major expenditures"
+              ],
+              "raw_rows": [
+                [
+                  "Applying for financing",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Use of borrowed funds",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Major investments",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Marketing/buyer decisions",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐"
+                ],
+                [
+                  "Major expenditures",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐",
+                  "☐"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "qid": "F17",
+          "heading": "Overall Financial-Management Confidence",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "F17_1",
+              "label": "1 2 3 4 5",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "G",
+      "title": "Perceptions of AGRISENSO Plus and Agricultural Financing",
+      "questions": [
+        {
+          "qid": "G1",
+          "heading": "Potential Benefit of Affordable Formal Financing",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "G1_1",
+              "label": "What would be the most important potential benefit?",
+              "type": "single_choice",
+              "options": [
+                "Ability to purchase inputs on time",
+                "Increased working capital",
+                "Ability to acquire equipment",
+                "Ability to expand production/business",
+                "Reduced reliance on informal lenders",
+                "More predictable financing cost",
+                "Processing/value addition",
+                "Improved market access",
+                "Greater financial stability",
+                "Other: ____________________",
+                "No significant benefit",
+                "Not sure"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "G2",
+          "heading": "Perceived Fairness of Access",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "G2_1",
+              "label": "Do qualified farmers, fisherfolk, organizations, and agri-enterprises in your area generally have a fair opportunity to access formal agricultural financing?",
+              "type": "single_choice",
+              "options": [
+                "Definitely no",
+                "Probably no",
+                "Not sure",
+                "Probably yes",
+                "Definitely yes"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "G2_2",
+              "label": "Why?",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "G3",
+          "heading": "Trust in Government-Supported Agricultural Financing",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "G3_1",
+              "label": "How much confidence do you have in government-supported agricultural financing programs?",
+              "type": "single_choice",
+              "options": [
+                "No confidence",
+                "Low confidence",
+                "Moderate confidence",
+                "High confidence",
+                "Very high confidence",
+                "Not familiar enough to assess"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "G3_2",
+              "label": "Why?",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "G4",
+          "heading": "Perceived Differences Between Borrowers and Non-Borrowers",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "G4_1",
+              "label": "Based on what you observe, what most distinguishes farmers, fisherfolk, organizations, or enterprises that are able to obtain formal agricultural financing from those that are not?",
+              "type": "single_choice",
+              "options": [
+                "Better access to information",
+                "Better financial records",
+                "Larger farm/enterprise",
+                "Cooperative/organizational membership",
+                "Better ability to meet requirements",
+                "Stronger repayment capacity",
+                "Previous relationship with financial institutions",
+                "Greater confidence in borrowing",
+                "Better digital access/capability",
+                "Other: ____________________",
+                "Cannot assess"
+              ],
+              "allow_other": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "H",
+      "title": "Future Financing Intentions and Suggestions",
+      "questions": [
+        {
+          "qid": "H1",
+          "heading": "Future Interest in AGRISENSO Plus",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "H1_1",
+              "label": "If you need financing and are eligible, how likely are you to apply for AGRISENSO Plus in the future?",
+              "type": "single_choice",
+              "options": [
+                "Very unlikely",
+                "Unlikely",
+                "Not sure",
+                "Likely",
+                "Very likely"
+              ],
+              "allow_other": false
+            },
+            {
+              "field_id": "H1_2",
+              "label": "Why?",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "H2",
+          "heading": "What Would Encourage Application?",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "H2_1",
+              "label": "What Would Encourage Application?",
+              "type": "single_choice",
+              "options": [
+                "More information",
+                "Clearer eligibility requirements",
+                "Assistance with documents",
+                "Simpler application procedures",
+                "Faster processing",
+                "More accessible application points",
+                "Digital/online option",
+                "Digital assistance",
+                "More suitable loan amount",
+                "More suitable repayment terms",
+                "Greater confidence in repayment capacity",
+                "Cooperative/association assistance",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "H3",
+          "heading": "Preferred Information Channels",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "H3_1",
+              "label": "How would you prefer to receive information about AGRISENSO Plus?",
+              "type": "single_choice",
+              "options": [
+                "LANDBANK",
+                "ACPC / DA",
+                "LGU agriculture offices",
+                "Cooperative/association",
+                "Barangay/community meeting",
+                "SMS/text",
+                "Facebook/social media",
+                "Printed materials",
+                "Radio/television",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "H4",
+          "heading": "Most Significant Financing Challenge",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "H4_1",
+              "label": "What is the single most significant challenge you currently face in obtaining agricultural financing?",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "H5",
+          "heading": "Most Important Improvement to AGRISENSO Plus",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "H5_1",
+              "label": "What is the one most important improvement you would recommend?",
+              "type": "single_choice",
+              "options": [
+                "Improve information dissemination",
+                "Clarify eligibility/loan terms",
+                "Assist with documents",
+                "Simplify procedures",
+                "Reduce processing time",
+                "Improve application accessibility",
+                "Improve digital options",
+                "Provide digital assistance",
+                "Review financing amount",
+                "Review repayment terms",
+                "Strengthen capacity building",
+                "Improve coordination with cooperatives/LGUs",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "H5_2",
+              "label": "Why?",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "qid": "H6",
+          "heading": "Additional Support Needed",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "H6_1",
+              "label": "Aside from financing, what support would be useful?",
+              "type": "single_choice",
+              "options": [
+                "Production / technical training",
+                "Financial-management training",
+                "Bookkeeping / record keeping",
+                "Enterprise/business management",
+                "Market information",
+                "Market linkage",
+                "Post-harvest support",
+                "Processing/value addition",
+                "Technology / mechanization",
+                "Digital-finance support",
+                "Insurance / risk management",
+                "Cooperative / organizational strengthening",
+                "Other: ____________________",
+                "None identified"
+              ],
+              "allow_other": true
+            }
+          ]
+        },
+        {
+          "qid": "H7",
+          "heading": "Additional Comments",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "H7_1",
+              "label": "Is there anything else you would like ACPC to know about your financing needs, difficulties in accessing agricultural credit, or AGRISENSO Plus?",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "ENUMERATOR_F",
+      "title": "Enumerator Final Review",
+      "questions": [
+        {
+          "qid": "ENUMERATOR_F_intro",
+          "heading": "Enumerator Final Review",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "ENUMERATOR_F_intro_1",
+              "label": "Confirm:",
+              "type": "multi_choice",
+              "options": [
+                "Respondent has no current AGRISENSO Plus loan agreement.",
+                "Respondent has never previously had an AGRISENSO Plus loan agreement.",
+                "Individual versus organizational routing was followed.",
+                "Application-history routing was followed correctly.",
+                "Common borrower/comparison questions used the same definitions and reference periods.",
+                "Commodity-appropriate units were used.",
+                "Exact monetary estimates were requested first where applicable.",
+                "Missing or refused responses were properly coded.",
+                "Questionnaire was checked for completeness."
+              ],
+              "allow_other": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "ENUMERATOR_O",
+      "title": "Enumerator Observation / Interview Notes",
+      "questions": [
+        {
+          "qid": "ENUMERATOR_O_intro",
+          "heading": "Enumerator Observation / Interview Notes",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "ENUMERATOR_O_intro_1",
+              "label": "Record objective conditions only.",
+              "type": "single_choice",
+              "options": [
+                "No significant issue",
+                "Interview interrupted",
+                "Other persons present",
+                "Difficulty recalling information",
+                "Difficulty understanding questions",
+                "Interview completed in more than one session",
+                "Some questions incomplete",
+                "Language / communication difficulty",
+                "Other: ____________________"
+              ],
+              "allow_other": true
+            },
+            {
+              "field_id": "ENUMERATOR_O_intro_2",
+              "label": "Brief factual notes:",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CLOSING_STAT",
+      "title": "Closing Statement",
+      "questions": [
+        {
+          "qid": "CLOSING_STAT_intro",
+          "heading": "Closing Statement",
+          "instructions": "",
+          "fields": [
+            {
+              "field_id": "CLOSING_STAT_intro_1",
+              "label": "End Time",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
