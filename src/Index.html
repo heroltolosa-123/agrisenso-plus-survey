@@ -3,13 +3,17 @@
 <head>
   <base target="_top">
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <?!= include('Assets'); ?>
   <?!= include('Stylesheet'); ?>
 </head>
 <body>
   <header class="topbar">
-    <h1>AGRISENSO Plus Baseline Survey</h1>
-    <div id="progress"></div>
+    <div class="topbar-row">
+      <h1>AGRISENSO Plus Baseline Survey</h1>
+      <div id="progressText"></div>
+    </div>
+    <div class="rows-progress" id="rowsProgress"></div>
   </header>
   <div id="statusBar"></div>
 
@@ -25,7 +29,9 @@
     <button id="submitBtn" class="primary" style="display:none;">Submit Response</button>
   </footer>
 
-  <div class="spinner-overlay" id="spinner">Working&hellip;</div>
+  <div class="spinner-overlay" id="spinner">
+    Working <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+  </div>
 
   <?!= include('JavaScript'); ?>
 </body>

@@ -8,14 +8,8 @@
         {
           "qid": "SURVEY_INSTR_intro",
           "heading": "SURVEY INSTRUMENT A – AGRISENSO PLUS BORROWERS",
-          "instructions": "",
-          "fields": [
-            {
-              "field_id": "SURVEY_INSTR_intro_1",
-              "label": "Target Respondents: Individuals or organizations with an existing AGRISENSO Plus Program loan agreement with LANDBANK. Operational Definition of Borrower: For purposes of this Baseline Study, an AGRISENSO Plus Borrower refers to an individual or organization that, at the time of the survey, has an existing AGRISENSO Plus Program loan agreement with LANDBANK. Instructions to Enumerator: Administer this questionnaire only to respondents included in the approved AGRISENSO Plus borrower sampling frame or authorized borrower replacement list. Confirm the respondent’s borrower status and eligibility before proceeding with the substantive questionnaire. For organizational borrowers, the respondent must be an authorized or sufficiently knowledgeable representative who can provide information on the organization’s operations, financing, loan utilization, and related activities. <span id=\"_Toc236149086\" class=\"anchor\"></span>",
-              "type": "text"
-            }
-          ]
+          "instructions": "Target Respondents: Individuals or organizations with an existing AGRISENSO Plus Program loan agreement with LANDBANK. Operational Definition of Borrower: For purposes of this Baseline Study, an AGRISENSO Plus Borrower refers to an individual or organization that, at the time of the survey, has an existing AGRISENSO Plus Program loan agreement with LANDBANK. Instructions to Enumerator: Administer this questionnaire only to respondents included in the approved AGRISENSO Plus borrower sampling frame or authorized borrower replacement list. Confirm the respondent’s borrower status and eligibility before proceeding with the substantive questionnaire. For organizational borrowers, the respondent must be an authorized or sufficiently knowledgeable representative who can provide information on the organization’s operations, financing, loan utilization, and related activities.",
+          "fields": []
         }
       ]
     },
@@ -150,16 +144,11 @@
         {
           "qid": "INTRODUCTION_intro",
           "heading": "Introduction and Informed Consent",
-          "instructions": "",
+          "instructions": "part of the research team of DRVN Business Consulting Co., which has been engaged by the Agricultural Credit Policy Council (ACPC) to conduct the Baseline Study of the Agriculture Growth and Resource Integration through Strategic and Enhanced Delivery of Support and Opportunities or AGRISENSO Plus Program. You have been invited to participate because you, or the organization or enterprise you represent, has an existing AGRISENSO Plus Program loan agreement with LANDBANK. This survey aims to understand the characteristics, financing conditions, experiences, and farm, fishery, organizational, or enterprise circumstances of AGRISENSO Plus borrowers. The information gathered will help establish baseline conditions that ACPC may use as reference for future Program monitoring and evaluation. Your participation is voluntary. You may decline to answer any question or stop the interview at any time. Your decision to participate or not participate will not affect your existing loan agreement, your relationship with LANDBANK or ACPC, your access to government services, or your eligibility for future government programs. The interview is expected to take approximately 30 to 45 minutes, depending on the questions applicable to you. Some questions will ask about financing, income, production, enterprise performance, loan utilization, and repayment. You may decline to answer any question that you consider sensitive or that you are unable to answer. There is no guaranteed direct or financial benefit from participating. However, the information you provide may help ACPC better understand borrower conditions and experiences and identify areas for improving AGRISENSO Plus implementation. Your responses will be treated confidentially and handled in accordance with Republic Act No. 10173, or the Data Privacy Act of 2012, and applicable research and data-protection protocols. Personally identifiable information will be accessed only by authorized research personnel. Study findings will generally be reported in aggregate or de-identified form. The research team may contact a sample of respondents after the interview solely to confirm that the interview occurred or to validate selected information for research quality-assurance purposes.",
           "fields": [
             {
               "field_id": "INTRODUCTION_intro_1",
               "label": "Good day. My name is (, and I am)",
-              "type": "text"
-            },
-            {
-              "field_id": "INTRODUCTION_intro_2",
-              "label": "part of the research team of DRVN Business Consulting Co., which has been engaged by the Agricultural Credit Policy Council (ACPC) to conduct the Baseline Study of the Agriculture Growth and Resource Integration through Strategic and Enhanced Delivery of Support and Opportunities or AGRISENSO Plus Program. You have been invited to participate because you, or the organization or enterprise you represent, has an existing AGRISENSO Plus Program loan agreement with LANDBANK. This survey aims to understand the characteristics, financing conditions, experiences, and farm, fishery, organizational, or enterprise circumstances of AGRISENSO Plus borrowers. The information gathered will help establish baseline conditions that ACPC may use as reference for future Program monitoring and evaluation. Your participation is voluntary. You may decline to answer any question or stop the interview at any time. Your decision to participate or not participate will not affect your existing loan agreement, your relationship with LANDBANK or ACPC, your access to government services, or your eligibility for future government programs. The interview is expected to take approximately 30 to 45 minutes, depending on the questions applicable to you. Some questions will ask about financing, income, production, enterprise performance, loan utilization, and repayment. You may decline to answer any question that you consider sensitive or that you are unable to answer. There is no guaranteed direct or financial benefit from participating. However, the information you provide may help ACPC better understand borrower conditions and experiences and identify areas for improving AGRISENSO Plus implementation. Your responses will be treated confidentially and handled in accordance with Republic Act No. 10173, or the Data Privacy Act of 2012, and applicable research and data-protection protocols. Personally identifiable information will be accessed only by authorized research personnel. Study findings will generally be reported in aggregate or de-identified form. The research team may contact a sample of respondents after the interview solely to confirm that the interview occurred or to validate selected information for research quality-assurance purposes.",
               "type": "text"
             }
           ]
@@ -206,11 +195,11 @@
         {
           "qid": "Consent_Confirmation",
           "heading": "Consent Confirmation",
-          "instructions": "",
+          "instructions": "I confirm that I explained the study purpose, voluntary participation, confidentiality and data-privacy provisions, and the respondent’s right to decline questions or stop the interview.",
           "fields": [
             {
               "field_id": "Consent_Confirmation_1",
-              "label": "I confirm that I explained the study purpose, voluntary participation, confidentiality and data-privacy provisions, and the respondent’s right to decline questions or stop the interview. Enumerator Name",
+              "label": "Enumerator Name",
               "type": "text"
             },
             {
@@ -316,7 +305,7 @@
         {
           "qid": "A4",
           "heading": "Name of Borrower / Borrowing Entity",
-          "instructions": "",
+          "instructions": "Enumerator: Confirm against the approved borrower sampling frame or authorized LANDBANK/Program record.",
           "fields": [
             {
               "field_id": "A4_1",
@@ -325,7 +314,7 @@
             },
             {
               "field_id": "A4_2",
-              "label": "For organizational / enterprise borrower: Name of borrowing organization / enterprise: Enumerator: Confirm against the approved borrower sampling frame or authorized LANDBANK/Program record.",
+              "label": "Name of borrowing organization / enterprise",
               "type": "text"
             }
           ]
@@ -356,7 +345,7 @@
         {
           "qid": "A6",
           "heading": "Status of Loan Release",
-          "instructions": "",
+          "instructions": "Enumerator Note: This item is important for routing. Questions concerning actual loan utilization and experience after receiving financing apply only where loan proceeds have already been released.",
           "fields": [
             {
               "field_id": "A6_1",
@@ -369,11 +358,6 @@
                 "Respondent does not know / requires verification"
               ],
               "allow_other": false
-            },
-            {
-              "field_id": "A6_2",
-              "label": "Enumerator Note: This item is important for routing. Questions concerning actual loan utilization and experience after receiving financing apply only where loan proceeds have already been released.",
-              "type": "text"
             }
           ]
         },
@@ -455,7 +439,7 @@
         {
           "qid": "A9",
           "heading": "Loan Agreement Reference Information",
-          "instructions": "",
+          "instructions": "Enumerator Note: Where confidentiality protocols require separation of identifiable loan-account information from the survey dataset, record the reference only in the approved respondent tracking or validation file.",
           "fields": [
             {
               "field_id": "A9_1",
@@ -465,11 +449,6 @@
                 "Not collected in survey instrument / maintained separately for validation"
               ],
               "allow_other": false
-            },
-            {
-              "field_id": "A9_2",
-              "label": "Enumerator Note: Where confidentiality protocols require separation of identifiable loan-account information from the survey dataset, record the reference only in the approved respondent tracking or validation file.",
-              "type": "text"
             }
           ]
         },
@@ -502,14 +481,8 @@
         {
           "qid": "B_intro",
           "heading": "Borrower and Household / Organization Profile",
-          "instructions": "",
-          "fields": [
-            {
-              "field_id": "B_intro_1",
-              "label": "Enumerator Instruction: Follow the appropriate pathway for an Individual Borrower or an Organizational / Enterprise Borrower. Do not administer household questions to organizations or enterprises.",
-              "type": "text"
-            }
-          ]
+          "instructions": "Enumerator Instruction: Follow the appropriate pathway for an Individual Borrower or an Organizational / Enterprise Borrower. Do not administer household questions to organizations or enterprises.",
+          "fields": []
         },
         {
           "qid": "B1",
@@ -811,14 +784,8 @@
         {
           "qid": "C_intro",
           "heading": "Farm, Fishery, and Enterprise Profile",
-          "instructions": "",
-          "fields": [
-            {
-              "field_id": "C_intro_1",
-              "label": "Enumerator Instruction: Unless otherwise stated, questions should refer to the borrower’s principal agricultural, fishery, or agriculture-related activity. For seasonal activities, use the most recent completed production cycle/season. For continuously operating enterprises, use the most recent 12 months where appropriate.",
-              "type": "text"
-            }
-          ]
+          "instructions": "Enumerator Instruction: Unless otherwise stated, questions should refer to the borrower’s principal agricultural, fishery, or agriculture-related activity. For seasonal activities, use the most recent completed production cycle/season. For continuously operating enterprises, use the most recent 12 months where appropriate.",
+          "fields": []
         },
         {
           "qid": "C1",

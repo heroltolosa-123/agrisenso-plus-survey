@@ -19,8 +19,29 @@ def clean(s: str) -> str:
     s = s.replace("\\_", "_")
     s = s.replace("\\", "")
     s = re.sub(r"\*\*", "", s)
+    s = re.sub(r"<[^>]+>", "", s)  # strip stray HTML (e.g. pandoc anchor spans)
     s = re.sub(r"\s+", " ", s).strip()
     return s
+
+
+INSTRUCTIONAL_PREFIXES = (
+    "enumerator note", "enumerator instruction", "target respondents",
+    "operational definition", "instructions to enumerator",
+    "instructions to the enumerator",
+)
+MAX_STANDALONE_FIELD_LEN = 260
+
+
+def looks_instructional(text: str) -> bool:
+    """True for leftover paragraph text that is guidance for the enumerator
+    (or pure front-matter) rather than something with an actual answer to
+    record — this should never become a required fillable field."""
+    low = text.lower()
+    if any(low.startswith(p) for p in INSTRUCTIONAL_PREFIXES):
+        return True
+    if len(text) > MAX_STANDALONE_FIELD_LEN:
+        return True
+    return False
 
 
 def slugify(text: str, maxlen=40) -> str:
@@ -174,12 +195,16 @@ def parse_section_block(section_id, section_title, qid, heading, body_lines):
         i += 1
 
     if pending_label.strip():
-        group_idx += 1
-        fields.append({
-            "field_id": f"{qid}_{group_idx}",
-            "label": pending_label.strip(),
-            "type": "text",
-        })
+        final_label = pending_label.strip()
+        if looks_instructional(final_label):
+            intro_text.append(final_label)
+        else:
+            group_idx += 1
+            fields.append({
+                "field_id": f"{qid}_{group_idx}",
+                "label": final_label,
+                "type": "text",
+            })
 
     return fields, " ".join(intro_text)
 
@@ -255,14 +280,16 @@ def parse_instrument(md_text, instrument_label):
 
     flush_question()
 
-    # Fallback: open-ended questions with no explicit blank/checkbox line
-    # still need a data field.
+    # Fallback: an open-ended question with no explicit blank/checkbox line
+    # still needs a data field IF it's actually a question. Pure front
+    # matter / enumerator guidance with no real question is left with zero
+    # fields on purpose — it renders as read-only instructional text.
     for s in sections:
         for q in s["questions"]:
-            if not q["fields"]:
+            if not q["fields"] and q["instructions"] and not looks_instructional(q["instructions"]):
                 q["fields"].append({
                     "field_id": f"{q['qid']}_1",
-                    "label": q["instructions"] or q["heading"],
+                    "label": q["instructions"],
                     "type": "text",
                 })
                 q["instructions"] = ""

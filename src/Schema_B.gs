@@ -10,14 +10,8 @@ var QUESTIONS_B = {
         {
           "qid": "SURVEY_INSTR_intro",
           "heading": "SURVEY INSTRUMENT B – NON-BORROWER COMPARISON GROUP",
-          "instructions": "",
-          "fields": [
-            {
-              "field_id": "SURVEY_INSTR_intro_1",
-              "label": "Target Respondents: Eligible or potentially eligible individuals or organizations that do not have, and have not previously had, an AGRISENSO Plus Program loan agreement with LANDBANK and that have been selected under the approved comparison-group sampling framework. Operational Definition of Non-Borrower Comparison Respondent: For purposes of this Baseline Study, a Non-Borrower Comparison Respondent refers to an individual or organization that: - does not currently have an AGRISENSO Plus Program loan agreement with LANDBANK; - has not previously had an AGRISENSO Plus Program loan agreement with LANDBANK; and - meets the eligibility and comparison-group selection criteria established under the approved sampling framework. A comparison respondent may have never applied for AGRISENSO Plus or may have previously inquired, attempted to apply, submitted an application that was incomplete, withdrawn, or declined, subject to the final approved comparison-group criteria. Instructions to Enumerator: Administer this questionnaire only to respondents included in the approved Non-Borrower Comparison Group sampling frame or authorized replacement list. Verify eligibility before proceeding. For organizational or enterprise respondents, the interviewee must be an authorized or sufficiently knowledgeable representative who can provide information about the organization’s operations, financing needs, financial practices, and agricultural or enterprise activities.",
-              "type": "text"
-            }
-          ]
+          "instructions": "Target Respondents: Eligible or potentially eligible individuals or organizations that do not have, and have not previously had, an AGRISENSO Plus Program loan agreement with LANDBANK and that have been selected under the approved comparison-group sampling framework. Operational Definition of Non-Borrower Comparison Respondent: For purposes of this Baseline Study, a Non-Borrower Comparison Respondent refers to an individual or organization that: - does not currently have an AGRISENSO Plus Program loan agreement with LANDBANK; - has not previously had an AGRISENSO Plus Program loan agreement with LANDBANK; and - meets the eligibility and comparison-group selection criteria established under the approved sampling framework. A comparison respondent may have never applied for AGRISENSO Plus or may have previously inquired, attempted to apply, submitted an application that was incomplete, withdrawn, or declined, subject to the final approved comparison-group criteria. Instructions to Enumerator: Administer this questionnaire only to respondents included in the approved Non-Borrower Comparison Group sampling frame or authorized replacement list. Verify eligibility before proceeding. For organizational or enterprise respondents, the interviewee must be an authorized or sufficiently knowledgeable representative who can provide information about the organization’s operations, financing needs, financial practices, and agricultural or enterprise activities.",
+          "fields": []
         }
       ]
     },
@@ -152,16 +146,11 @@ var QUESTIONS_B = {
         {
           "qid": "INTRODUCTION_intro",
           "heading": "Introduction and Informed Consent",
-          "instructions": "",
+          "instructions": "part of the research team of DRVN Business Consulting Co., which has been engaged by the Agricultural Credit Policy Council (ACPC) to conduct the Baseline Study of the Agriculture Growth and Resource Integration through Strategic and Enhanced Delivery of Support and Opportunities or AGRISENSO Plus Program. You have been invited to participate as part of the study’s Non-Borrower Comparison Group. This means that you, or the organization or enterprise you represent, do not currently have and have not previously had an AGRISENSO Plus Program loan agreement with LANDBANK. The survey aims to understand the characteristics, financing needs, current sources of financing, farm, fishery, organizational or enterprise conditions, and experiences of farmers, fisherfolk, organizations, and agriculture-related enterprises that have not availed themselves of AGRISENSO Plus financing. Your participation is voluntary. You may decline to answer any question or stop the interview at any time. Your participation or decision not to participate will not affect your eligibility for AGRISENSO Plus or any other government program, your relationship with LANDBANK or ACPC, or your access to government services. The interview is expected to take approximately 30 to 45 minutes, depending on the questions applicable to you. Some questions concern income, financing, borrowing, farm or enterprise performance, and financial practices. You may decline to answer any question that you consider sensitive or that you are unable to answer. There is no guaranteed direct or financial benefit from participating. However, your responses may help ACPC better understand agricultural financing needs and barriers and identify areas for improving access to financing and related support. Your responses will be treated confidentially and handled in accordance with Republic Act No. 10173, or the Data Privacy Act of 2012, and applicable research and data-protection protocols. Study findings will generally be reported in aggregate or de-identified form. The research team may contact a sample of respondents after the interview solely to confirm that the interview occurred or to validate selected information for research quality-assurance purposes.",
           "fields": [
             {
               "field_id": "INTRODUCTION_intro_1",
               "label": "Good day. My name is (, and I am)",
-              "type": "text"
-            },
-            {
-              "field_id": "INTRODUCTION_intro_2",
-              "label": "part of the research team of DRVN Business Consulting Co., which has been engaged by the Agricultural Credit Policy Council (ACPC) to conduct the Baseline Study of the Agriculture Growth and Resource Integration through Strategic and Enhanced Delivery of Support and Opportunities or AGRISENSO Plus Program. You have been invited to participate as part of the study’s Non-Borrower Comparison Group. This means that you, or the organization or enterprise you represent, do not currently have and have not previously had an AGRISENSO Plus Program loan agreement with LANDBANK. The survey aims to understand the characteristics, financing needs, current sources of financing, farm, fishery, organizational or enterprise conditions, and experiences of farmers, fisherfolk, organizations, and agriculture-related enterprises that have not availed themselves of AGRISENSO Plus financing. Your participation is voluntary. You may decline to answer any question or stop the interview at any time. Your participation or decision not to participate will not affect your eligibility for AGRISENSO Plus or any other government program, your relationship with LANDBANK or ACPC, or your access to government services. The interview is expected to take approximately 30 to 45 minutes, depending on the questions applicable to you. Some questions concern income, financing, borrowing, farm or enterprise performance, and financial practices. You may decline to answer any question that you consider sensitive or that you are unable to answer. There is no guaranteed direct or financial benefit from participating. However, your responses may help ACPC better understand agricultural financing needs and barriers and identify areas for improving access to financing and related support. Your responses will be treated confidentially and handled in accordance with Republic Act No. 10173, or the Data Privacy Act of 2012, and applicable research and data-protection protocols. Study findings will generally be reported in aggregate or de-identified form. The research team may contact a sample of respondents after the interview solely to confirm that the interview occurred or to validate selected information for research quality-assurance purposes.",
               "type": "text"
             }
           ]
@@ -208,11 +197,11 @@ var QUESTIONS_B = {
         {
           "qid": "Consent_Confirmation",
           "heading": "Consent Confirmation",
-          "instructions": "",
+          "instructions": "I confirm that I explained the study purpose, voluntary participation, confidentiality and data-privacy provisions, and the respondent’s right to decline questions or stop the interview.",
           "fields": [
             {
               "field_id": "Consent_Confirmation_1",
-              "label": "I confirm that I explained the study purpose, voluntary participation, confidentiality and data-privacy provisions, and the respondent’s right to decline questions or stop the interview. Enumerator Name",
+              "label": "Enumerator Name",
               "type": "text"
             },
             {
@@ -327,7 +316,7 @@ var QUESTIONS_B = {
             },
             {
               "field_id": "A4_2",
-              "label": "For organizational / enterprise respondent: Name of organization / enterprise: *For validation purposes only and subject to applicable confidentiality protocols.*",
+              "label": "Name of organization / enterprise",
               "type": "text"
             }
           ]
@@ -371,7 +360,7 @@ var QUESTIONS_B = {
         {
           "qid": "A7",
           "heading": "Current AGRISENSO Plus Application Status",
-          "instructions": "",
+          "instructions": "Enumerator Note: If Approved but no loan agreement has yet been executed, refer to the supervisor to confirm whether the respondent remains eligible under the final comparison-group protocol.",
           "fields": [
             {
               "field_id": "A7_1",
@@ -388,11 +377,6 @@ var QUESTIONS_B = {
                 "Other: ____________________"
               ],
               "allow_other": true
-            },
-            {
-              "field_id": "A7_2",
-              "label": "Enumerator Note: If Approved but no loan agreement has yet been executed, refer to the supervisor to confirm whether the respondent remains eligible under the final comparison-group protocol.",
-              "type": "text"
             }
           ]
         },
@@ -486,14 +470,8 @@ var QUESTIONS_B = {
         {
           "qid": "B_intro",
           "heading": "Respondent and Household / Organization Profile",
-          "instructions": "",
-          "fields": [
-            {
-              "field_id": "B_intro_1",
-              "label": "Enumerator Instruction: Follow the appropriate pathway. Household questions apply only to individual respondents.",
-              "type": "text"
-            }
-          ]
+          "instructions": "Enumerator Instruction: Follow the appropriate pathway. Household questions apply only to individual respondents.",
+          "fields": []
         },
         {
           "qid": "B1",
@@ -789,14 +767,8 @@ var QUESTIONS_B = {
         {
           "qid": "C_intro",
           "heading": "Farm, Fishery, and Enterprise Profile",
-          "instructions": "",
-          "fields": [
-            {
-              "field_id": "C_intro_1",
-              "label": "Enumerator Instruction: Use the same definitions and reference periods applied in the Borrower Survey to preserve comparability.",
-              "type": "text"
-            }
-          ]
+          "instructions": "Enumerator Instruction: Use the same definitions and reference periods applied in the Borrower Survey to preserve comparability.",
+          "fields": []
         },
         {
           "qid": "C1",

@@ -20,7 +20,8 @@
   };
 
   var app = document.getElementById('app');
-  var progressEl = document.getElementById('progress');
+  var progressEl = document.getElementById('progressText');
+  var rowsProgressEl = document.getElementById('rowsProgress');
   var navbar = document.getElementById('navbar');
   var prevBtn = document.getElementById('prevBtn');
   var nextBtn = document.getElementById('nextBtn');
@@ -231,6 +232,7 @@
   function renderChooser() {
     navbar.style.display = 'none';
     progressEl.textContent = '';
+    rowsProgressEl.innerHTML = '';
     setStatus('');
     app.innerHTML = '';
 
@@ -286,6 +288,17 @@
   // ---------------------------------------------------------------
   // Section rendering
   // ---------------------------------------------------------------
+  function renderRowsProgress(idx, total) {
+    rowsProgressEl.innerHTML = '';
+    for (var i = 0; i < total; i++) {
+      var seg = document.createElement('div');
+      seg.className = 'seg' + (i < idx ? ' done' : i === idx ? ' current' : '');
+      var fill = document.createElement('span');
+      seg.appendChild(fill);
+      rowsProgressEl.appendChild(seg);
+    }
+  }
+
   function renderSection(idx) {
     state.sectionIndex = idx;
     var section = state.schema.sections[idx];
@@ -294,8 +307,9 @@
     app.appendChild(el('div', 'required-banner',
       'All questions in this survey are required. If a question genuinely doesn\u2019t apply to this respondent, choose the "N/A \u2014 Not applicable" option (or type N/A) rather than leaving it blank.'));
 
-    section.questions.forEach(function (q) {
+    section.questions.forEach(function (q, qi) {
       var qbox = el('div', 'question');
+      qbox.style.animationDelay = Math.min(qi * 40, 280) + 'ms';
       qbox.appendChild(el('h3', null, q.heading));
       if (q.instructions) qbox.appendChild(el('div', 'instructions', q.instructions));
       q.fields.forEach(function (field) { qbox.appendChild(buildField(field)); });
@@ -304,6 +318,7 @@
 
     progressEl.textContent = 'Instrument ' + state.instrument + ' \u2014 Section ' + (idx + 1) + ' of ' +
       state.schema.sections.length + ': ' + section.title;
+    renderRowsProgress(idx, state.schema.sections.length);
     prevBtn.disabled = idx === 0;
     var isLast = idx === state.schema.sections.length - 1;
     nextBtn.style.display = isLast ? 'none' : 'inline-block';
@@ -311,9 +326,12 @@
     window.scrollTo(0, 0);
   }
 
+  var DROPDOWN_THRESHOLD = 6;
+
   function buildField(field) {
     switch (field.type) {
       case 'single_choice':
+        return field.options.length > DROPDOWN_THRESHOLD ? buildSelectField(field) : buildChoiceField(field);
       case 'multi_choice': return buildChoiceField(field);
       case 'scale_1_5': return buildScaleField(field);
       case 'matrix': return buildMatrixField(field);
@@ -390,6 +408,80 @@
 
     state.fieldRefs[field.field_id] = { refs: refs, isMulti: isMulti };
     wrap.appendChild(group);
+    return wrap;
+  }
+
+  function buildSelectField(field) {
+    var wrap = el('div', 'field');
+    wrap.setAttribute('data-field-id', field.field_id);
+    wrap.appendChild(el('label', 'field-label', field.label));
+
+    var options = withNA(field.options);
+    var savedVal = state.answers[field.field_id] || '';
+    var savedDisp = null;
+
+    var selectWrap = el('div', 'select-wrap');
+    var select = document.createElement('select');
+    select.className = 'input-select';
+
+    var placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Select an answer\u2026';
+    placeholder.disabled = true;
+    select.appendChild(placeholder);
+
+    var dispByValue = {};
+    options.forEach(function (opt, i) {
+      var disp = optionDisplay(opt);
+      dispByValue[disp.text] = disp;
+      var o = document.createElement('option');
+      o.value = disp.text;
+      o.textContent = disp.text;
+      select.appendChild(o);
+      if (savedVal && savedVal.indexOf(disp.text) === 0) savedDisp = disp;
+    });
+    placeholder.selected = !savedVal;
+
+    var specify = null;
+    if (savedDisp) {
+      select.value = savedDisp.text;
+      if (savedDisp.needsSpecify) {
+        specify = makeSpecifyInput();
+        if (savedVal.indexOf(': ') > -1) specify.value = savedVal.substring(savedVal.indexOf(': ') + 2);
+      }
+    }
+
+    function makeSpecifyInput() {
+      var s = document.createElement('input');
+      s.type = 'text';
+      s.className = 'specify-input';
+      s.placeholder = 'specify';
+      s.style.marginTop = '8px';
+      s.addEventListener('input', updateVal);
+      selectWrap.parentNode === wrap && wrap.appendChild(s);
+      return s;
+    }
+
+    function updateVal() {
+      var disp = dispByValue[select.value];
+      if (!disp) { setAnswer(field.field_id, ''); return; }
+      if (disp.needsSpecify && specify && specify.value.trim()) {
+        setAnswer(field.field_id, disp.text + ': ' + specify.value.trim());
+      } else {
+        setAnswer(field.field_id, disp.text);
+      }
+    }
+
+    select.addEventListener('change', function () {
+      if (specify) { specify.remove(); specify = null; }
+      var disp = dispByValue[select.value];
+      if (disp && disp.needsSpecify) specify = makeSpecifyInput();
+      updateVal();
+    });
+
+    selectWrap.appendChild(select);
+    wrap.appendChild(selectWrap);
+    if (specify) wrap.appendChild(specify);
     return wrap;
   }
 

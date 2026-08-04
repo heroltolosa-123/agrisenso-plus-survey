@@ -4,13 +4,14 @@ A real, shareable website (not a `script.google.com` link) for the
 DRVN/ACPC AGRISENSO Plus Baseline Study questionnaires, backed by Google
 Sheets as the database.
 
-- **Instrument A** — AGRISENSO Plus Borrowers (122 questions / 226 data fields)
-- **Instrument B** — Non-Borrower Comparison Group (103 questions / 173 data fields)
+- **Instrument A** — AGRISENSO Plus Borrowers (122 questions / 274 data columns)
+- **Instrument B** — Non-Borrower Comparison Group (103 questions / 203 data columns)
 
 **Architecture:**
 - `docs/` — a plain static website (HTML/CSS/JS, no build step) that renders
   the whole survey. You publish this with GitHub Pages (or Render, Netlify,
   any static host) and get a normal URL to share with enumerators.
+  `docs/config.js` already points at your live backend — see Section 1.
 - `src/` — a small Google Apps Script project, bound to your Google Sheet,
   that exposes the questionnaire and accepts submissions as a JSON API.
   This is the *only* part that touches Google's infrastructure — the site
@@ -19,6 +20,13 @@ Sheets as the database.
 The site talks to the Apps Script backend over `fetch()`, the same way any
 website talks to any API. Everything else (offline queueing, section
 navigation, all field types) works exactly as before.
+
+**Design:** bigger type scale and wider layout for readability in the
+field, a "planted rows" segmented progress bar, smooth section transitions
+and button feedback (motion is disabled automatically if the visitor's
+device has "reduce motion" turned on), and dropdown selectors for any
+question with more than 6 choices (borrower segment, livelihood type,
+educational attainment, etc.) instead of a long wall of radio buttons.
 
 ---
 
@@ -57,12 +65,17 @@ should see `{"ok":true,"message":"AGRISENSO Plus survey backend is reachable."}`
 
 ## 2. Point the site at your backend
 
+`docs/config.js` is already pointed at your deployed backend, so there's
+nothing to do here for normal use — this is only relevant if you ever
+create a **brand-new** Apps Script deployment (rather than "New version"
+on the existing one), which gets a different `/exec` URL:
+
 1. Open `docs/config.js`.
-2. Replace the placeholder with the URL from Step 1:
+2. Replace the URL:
    ```js
    var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycb.../exec";
    ```
-3. Save.
+3. Save, commit, push.
 
 ---
 
@@ -177,6 +190,26 @@ printed copy) with your field team before their first interview.
 
 ---
 
+## 7a. Fixed: front-matter text no longer shows as a fillable question
+
+An earlier version had a parsing bug where purely instructional text (the
+"Target Respondents / Operational Definition / Instructions to Enumerator"
+block at the very start of each instrument, some "Enumerator Note:" asides,
+and a stray HTML artifact) was being turned into a giant *required* text
+box with nothing meaningful to type into it. That's fixed: `tools/parse_questionnaire.py`
+now recognizes purely instructional paragraphs (by known prefixes like
+"Enumerator Note:", or by length) and renders them as read-only guidance
+text instead of a field — so nothing forces an enumerator to fill in a
+paragraph that was never meant to be answered. Two related fields (the
+enumerator-name line under Consent Confirmation, and the borrowing
+organization's name under A4) were also split so the real fillable part
+has a short, sensible label instead of being buried in a paragraph.
+
+If you regenerate the schema from a revised questionnaire later (Section 8),
+this fix carries forward automatically — no per-question manual work needed.
+
+---
+
 ## 8. Updating the questionnaire later
 
 1. Re-export the revised Word doc to Markdown and isolate each instrument's
@@ -222,9 +255,20 @@ environment can't reach Google's or GitHub's live servers directly:
   confirmed the identical behavior for the `google.script.run` variant used
   on the direct Apps Script page.
 - **The strongest check**: a jsdom run that completed and submitted the
-  entire real Instrument A questionnaire — all 14 sections, 280 fields —
-  end to end, then confirmed zero blank values among the 280 submitted
-  answers.
+  entire real Instrument A questionnaire — all 14 sections, 274 columns —
+  end to end, then confirmed zero blank values among the submitted answers.
+- **New dropdown fields**: confirmed the >6-option threshold correctly
+  renders a `<select>` instead of radio buttons, that it still gets an
+  auto-added N/A option, that choosing an "Other: specify" entry shows a
+  companion text box and submits the combined value correctly, and that it
+  participates in required-field validation like any other field.
+- **The front-matter parsing fix**: confirmed the previously-buggy intro
+  section now has zero required fields and renders as plain instructional
+  text, both in the parsed schema and in an actual rendered screenshot.
+- **Real rendered screenshots** (Chromium via Playwright, not just jsdom):
+  desktop and mobile views of the chooser screen and a mid-survey section
+  with a live dropdown, confirmed visually correct — plus a full 14-section
+  click-through with zero browser console errors.
 
 **What's still untested** (can't be done from this environment): an actual
 live deployment on `script.google.com`, real GitHub Pages/Render hosting,
@@ -236,6 +280,6 @@ below before real fieldwork regardless.
 
 **Pilot test before real fieldwork:** open your published site, submit 2–3
 test responses (try leaving something blank on purpose to confirm it's
-blocked, and try the N/A option once), confirm the good ones appear
-correctly in the Sheet with sequential `response_no` values, then delete
-those test rows and any stray tabs per Section 6.
+blocked, and try the N/A option and a dropdown field once), confirm the
+good ones appear correctly in the Sheet with sequential `response_no`
+values, then delete those test rows and any stray tabs per Section 6.
