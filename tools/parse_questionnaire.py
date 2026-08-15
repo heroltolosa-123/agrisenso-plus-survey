@@ -27,7 +27,8 @@ def clean(s: str) -> str:
 INSTRUCTIONAL_PREFIXES = (
     "enumerator note", "enumerator instruction", "target respondents",
     "operational definition", "instructions to enumerator",
-    "instructions to the enumerator",
+    "instructions to the enumerator", "administer only if",
+    "ask only if", "enumerator: read the following",
 )
 MAX_STANDALONE_FIELD_LEN = 260
 
@@ -36,8 +37,22 @@ def looks_instructional(text: str) -> bool:
     """True for leftover paragraph text that is guidance for the enumerator
     (or pure front-matter) rather than something with an actual answer to
     record — this should never become a required fillable field."""
-    low = text.lower()
+    low = text.lower().strip()
     if any(low.startswith(p) for p in INSTRUCTIONAL_PREFIXES):
+        return True
+    # A routing note phrased as "If <answer> -> <action the enumerator should
+    # take>" (e.g. "If No or Unable to Verify -> Do not proceed with
+    # substantive questions.") is an instruction, not a question — it never
+    # has an answer of its own to record. Contrast with "If Yes, from whom?"
+    # or "If Yes: <options...>", which introduce a real follow-up question
+    # and are handled separately (see enhance_schema.py's conditional-field
+    # detection) rather than being swept into instructions here.
+    if re.match(r"^if\s+.+(\u2192|->)", low):
+        return True
+    # "If <condition> Proceed to H7..." / "...Skip to Section G." — a
+    # routing note with no arrow character but still pure navigation
+    # instruction, no answer of its own.
+    if low.startswith("if ") and re.search(r"\b(proceed to|skip to)\b", low):
         return True
     if len(text) > MAX_STANDALONE_FIELD_LEN:
         return True
@@ -94,10 +109,18 @@ def parse_blank_line(qid, idx, line, fallback_label=""):
     label_from_line = clean(before).rstrip(":").strip()
     label_from_pending = clean(fallback_label).rstrip(":").strip()
     GENERIC_FILLERS = {"number", "amount", "total", "response", "value"}
+    overflow_instruction = None
 
     if label_from_pending and label_from_line:
         if label_from_line.lower() in GENERIC_FILLERS:
             label = label_from_pending
+        elif len(label_from_pending) > MAX_STANDALONE_FIELD_LEN:
+            # The accumulated text is a whole paragraph of narration (e.g.
+            # a closing statement) with a short real field name tacked on
+            # at the end ("...interview. End Time") — the narration is
+            # instructional, only the short inline label is the field.
+            overflow_instruction = label_from_pending
+            label = label_from_line
         else:
             label = label_from_pending + " " + label_from_line
     elif label_from_pending:
@@ -112,6 +135,7 @@ def parse_blank_line(qid, idx, line, fallback_label=""):
     return {
         "field_id": f"{qid}_{idx}",
         "label": label,
+        "overflow_instruction": overflow_instruction,
         "type": "text",
     }
 
@@ -191,14 +215,35 @@ def parse_section_block(section_id, section_title, qid, heading, body_lines):
         # Blank fill-in line
         if BLANK_RE.search(line):
             group_idx += 1
-            fields.append(parse_blank_line(qid, group_idx, clean(line), pending_label))
+            new_field = parse_blank_line(qid, group_idx, clean(line), pending_label)
+            overflow = new_field.pop("overflow_instruction", None)
+            if overflow:
+                intro_text.append(overflow)
+            fields.append(new_field)
             pending_label = ""
             i += 1
             continue
 
-        # Sub-heading (### ...) inside a question block: starts a fresh label
+        # Sub-heading (### ...) inside a question block: flush whatever
+        # question text had already accumulated (otherwise a run of
+        # consecutive ### sub-headings silently discards everything but
+        # the last one — e.g. "### C21a. Greatest Effect / Which shock
+        # had the greatest effect?" followed immediately by "### C21b.
+        # Main Effect" was losing the C21a question entirely), then start
+        # a fresh label for the new sub-heading.
         h3 = re.match(r"^###\s+(.+)$", line.strip())
         if h3:
+            if pending_label.strip():
+                final_label = pending_label.strip()
+                if not looks_instructional(final_label):
+                    group_idx += 1
+                    fields.append({
+                        "field_id": f"{qid}_{group_idx}",
+                        "label": final_label,
+                        "type": "text",
+                    })
+                else:
+                    intro_text.append(final_label)
             pending_label = clean(h3.group(1))
             i += 1
             continue

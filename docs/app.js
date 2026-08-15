@@ -74,6 +74,18 @@
     return e;
   }
 
+  /** A field's label, with a required-asterisk only for the small curated
+   * set of hard-gate fields — not a blanket marker on everything. */
+  function buildFieldLabel(field, extraClass) {
+    var lbl = el('label', 'field-label' + (extraClass ? ' ' + extraClass : ''));
+    lbl.appendChild(document.createTextNode(field.label));
+    if (field.required) {
+      var star = el('span', 'required-star', ' *');
+      lbl.appendChild(star);
+    }
+    return lbl;
+  }
+
   function slug(s, n) {
     n = n || 30;
     var out = String(s).replace(/[^A-Za-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
@@ -94,17 +106,6 @@
     });
   }
 
-  var NA_LABEL = 'N/A \u2014 Not applicable (per skip instructions)';
-
-  /** Every choice-type field automatically gets an N/A option (unless it
-   * already has an equivalent one) so a question that legitimately doesn't
-   * apply to this respondent can still be answered \u2014 "required" never
-   * means "force an answer that doesn't make sense". */
-  function withNA(options) {
-    var hasNA = options.some(function (o) { return /not applicable|\bn\.?\/?a\.?\b/i.test(o); });
-    return hasNA ? options : options.concat([NA_LABEL]);
-  }
-
   function matrixCellIdList(field) {
     var numeric = isNumericMatrix(field.columns);
     var ids = [];
@@ -119,13 +120,17 @@
     return ids;
   }
 
-  /** All answer-key IDs a section expects \u2014 one per field, or one per
-   * matrix cell/row. Pure function of the schema (no DOM), so it can be
-   * used to validate any section regardless of what's currently rendered. */
-  function sectionFieldIds(section) {
+  /** Required-field IDs a section expects — only fields explicitly marked
+   * required in the schema (a short, curated hard-gate list: consent,
+   * eligibility screening, region, borrower type, age, language,
+   * interview mode), not a blanket rule. A field currently grayed out by
+   * an unmet condition is never required — it doesn't apply right now. */
+  function sectionRequiredIds(section) {
     var ids = [];
     section.questions.forEach(function (q) {
       q.fields.forEach(function (field) {
+        if (!field.required) return;
+        if (field.conditions && !allConditionsMet(field.conditions)) return;
         if (field.type === 'matrix') {
           matrixCellIdList(field).forEach(function (id) { ids.push(id); });
         } else {
@@ -136,16 +141,16 @@
     return ids;
   }
 
-  /** IDs in this section with no non-blank answer yet. */
+  /** IDs among a section's required fields with no non-blank answer yet. */
   function validateSection(idx) {
     var section = state.schema.sections[idx];
-    return sectionFieldIds(section).filter(function (id) {
+    return sectionRequiredIds(section).filter(function (id) {
       return !state.answers[id] || !String(state.answers[id]).trim();
     });
   }
 
   /** Scans every section in document order; returns the first one with
-   * unanswered fields, or null if the whole response is complete. */
+   * unanswered required fields, or null if the whole response is complete. */
   function validateAll() {
     for (var i = 0; i < state.schema.sections.length; i++) {
       var missing = validateSection(i);
@@ -175,10 +180,23 @@
     }
   }
 
-  var AUTO_NA = 'N/A (auto \u2014 not applicable based on your answer above)';
+  var AUTO_NA = 'N/A (not applicable based on a prior answer)';
 
-  function conditionMet(cond) {
-    return (state.answers[cond.field] || '') === cond.equals;
+  /** A field's `conditions` is a list of AND-combined clauses, each either
+   * {field, in: [...]} (referenced field's answer must be one of these) or
+   * {field, notEmpty:true} / {field, empty:true} (presence-based — used
+   * for "exact amount given, so the fallback range question doesn't
+   * apply" style mutual exclusivity). */
+  function oneConditionMet(cond) {
+    var val = state.answers[cond.field];
+    var has = val !== undefined && val !== null && String(val).trim() !== '' && val !== AUTO_NA;
+    if (cond.notEmpty) return has;
+    if (cond.empty) return !has;
+    if (cond.in) return has && cond.in.indexOf(val) !== -1;
+    return true;
+  }
+  function allConditionsMet(conditions) {
+    return (conditions || []).every(oneConditionMet);
   }
 
   function setFieldEnabled(wrap, enabled) {
@@ -192,18 +210,17 @@
     wrap.querySelectorAll('select').forEach(function (el) { el.value = ''; });
   }
 
-  /** Wires up "Ask only if..." conditional fields for the currently
-   * rendered section: when the referenced field's answer doesn't match
-   * the condition, the dependent field is automatically grayed out,
+  /** Wires up every conditional field in the currently rendered section:
+   * when its condition(s) aren't met, it's automatically grayed out,
    * disabled, and filled with N/A — no manual click needed. If the
-   * dependency's answer later changes so the condition is met, the field
-   * re-enables and clears back to blank so it can be genuinely answered.
-   * Runs once immediately (covers drafts/back-navigation) and again on
-   * every change/input inside the section. */
+   * dependency's answer later changes so the condition becomes met, the
+   * field re-enables and clears back to blank so it can be genuinely
+   * answered. Runs once immediately (covers drafts/back-navigation) and
+   * again on every change/input inside the section. */
   function wireConditions(section) {
     var conditionalFields = [];
     section.questions.forEach(function (q) {
-      q.fields.forEach(function (f) { if (f.condition) conditionalFields.push(f); });
+      q.fields.forEach(function (f) { if (f.conditions && f.conditions.length) conditionalFields.push(f); });
     });
     if (!conditionalFields.length) return;
 
@@ -215,7 +232,7 @@
           : '[data-field-id="' + cssEscape(f.field_id) + '"]';
         var wrap = document.querySelector(selector);
         if (!wrap) return;
-        var met = conditionMet(f.condition);
+        var met = allConditionsMet(f.conditions);
         var currentlyGrayed = wrap.classList.contains('field-grayed');
         var cellIds = isMatrix ? matrixCellIdList(f) : [f.field_id];
 
@@ -419,6 +436,135 @@
     });
   }
 
+  // ---------------------------------------------------------------
+  // Auto-derived fields: Age Group from Age, Island Group from Region.
+  // The enumerator answers the source field once; the derived field is
+  // computed and locked, so the two can never contradict each other.
+  // ---------------------------------------------------------------
+  var REGION_TO_ISLAND = {
+    'National Capital Region (NCR)': 'Luzon',
+    'Cordillera Administrative Region (CAR)': 'Luzon',
+    'Region I \u2013 Ilocos Region': 'Luzon',
+    'Region II \u2013 Cagayan Valley': 'Luzon',
+    'Region III \u2013 Central Luzon': 'Luzon',
+    'Region IV-A \u2013 CALABARZON': 'Luzon',
+    'MIMAROPA Region': 'Luzon',
+    'Region V \u2013 Bicol Region': 'Luzon',
+    'Region VI \u2013 Western Visayas': 'Visayas',
+    'Region VII \u2013 Central Visayas': 'Visayas',
+    'Region VIII \u2013 Eastern Visayas': 'Visayas',
+    'Negros Island Region (NIR)': 'Visayas',
+    'Region IX \u2013 Zamboanga Peninsula': 'Mindanao',
+    'Region X \u2013 Northern Mindanao': 'Mindanao',
+    'Region XI \u2013 Davao Region': 'Mindanao',
+    'Region XII \u2013 SOCCSKSARGEN': 'Mindanao',
+    'Region XIII \u2013 Caraga': 'Mindanao',
+    'Bangsamoro Autonomous Region in Muslim Mindanao (BARMM)': 'Mindanao'
+  };
+
+  function ageToGroup(age) {
+    var n = parseInt(age, 10);
+    if (isNaN(n)) return '';
+    if (n < 18) return '';
+    if (n <= 35) return '18\u201335';
+    if (n <= 50) return '36\u201350';
+    if (n <= 65) return '51\u201365';
+    return '66 and above';
+  }
+
+  function lockDerivedChoice(wrap, value) {
+    if (!wrap || !value) return;
+    var fieldId = wrap.getAttribute('data-field-id');
+    var radios = wrap.querySelectorAll('input[type=radio]');
+    var matched = false;
+    radios.forEach(function (r) {
+      var lbl = document.querySelector('label[for="' + r.id + '"]');
+      var isMatch = lbl && lbl.textContent.trim() === value;
+      r.checked = !!isMatch;
+      r.disabled = true;
+      if (isMatch) matched = true;
+    });
+    if (matched) {
+      state.answers[fieldId] = value;
+      saveDraft();
+    }
+    if (!wrap.querySelector('.auto-derived-note')) {
+      var note = el('div', 'auto-derived-note', 'Auto-filled from your answer above.');
+      wrap.appendChild(note);
+    }
+  }
+
+  function applyAutoDerivations() {
+    var ageWrap = document.querySelector('[data-field-id="B2_1"]');
+    var ageGroupWrap = document.querySelector('[data-field-id="B2_2"]');
+    if (ageWrap && ageGroupWrap) {
+      var ageInput = ageWrap.querySelector('input');
+      function syncAgeGroup() {
+        var group = ageToGroup(state.answers['B2_1']);
+        if (group) lockDerivedChoice(ageGroupWrap, group);
+      }
+      if (ageInput) ageInput.addEventListener('input', syncAgeGroup);
+      syncAgeGroup();
+    }
+
+    var regionWrap2 = document.querySelector('[data-field-id="A1_1"]');
+    var islandWrap = document.querySelector('[data-field-id="A1_5"]');
+    if (regionWrap2 && islandWrap) {
+      var regionSelectEl = regionWrap2.querySelector('select.input-select');
+      function syncIsland() {
+        var island = REGION_TO_ISLAND[state.answers['A1_1']];
+        if (island) lockDerivedChoice(islandWrap, island);
+      }
+      if (regionSelectEl) regionSelectEl.addEventListener('change', syncIsland);
+      syncIsland();
+    }
+  }
+
+  // ---------------------------------------------------------------
+  // Auto-captured interview timestamps: recorded by the app itself the
+  // moment they happen, rather than typed by the enumerator, so they
+  // can't be mistyped or left blank. Interview date + start time are
+  // captured the first time Section QUESTIONNAIR is reached; end time is
+  // captured on reaching the final (Closing Statement) section.
+  // ---------------------------------------------------------------
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function nowDateStr() {
+    var d = new Date();
+    return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+  }
+  function nowTimeStr() {
+    var d = new Date();
+    return pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+  }
+
+  function captureAutoTimestamp(idx) {
+    var section = state.schema.sections[idx];
+    var isLast = idx === state.schema.sections.length - 1;
+    var hasDate = section.questions.some(function (q) { return q.fields.some(function (f) { return f.field_id === 'QUESTIONNAIR_intro_7'; }); });
+    if (hasDate) {
+      if (!state.answers['QUESTIONNAIR_intro_7']) setAnswer('QUESTIONNAIR_intro_7', nowDateStr());
+      if (!state.answers['QUESTIONNAIR_intro_8']) setAnswer('QUESTIONNAIR_intro_8', nowTimeStr());
+    }
+    if (isLast) {
+      if (!state.answers['CLOSING_STAT_intro_1']) setAnswer('CLOSING_STAT_intro_1', nowTimeStr());
+      if (!state.answers['QUESTIONNAIR_intro_9']) setAnswer('QUESTIONNAIR_intro_9', state.answers['CLOSING_STAT_intro_1'] || nowTimeStr());
+    }
+    // Reflect captured values in any visible (read-only) display for these
+    // fields once rendered.
+    ['QUESTIONNAIR_intro_7', 'QUESTIONNAIR_intro_8', 'QUESTIONNAIR_intro_9', 'CLOSING_STAT_intro_1'].forEach(function (fid) {
+      var wrap = document.querySelector('[data-field-id="' + fid + '"]');
+      if (!wrap) return;
+      var input = wrap.querySelector('input, textarea');
+      if (input && state.answers[fid]) {
+        input.value = state.answers[fid];
+        input.disabled = true;
+      }
+      if (!wrap.querySelector('.auto-derived-note')) {
+        wrap.appendChild(el('div', 'auto-derived-note', 'Recorded automatically by the app.'));
+      }
+    });
+  }
+
   function setStatus(msg, ok) {
     statusBar.textContent = msg;
     statusBar.className = 'show' + (ok === true ? ' ok' : ok === 'error' ? ' err' : '');
@@ -554,18 +700,21 @@
     }
   }
 
+  var ITEM_CODE_RE = /^[A-Za-z]{1,3}\d+[a-z]?$/;
+
   function renderSection(idx) {
     state.sectionIndex = idx;
     var section = state.schema.sections[idx];
     app.innerHTML = '';
-    app.appendChild(el('div', 'section-title', 'Section ' + section.section_id + ' \u2014 ' + section.title));
+    app.appendChild(el('div', 'section-title', section.title));
     app.appendChild(el('div', 'required-banner',
-      'All questions in this survey are required. If a question genuinely doesn\u2019t apply to this respondent, choose the "N/A \u2014 Not applicable" option (or type N/A) rather than leaving it blank.'));
+      'Fields marked * must be completed. Everything else may be left blank if the respondent declines to answer \u2014 use "Prefer not to answer" or "Don\u2019t know" where offered, rather than a generic N/A.'));
 
     section.questions.forEach(function (q, qi) {
       var qbox = el('div', 'question');
       qbox.style.animationDelay = Math.min(qi * 40, 280) + 'ms';
-      qbox.appendChild(el('h3', null, q.heading));
+      var headingText = ITEM_CODE_RE.test(q.qid) ? (q.qid + '. ' + q.heading) : q.heading;
+      qbox.appendChild(el('h3', null, headingText));
       if (q.instructions) qbox.appendChild(el('div', 'instructions', q.instructions));
       q.fields.forEach(function (field) { qbox.appendChild(buildField(field)); });
       app.appendChild(qbox);
@@ -573,6 +722,8 @@
 
     wireConditions(section);
     enhanceLocationCascade();
+    applyAutoDerivations();
+    captureAutoTimestamp(idx);
 
     progressEl.textContent = 'Instrument ' + state.instrument + ' \u2014 Section ' + (idx + 1) + ' of ' +
       state.schema.sections.length + ': ' + section.title;
@@ -604,7 +755,7 @@
   function buildTextField(field) {
     var wrap = el('div', 'field');
     wrap.setAttribute('data-field-id', field.field_id);
-    wrap.appendChild(el('label', 'field-label', field.label));
+    wrap.appendChild(buildFieldLabel(field));
     var long = field.label.length > 70 || /^(why|reason|brief)/i.test(field.label);
     var input = document.createElement(long ? 'textarea' : 'input');
     if (!long) input.type = 'text';
@@ -626,7 +777,7 @@
   function buildPickerField(field, kind) {
     var wrap = el('div', 'field');
     wrap.setAttribute('data-field-id', field.field_id);
-    wrap.appendChild(el('label', 'field-label', field.label));
+    wrap.appendChild(buildFieldLabel(field));
 
     var row = el('div', 'datetime-row');
     var input = document.createElement('input');
@@ -636,31 +787,16 @@
       input.step = 'any';
       input.min = '0';
       input.inputMode = 'decimal';
-      input.placeholder = field.hint || '0';
+      // No "0" placeholder — a grey "0" reads as if a real zero were
+      // already entered, which invited the exact confusion reviewers
+      // flagged (leaving the field untouched looked answered). A neutral
+      // instruction avoids that; the hint (if any) still shows the unit.
+      input.placeholder = field.hint ? field.hint : 'Enter a number';
     }
     var saved = state.answers[field.field_id] || '';
-    var isNA = saved === 'N/A';
-    if (saved && !isNA) input.value = saved;
-    input.disabled = isNA;
+    if (saved) input.value = saved;
     input.addEventListener('input', function () { setAnswer(field.field_id, input.value); });
     row.appendChild(input);
-
-    var naLabelWrap = el('label', 'na-checkbox');
-    var naCheck = document.createElement('input');
-    naCheck.type = 'checkbox';
-    naCheck.checked = isNA;
-    naCheck.addEventListener('change', function () {
-      input.disabled = naCheck.checked;
-      if (naCheck.checked) {
-        input.value = '';
-        setAnswer(field.field_id, 'N/A');
-      } else {
-        setAnswer(field.field_id, input.value);
-      }
-    });
-    naLabelWrap.appendChild(naCheck);
-    naLabelWrap.appendChild(document.createTextNode(' N/A'));
-    row.appendChild(naLabelWrap);
 
     wrap.appendChild(row);
     return wrap;
@@ -669,9 +805,9 @@
   function buildChoiceField(field) {
     var wrap = el('div', 'field');
     wrap.setAttribute('data-field-id', field.field_id);
-    wrap.appendChild(el('label', 'field-label', field.label));
+    wrap.appendChild(buildFieldLabel(field));
     var isMulti = field.type === 'multi_choice';
-    var options = withNA(field.options);
+    var options = field.options;
     var group = el('div', 'choice-group');
     var refs = [];
     var savedVal = state.answers[field.field_id] || '';
@@ -726,9 +862,9 @@
   function buildSelectField(field) {
     var wrap = el('div', 'field');
     wrap.setAttribute('data-field-id', field.field_id);
-    wrap.appendChild(el('label', 'field-label', field.label));
+    wrap.appendChild(buildFieldLabel(field));
 
-    var options = withNA(field.options);
+    var options = field.options;
     var savedVal = state.answers[field.field_id] || '';
     var savedDisp = null;
 
@@ -826,7 +962,7 @@
   function buildScaleField(field) {
     var wrap = el('div', 'field');
     wrap.setAttribute('data-field-id', field.field_id);
-    wrap.appendChild(el('label', 'field-label', field.label));
+    wrap.appendChild(buildFieldLabel(field));
     var row = el('div', 'scale-row');
     var saved = state.answers[field.field_id] || '';
     var values = ['1', '2', '3', '4', '5', 'N/A'];
@@ -857,7 +993,7 @@
     var cellIds = matrixCellIdList(field);
     wrap.setAttribute('data-matrix-field', field.field_id);
     wrap.setAttribute('data-cell-ids', JSON.stringify(cellIds));
-    wrap.appendChild(el('label', 'field-label bold', field.label));
+    wrap.appendChild(buildFieldLabel(field, 'bold'));
 
     var numeric = isNumericMatrix(field.columns);
     var table = document.createElement('table');
@@ -865,6 +1001,8 @@
 
     if (numeric) {
       var valueCols = field.columns.slice(1);
+      var isPercent = valueCols.some(function (c) { return c.indexOf('%') !== -1; })
+        && field.rows.length && field.rows[field.rows.length - 1].toLowerCase() === 'total';
       var thead = document.createElement('tr');
       thead.appendChild(document.createElement('th'));
       valueCols.forEach(function (c) {
@@ -872,7 +1010,34 @@
       });
       table.appendChild(thead);
 
-      field.rows.forEach(function (rowLabel) {
+      // For a percent-of-total matrix, the "Total" row is computed live
+      // from the other rows (and capped/flagged at 100%) instead of being
+      // yet another manual entry that can silently disagree with the sum
+      // of what was actually typed above it.
+      var dataRows = isPercent ? field.rows.slice(0, -1) : field.rows;
+      var totalRowSlug = isPercent ? slug(field.rows[field.rows.length - 1]) : null;
+      var totalInputsByCol = {};
+
+      function recomputeTotals() {
+        valueCols.forEach(function (c) {
+          var sum = 0;
+          dataRows.forEach(function (rowLabel) {
+            var cellId = field.field_id + '__' + slug(rowLabel) + '__' + slug(c);
+            var v = parseFloat(state.answers[cellId]);
+            if (!isNaN(v)) sum += v;
+          });
+          var totalCellId = field.field_id + '__' + totalRowSlug + '__' + slug(c);
+          var display = String(sum);
+          setAnswer(totalCellId, display);
+          var totalInput = totalInputsByCol[c];
+          if (totalInput) {
+            totalInput.value = display;
+            totalInput.parentElement.classList.toggle('matrix-total-over', sum > 100);
+          }
+        });
+      }
+
+      dataRows.forEach(function (rowLabel) {
         var tr = document.createElement('tr');
         var td0 = document.createElement('td'); td0.textContent = rowLabel; tr.appendChild(td0);
         var rslug = slug(rowLabel);
@@ -883,15 +1048,37 @@
           input.type = 'text';
           input.className = 'input-text';
           input.placeholder = 'N/A if none';
+          if (isPercent) { input.inputMode = 'decimal'; input.placeholder = '0'; }
           input.value = state.answers[cellId] || '';
-          input.addEventListener('input', function () { setAnswer(cellId, input.value); });
+          input.addEventListener('input', function () {
+            setAnswer(cellId, input.value);
+            if (isPercent) recomputeTotals();
+          });
           td.appendChild(input);
           tr.appendChild(td);
         });
         table.appendChild(tr);
       });
+
+      if (isPercent) {
+        var totalRow = document.createElement('tr');
+        totalRow.className = 'matrix-total-row';
+        var totalLabelTd = document.createElement('td'); totalLabelTd.textContent = 'Total'; totalRow.appendChild(totalLabelTd);
+        valueCols.forEach(function (c) {
+          var td = document.createElement('td');
+          var input = document.createElement('input');
+          input.type = 'text';
+          input.className = 'input-text';
+          input.disabled = true;
+          totalInputsByCol[c] = input;
+          td.appendChild(input);
+          totalRow.appendChild(td);
+        });
+        table.appendChild(totalRow);
+        recomputeTotals();
+      }
     } else {
-      var choices = withNA(field.columns.slice(1));
+      var choices = field.columns.slice(1);
       field.rows.forEach(function (rowLabel) {
         var tr = document.createElement('tr');
         var td0 = document.createElement('td'); td0.textContent = rowLabel; tr.appendChild(td0);

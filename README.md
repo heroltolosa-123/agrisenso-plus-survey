@@ -4,8 +4,8 @@ A real, shareable website (not a `script.google.com` link) for the
 DRVN/ACPC AGRISENSO Plus Baseline Study questionnaires, backed by Google
 Sheets as the database.
 
-- **Instrument A** — AGRISENSO Plus Borrowers (122 questions / 274 data columns)
-- **Instrument B** — Non-Borrower Comparison Group (103 questions / 203 data columns)
+- **Instrument A** — AGRISENSO Plus Borrowers (122 questions / 267 data columns)
+- **Instrument B** — Non-Borrower Comparison Group (103 questions / 200 data columns)
 
 **Architecture:**
 - `docs/` — a plain static website (HTML/CSS/JS, no build step) that renders
@@ -166,80 +166,146 @@ real response start at `-00002` instead of `-00001`.
 
 ---
 
-## 7. Required fields — no more blank submissions
+## 7. Required fields — a curated list, not a blanket rule
 
-Every question in the form is now mandatory. **Next** and **Submit** both
-check that every question on the relevant page(s) has an answer, and will
-not proceed otherwise — the unanswered question(s) get a red outline and a
-message tells you how many are still missing. **Submit** re-checks the
-*entire* questionnaire (not just the last page) and jumps back to the
-first incomplete section if anything was missed earlier.
+**This reverses the original design after ACPC/DRVN reviewer feedback.**
+The first version made every question required and auto-added an "N/A"
+option everywhere — reviewers correctly flagged this as both wrong
+(informed consent means a respondent can decline any question, so nothing
+should force an answer) and actively broken (a field already answered
+"Yes" would still show a red "needs an answer" error on its own follow-up
+box, because the box was *also* marked required regardless of context).
 
-For questions that genuinely don't apply to a given respondent (skip
-logic, e.g. "Ask only if Individual Borrower"), every choice-type question
-automatically gets an **"N/A — Not applicable"** option, and text
-questions accept a typed `N/A` — so "required" never forces an enumerator
-to invent an answer, it only prevents *accidental* blanks. This is what
-was happening in your pilot test for Instrument B: the submission went
-through with everything empty except the timestamp, precisely because
-nothing enforced completion before.
+**Now:** only a short, curated set of ~26 structural/eligibility "hard
+gate" fields are required — consent, eligibility screening, region,
+borrower type, age, language, interview mode. These are marked with a red
+`*` next to the label. Every other question can be left blank if the
+respondent declines to answer; where the source questionnaire already
+offers a specific decline option ("Prefer not to answer," "Don't know,"
+"Unable to estimate"), that's what shows — not a generic N/A. **Next**
+and **Submit** only check the required fields on the relevant page(s);
+**Submit** re-checks all of them across the whole response and jumps back
+to the first incomplete one if something was missed.
 
 See `guide/AGRISENSO_Plus_Survey_Enumerator_Guide.docx` for the
-enumerator-facing explanation of how this works — share that file (or a
-printed copy) with your field team before their first interview.
+enumerator-facing explanation — note that guide was written for the
+*previous* everything-required design and should be re-issued to match
+this section before your next fieldwork briefing.
 
 ---
 
-## 7a. Fixed: front-matter text no longer shows as a fillable question
+## 7a. Fixed: front-matter and routing-instruction text no longer shows as a fillable question
 
-An earlier version had a parsing bug where purely instructional text (the
-"Target Respondents / Operational Definition / Instructions to Enumerator"
-block at the very start of each instrument, some "Enumerator Note:" asides,
-and a stray HTML artifact) was being turned into a giant *required* text
-box with nothing meaningful to type into it. That's fixed: `tools/parse_questionnaire.py`
-now recognizes purely instructional paragraphs (by known prefixes like
-"Enumerator Note:", or by length) and renders them as read-only guidance
-text instead of a field — so nothing forces an enumerator to fill in a
-paragraph that was never meant to be answered. Two related fields (the
-enumerator-name line under Consent Confirmation, and the borrowing
-organization's name under A4) were also split so the real fillable part
-has a short, sensible label instead of being buried in a paragraph.
+Across several rounds of review, reviewers kept finding the same root
+cause in different places: text that is clearly *instructions for the
+enumerator* (front matter, "If No → do not proceed with substantive
+questions," "ADMINISTER ONLY IF A6 = FULLY OR PARTIALLY RELEASED," the
+closing "thank you" script) was being parsed as if it were a fillable
+question. `tools/parse_questionnaire.py` now recognizes this pattern
+specifically — including the case where a real short question ("Is the
+respondent at least 18 years old?", "End Time") had gotten glued onto the
+end of a routing instruction or narration paragraph — and separates the
+two: the instruction becomes read-only guidance text, the real question
+(if any) keeps its own short, sensible label. A consecutive-sub-heading
+bug that was silently dropping questions entirely (this is why "C21a.
+Which shock had the greatest effect?" was missing from the first version)
+is also fixed.
 
 If you regenerate the schema from a revised questionnaire later (Section 8),
-this fix carries forward automatically — no per-question manual work needed.
+these fixes carry forward automatically — no per-question manual work needed.
 
 ---
 
-## 7b. Dates, times, and numeric fields
+## 7b. Item numbers and clean section titles
 
-Several fields were converted from free text to structured inputs, so
-enumerators never have to guess a format or type an answer that already
-has a fixed set of valid values:
+Internal codes like "Section SURVEY_INSTR" no longer appear on screen —
+section headers show the clean title only. Question headings now show
+the questionnaire's own item number where the source document has one
+(e.g. "A5. AGRISENSO Plus Loan Agreement Verification," "C21a. Which
+shock had the greatest effect?"), so enumerators and reviewers can
+cross-reference against the printed instrument.
 
-- **Dates** (Date of Version, Date of Interview, Consent Confirmation
-  date) use the browser's native date picker (`mm/dd/yyyy`) instead of a
-  free-text box — no more "8/4/26" vs "04-08-2026" ambiguity.
-- **Times** (Interview Start/End Time, Closing Statement End Time) use a
-  native time picker the same way, and **loan application/agreement/
-  release dates** use a month picker (`mm/yyyy`).
+---
+
+## 7c. Automatic gray-out — expanded beyond the Individual/Organizational branch
+
+The original conditional-logic engine only handled the "Ask only if A2 =
+Individual/Organizational" branch. It's now generalized to catch the
+questionnaire's own "If Yes, ..." / "If No, ..." / "If unclear, ..."
+wording anywhere it appears, tied to whichever choice question
+immediately precedes it — 20+ additional conditional fields per
+instrument now gray out and auto-fill N/A the same way, including cases
+that need **two** conditions at once (e.g. the phone-type follow-up only
+applies to Individual respondents *and* only once Mobile Access = Yes).
+
+**New: mutual exclusivity for "exact amount vs. can't provide it" pairs.**
+Several questions (household income, production/operating cost, gross
+sales, net income, financing gap, application-related costs) ask for a
+precise PHP figure, then separately offer a fallback reason and sometimes
+a bracket/tier question. These now gray each other out automatically:
+type an exact number and the fallback question disables itself; pick a
+fallback reason instead and the numeric field disables itself. This is
+exactly the "already answered 'prefer not to answer' but the box still
+demanded a number" contradiction reviewers found in the first version.
+
+**New: percentage matrices auto-sum.** The Output Disposition table (and
+the loan-use-of-proceeds table) compute their "Total" row live from
+what's typed in the rows above it — it's no longer a manually-typed cell
+that could disagree with the real total — and the total turns red if it
+exceeds 100%.
+
+**New: Age Group and Island Group are auto-derived**, not asked twice.
+Enter Age once and Age Group locks to the matching bracket automatically;
+pick a Region and Island Group locks to Luzon/Visayas/Mindanao
+automatically. Both still show as read-only-but-visible fields (not
+hidden) so the enumerator can see what was inferred.
+
+**New: several fields converted from single-select to multi-select**
+where more than one answer legitimately applies: Major Shocks,
+Difficulties During Application, Insurance type/provider, Record-Keeping
+methods, Value-Chain Participation stages, Risk-Management Practices,
+Training type/provider, Extension/technical-support provider, Stated
+Purpose of Loan.
+
+**New: numeric fields no longer default to a misleading "0."** A grey "0"
+placeholder looked like an answer was already there, which is exactly
+why one reviewer's test showed a household-dependents field that looked
+"already answered" — it now shows a neutral "Enter a number" prompt (or
+the field's unit hint) instead.
+
+**New: interview timestamps are auto-captured**, not manually typed.
+Date of Interview and Interview Start Time are recorded automatically the
+moment Section 2 (Questionnaire Administration) is opened; Interview End
+Time is recorded automatically on reaching the Closing Statement section.
+Both show as a grayed, disabled field with "Recorded automatically by the
+app" so the enumerator can still see (but not accidentally mistype) them.
+
+---
+
+## 7d. Dates, times, numeric fields, and unit consistency
+
+- **Dates** use the browser's native date picker (`mm/dd/yyyy`); **times**
+  use a native time picker; **loan application/agreement/release dates**
+  use a month picker (`mm/yyyy`) — no more "8/4/26" vs "04-08-2026"
+  ambiguity, and no separate N/A affordance needed since almost none of
+  these are in the required set (the few that are — see 7 above — must
+  have a real answer, same as any other required field).
 - **Numeric fields** — ages, PHP amounts, percentages, hectares, counts of
   people/documents/visits (35 fields across both instruments) — use a
   native numeric input with a numeric mobile keypad, rejecting
-  non-numeric keystrokes.
-- All of the above have their own **N/A checkbox** right next to the
-  picker (since none of these input types can literally hold the text
-  "N/A") — checking it disables the picker and records N/A, satisfying
-  the required-field rule for genuinely inapplicable cases.
-- **Questionnaire Version** shows an example placeholder ("e.g. v1.0").
+  non-numeric keystrokes, and show the expected unit as a placeholder
+  instead of leaving the format open to interpretation.
+- **Questionnaire Version** and other free-text admin fields show an
+  example placeholder ("e.g. v1.0") so the expected format is clear.
 
 Any single-choice question with more than 6 options (Borrower Segment,
 livelihood type, educational attainment, etc. — about 35 questions per
-instrument) already renders as a dropdown rather than a long list of
-radio buttons, per the earlier UI update.
+instrument) renders as a dropdown rather than a long list of radio
+buttons.
 
 ---
 
-## 7c. Region, Province, City/Municipality, Barangay — cascading dropdowns
+## 7e. Region, Province, City/Municipality, Barangay — cascading dropdowns
 
 **Region** is a dropdown of the Philippines' 18 official regions —
 including Negros Island Region, re-established in 2024 (confirmed against
@@ -280,39 +346,12 @@ dropdowns after picking a Region. If they don't, the form still works
 perfectly fine as plain text — you've just lost the convenience, not any
 functionality.
 
----
-
-## 7d. Automatic skip logic — no more remembering to click N/A
-
-Several questions in the source questionnaire are explicitly marked
-"Ask only if A2 = Individual Borrower" (or Organizational/Enterprise) —
-this routing is now enforced automatically instead of being something the
-enumerator has to notice and act on:
-
-- Fields that don't apply to the respondent's Borrower Type are
-  **automatically grayed out, disabled, and filled with N/A** — no manual
-  click needed.
-- Fields that do apply are enabled normally.
-- This updates **live** as soon as the Borrower Type answer changes — for
-  example, before the respondent's type is even chosen, both the
-  Individual and Organizational name fields show grayed until an answer
-  is given; picking one immediately enables the matching field and grays
-  the other.
-- If the enumerator corrects an earlier answer (e.g. Borrower Type gets
-  changed after some fields were already filled), any field that's no
-  longer applicable is cleared back and auto-filled with N/A; a field that
-  newly becomes applicable is cleared to blank so it can be genuinely
-  answered rather than silently keeping a stale value.
-- This also applies to the two "who decides" matrix tables in Sections G/F,
-  which have separate versions for individual vs. organizational
-  respondents.
-
-20 fields (Instrument A) / 18 fields (Instrument B) are covered by this —
-every place in the source questionnaire that had this exact, explicit
-"Ask only if.../For individual.../Individual...only" routing language.
-Less explicit or more ambiguous routing instructions (there's a small
-number) are left as on-screen text for the enumerator to follow manually,
-same as before, rather than risk auto-hiding a question based on a guess.
+**Regions/clusters outside your actual study areas:** reviewers noted the
+dropdown should ideally be limited to only ACPC's actual study
+regions/clusters rather than all 18. I don't have that list — if you send
+it, `tools/enhance_schema.py`'s `PH_REGIONS` list is a one-line change to
+restrict it (or the questionnaire can stay open to all 18 if the sampling
+frame is expected to cover more areas than initially listed).
 
 ---
 
@@ -324,14 +363,55 @@ same as before, rather than risk auto-hiding a question based on a guess.
 2. Run `tools/parse_questionnaire.py` to produce updated
    `tools/questions_A.json` / `questions_B.json`.
 3. Run `tools/enhance_schema.py` to reapply the Region dropdown, date/
-   time/month/numeric field types, hints, and conditional-logic detection
-   on top of the freshly parsed schema.
+   time/month/numeric field types, hints, conditional-logic detection, the
+   required-field list, and the multi-choice/mutual-exclusivity fixes on
+   top of the freshly parsed schema.
 4. Run `tools/generate_gs_schema.py` to regenerate `src/Schema_A.gs` /
    `src/Schema_B.gs`.
 5. Paste the updated `Schema_*.gs` into the Apps Script editor and
    redeploy (Deploy → Manage deployments → New version).
 6. `docs/` needs no changes — it renders whatever schema the backend
    serves.
+
+---
+
+## 8a. Known limitations / explicitly deferred
+
+Raised in review but not implemented in this pass — flagged here rather
+than silently skipped:
+
+- **No cross-section "terminate on No"**: if Consent to Participate or the
+  Loan Agreement Verification comes back No/Unable, the questionnaire
+  doesn't automatically end the interview or skip the remaining sections
+  — the routing note is shown, but the enumerator still needs to
+  recognize it and use "\u2190 Menu" to end the interview manually. Building
+  a real early-termination flow (a short "interview ended" screen, a
+  partial-response submission path) is a bigger feature than a same-pass
+  extension could responsibly cover.
+- **Final Eligibility Determination (A10) is still a manual selection**,
+  not computed from A5/A6/A7/A8's answers, even though reviewers asked
+  for it to be automatic. The decision tree has enough edge cases
+  (verification-required states, replacement-respondent states) that I'd
+  rather build and test it deliberately than guess at the logic.
+- **No dynamic option population** — e.g. "Most Significant Difficulty"
+  (D6) still shows the full difficulty list rather than being filtered to
+  only what was checked in D5; "Principal Commodity/Activity" doesn't
+  pull its options from the enterprise-activities list in C1.
+- **No Loan Agreement/Account Reference Number input** — A9 still only
+  offers the two fallback options ("not collected"/"maintained
+  separately"), matching the reviewer's own suggested resolution (keep
+  identifiable loan-account numbers out of the survey dataset entirely,
+  tracked in a separate protected file instead) rather than adding a
+  field that would need to be treated as sensitive data.
+- **Interview Outcome / Data Verification / Random Phone Back-check**
+  still appear in Section 2 near the top, not moved to the end of the
+  survey as suggested — this is a schema-section-restructuring change
+  I haven't done yet.
+- **LANDBANK lending-center dropdown and enumerator/supervisor-name
+  dropdowns** need an actual list from LANDBANK/your team to populate —
+  they stay free text until you can supply that list.
+- **Region dropdown lists all 18 Philippine regions**, not narrowed to
+  ACPC's actual study areas/clusters — see Section 7e.
 
 ---
 
@@ -342,7 +422,7 @@ simulating an actual browser) before being handed to you, since this
 environment can't reach Google's or GitHub's live servers directly:
 
 - All `.gs` files and `docs/app.js` pass JavaScript syntax checks.
-- **Every one of the 274 (Instrument A) / 203 (Instrument B) field IDs the
+- **Every one of the 267 (Instrument A) / 200 (Instrument B) field IDs the
   static site generates matches exactly, in the same order,** the columns
   the Apps Script backend expects — so no answer lands in the wrong column
   or gets silently dropped.
@@ -357,58 +437,74 @@ environment can't reach Google's or GitHub's live servers directly:
   the response is correctly queued to `localStorage` for later sync.
 - **Sequential `response_no` generation** confirmed correct and gap-free
   across multiple submissions against a mock sheet.
-- **Required-field validation**: confirmed `Next` blocks and highlights a
-  blank field; confirmed `Submit` re-validates every section and jumps to
-  the first incomplete one; confirmed every choice/scale/matrix field
-  automatically gains a working N/A option that satisfies the requirement;
-  confirmed the identical behavior for the `google.script.run` variant used
-  on the direct Apps Script page.
+- **Required-field validation (revised policy)**: confirmed `Next`/`Submit`
+  only block on the curated ~26 required fields, not every field; confirmed
+  a required field with no answer still blocks and highlights correctly;
+  confirmed non-required fields can be left entirely blank without
+  triggering any warning; confirmed no field anywhere auto-gains an N/A
+  option any more (choice fields show exactly their own source options);
+  confirmed the identical behavior for the `google.script.run` variant.
 - **The strongest check**: a jsdom run that completed and submitted the
-  entire real Instrument A questionnaire — all 14 sections, 274 columns —
-  end to end, then confirmed zero blank values among the submitted answers.
+  entire real Instrument A questionnaire — all 14 sections, 267 columns —
+  end to end, then confirmed zero blank values among the submitted answers
+  (a mix of genuine answers and legitimate conditional auto-N/A values).
 - **New dropdown fields**: confirmed the >6-option threshold correctly
-  renders a `<select>` instead of radio buttons, that it still gets an
-  auto-added N/A option, that choosing an "Other: specify" entry shows a
-  companion text box and submits the combined value correctly, and that it
-  participates in required-field validation like any other field.
+  renders a `<select>` instead of radio buttons, that it shows exactly its
+  own options (no auto-added N/A), that choosing an "Other: specify" entry
+  shows a companion text box and submits the combined value correctly.
 - **The front-matter parsing fix**: confirmed the previously-buggy intro
-  section now has zero required fields and renders as plain instructional
-  text, both in the parsed schema and in an actual rendered screenshot.
+  section now has zero fields and renders as plain instructional text,
+  both in the parsed schema and in an actual rendered screenshot.
 - **Date/time pickers and the Region dropdown**: confirmed native
-  `<input type="date">`/`<input type="time">` render correctly with a
-  working N/A checkbox that disables the picker and satisfies the
-  required-field check; confirmed the 18-option Region dropdown renders,
-  submits the exact selected value, and — since it's a single_choice field
-  with more than 6 options — automatically gets the same dropdown/N/A/
-  validation treatment as any other long list. Verified visually with a
-  rendered screenshot showing all 18 regions.
+  `<input type="date">`/`<input type="time">` render correctly; confirmed
+  the 18-option Region dropdown renders, submits the exact selected value,
+  and — since it's a single_choice field with more than 6 options —
+  automatically gets the same dropdown treatment as any other long list.
+  Verified visually with a rendered screenshot showing all 18 regions.
 - **Real rendered screenshots** (Chromium via Playwright, not just jsdom):
-  desktop and mobile views of the chooser screen, a mid-survey section
-  with a live dropdown, the date/time picker fields, and the open Region
-  dropdown showing all 18 options — plus a full 14-section click-through
-  with zero browser console errors.
-- **Two more parser bugs found and fixed during review**: confidence-scale
-  questions with a lead-in phrase other than the literal word "Response"
-  were silently becoming free-text fields instead of 1–5 scales (fixed —
-  confirmed all 8 scale questions per instrument now correctly typed);
-  and a real question immediately followed by a short filler line like
-  "Number: ____ persons" was losing its actual question text and keeping
-  only "Number" as the label (fixed — confirmed against the specific
-  fields this affected).
+  desktop and mobile views of the chooser screen, the front-matter fix
+  showing clean instructional text, the auto-captured timestamp fields,
+  required asterisks appearing only on the curated field list, item
+  numbers (A1, A5, A10, etc.) on question headings, and a full 14-section
+  click-through with zero browser console errors.
+- **Four more parser bugs found and fixed during this review pass**:
+  confidence-scale questions with a lead-in phrase other than the literal
+  word "Response" were silently becoming free-text fields instead of 1–5
+  scales; a real question immediately followed by a short filler line like
+  "Number: ____ persons" was losing its actual question text; consecutive
+  `###` sub-headings were silently discarding the first one's question
+  entirely (this is why "C21a. Which shock had the greatest effect?" was
+  missing); and routing instructions merged with a real trailing question
+  ("If No → do not continue... Is the respondent at least 18 years old?")
+  were leaving the routing clause stuck on the front of the label. All
+  four confirmed fixed against the real questionnaire text.
 - **Numeric fields**: confirmed native numeric input renders for all 35
-  identified fields, rejects non-numeric characters, and has a working
-  N/A checkbox alongside it (numeric inputs can't hold literal "N/A").
-- **Conditional / skip logic**: confirmed fields on both sides of an
-  Individual/Organizational branch start grayed with auto-N/A before the
-  branching question is answered; confirmed the correct side un-grays and
-  the other stays grayed the moment an answer is picked; confirmed
-  flipping the answer back clears the newly-inapplicable field to N/A and
-  resets the newly-applicable one to blank (not a stale leftover value);
-  confirmed this extends correctly to matrix-table fields, which store
-  answers per-cell rather than per-field; confirmed a fully-completed,
-  correctly-branched response submits with the right real answers and the
-  right auto-N/A values in the right places. Verified visually with
-  before/after screenshots showing the gray-out in a real browser.
+  identified fields, rejects non-numeric characters, and no longer shows
+  a misleading "0" placeholder.
+- **Conditional / skip logic (generalized)**: confirmed fields on both
+  sides of an Individual/Organizational branch start grayed with auto-N/A
+  before the branching question is answered; confirmed the correct side
+  un-grays and the other stays grayed the moment an answer is picked;
+  confirmed flipping the answer back clears the newly-inapplicable field
+  and resets the newly-applicable one to blank (not a stale leftover
+  value); confirmed this extends correctly to matrix-table fields;
+  confirmed the general "If Yes/If No" detector correctly attaches
+  conditions to fields the source wording didn't use the Individual/
+  Organizational phrasing for, including a case needing two AND-combined
+  conditions at once (phone type: Individual branch AND Mobile Access =
+  Yes). Verified visually with before/after screenshots.
+- **New: exact-amount vs. fallback mutual exclusivity**: confirmed typing
+  a real PHP figure grays out the fallback reason question, confirmed
+  choosing a fallback reason instead grays out the numeric field, and
+  confirmed both directions correctly toggle back when cleared — tested
+  as a full round-trip, not just one direction.
+- **New: Output Disposition / loan-use auto-sum**: confirmed the Total row
+  computes live from the rows above it, confirmed it's disabled from
+  manual entry, confirmed it correctly flags in red once the sum exceeds
+  100%, and confirmed the computed total is stored under the same field ID
+  the schema's own validation logic expects (a real bug was caught and
+  fixed here during testing — the first draft computed it under a
+  different ID than what would have been validated).
 - **PSGC cascading location dropdowns**: confirmed the full Region→
   Province→City/Municipality→Barangay cascade against a mocked API,
   including the region-name matching logic (which has to tolerate the
