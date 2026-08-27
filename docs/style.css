@@ -449,3 +449,253 @@ button.link { border: none; background: none; color: var(--green-dark); text-dec
   footer.navbar { padding: 12px 14px; }
   button { padding: 11px 14px; font-size: 14px; }
 }
+
+/* =====================================================================
+   Round-6 additions
+   ===================================================================== */
+
+/* Why a question is greyed out. Field testers reported questions that
+   "won't accept answers" — they were correctly skipped, but nothing said
+   so. Every skipped field now names the answer that skipped it. */
+.skip-note {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: #5b6b5f;
+  background: #eef3ee;
+  border-left: 3px solid #9bb4a2;
+  border-radius: 4px;
+  padding: 7px 10px;
+  margin: 6px 0 10px;
+}
+
+/* Recoverable mis-clicks: a radio cannot be un-clicked, so every
+   single-answer control carries an explicit way back to blank. */
+.clear-answer {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 6px 2px;
+  margin-top: 4px;
+  font: inherit;
+  font-size: 0.85rem;
+  color: #2f6b45;
+  text-decoration: underline;
+  cursor: pointer;
+  min-height: 32px;
+}
+.clear-answer:hover { color: #1d4a2e; }
+.field-grayed .clear-answer { display: none; }
+
+.scale-legend {
+  font-size: 0.82rem;
+  color: #6b7a70;
+  margin-bottom: 6px;
+}
+
+.field-unit {
+  font-size: 0.9rem;
+  color: #5b6b5f;
+  white-space: nowrap;
+}
+
+.field-hint {
+  font-size: 0.85rem;
+  color: #6b7a70;
+  margin-top: 6px;
+}
+
+/* Contradictions surfaced as they are typed (cultivated area larger than
+   total area, dependants exceeding household size) rather than at data
+   cleaning. A warning, never a block — a real value must always be
+   recordable. */
+.field-warning {
+  font-size: 0.87rem;
+  line-height: 1.45;
+  color: #8a4b00;
+  background: #fdf3e3;
+  border-left: 3px solid #e0a04a;
+  border-radius: 4px;
+  padding: 7px 10px;
+  margin-top: 8px;
+}
+
+.input-readonly {
+  background: #f2f4f2;
+  color: #4a5a4f;
+  cursor: default;
+}
+
+.dynamic-options .empty-note {
+  font-size: 0.88rem;
+  color: #6b7a70;
+  font-style: italic;
+  padding: 4px 0;
+}
+
+/* Derived answers (Final Eligibility Determination) are shown, never
+   chosen — the enumerator cannot contradict the screening answers. */
+.derived-value {
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #e8f2ea;
+  color: #1d4a2e;
+  border: 1px solid #b9d3c1;
+}
+.derived-value.derived-pending {
+  background: #f2f4f2;
+  color: #6b7a70;
+  font-weight: 400;
+  font-style: italic;
+  border-color: #dbe2dc;
+}
+.derived-value.derived-blocked {
+  background: #fdecec;
+  color: #8f2020;
+  border-color: #e8b4b4;
+}
+
+/* Hard routing gate: the interview must not continue past a failed
+   eligibility or a refused consent. */
+.termination-banner {
+  background: #fdecec;
+  border: 1px solid #e0a3a3;
+  border-left: 5px solid #b83232;
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+.termination-banner h3 {
+  margin: 0 0 8px;
+  color: #8f2020;
+  font-size: 1.05rem;
+}
+.termination-banner p {
+  margin: 0 0 14px;
+  line-height: 1.5;
+  color: #4a2b2b;
+}
+.termination-banner button {
+  min-height: 44px;
+}
+
+/* Section jump: 14 sections is a lot to reach with Previous/Next. */
+.sheet {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 30, 24, 0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 60;
+}
+.sheet[hidden] { display: none; }
+.sheet-panel {
+  background: #fff;
+  width: min(680px, 100%);
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 14px 14px 0 0;
+  padding: 18px 18px 28px;
+}
+.sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.sheet-head h2 { margin: 0; font-size: 1.05rem; }
+.jump-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #e6ebe7;
+  padding: 13px 6px;
+  font: inherit;
+  cursor: pointer;
+  min-height: 48px;
+}
+.jump-row:hover { background: #f4f8f5; }
+.jump-row.current { background: #eaf3ec; }
+.jump-name { font-weight: 600; color: #1d3a28; }
+.jump-meta { font-size: 0.85rem; color: #6b7a70; }
+.jump-meta.has-missing { color: #b83232; }
+
+/* Bigger touch targets throughout — this is used one-handed, outdoors. */
+.choice-row { min-height: 44px; align-items: center; }
+.choice-row input[type=radio],
+.choice-row input[type=checkbox] { width: 22px; height: 22px; }
+.choice-row label { padding: 6px 0; }
+
+@media (max-width: 640px) {
+  .sheet-panel { border-radius: 12px 12px 0 0; }
+  .field-warning, .skip-note { font-size: 0.9rem; }
+}
+
+/* Collapsed skipped questions.
+   Routing that hides nothing does not shorten the interview: a trader
+   was still scrolling past ~1,500px of greyed-out farm-area, irrigation
+   and yield questions to reach the ones that applied. A skipped field
+   keeps its heading and its reason (so the enumerator can still see the
+   question exists and why it was skipped, and reviewers can audit the
+   routing) but drops the disabled controls entirely. */
+.field-grayed .choice-group,
+.field-grayed .select-wrap,
+.field-grayed .dynamic-options,
+.field-grayed .scale-row,
+.field-grayed .scale-legend,
+.field-grayed .datetime-row,
+.field-grayed .field-warning,
+.field-grayed > input.input-text,
+.field-grayed > textarea.input-text,
+.field-grayed > .specify-input,
+.field-grayed table.matrix {
+  display: none;
+}
+.field-grayed {
+  padding: 4px 0;
+  margin-bottom: 6px;
+  opacity: 1;             /* the note carries the state; no double-dimming */
+}
+.field-grayed > .field-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #7a8a80;
+  margin-bottom: 2px;
+}
+.field-grayed .skip-note {
+  margin: 2px 0 0;
+  padding: 5px 9px;
+  font-size: 0.8rem;
+}
+
+/* A question whose every field is skipped collapses to one line: its
+   heading, and a single shared reason. The individual field labels and
+   notes are redundant once the whole group is out of scope. */
+.question-skipped {
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  background: #f4f6f4;
+  border: 1px dashed #cfd9d2;
+  box-shadow: none;
+}
+.question-skipped h3 {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #7a8a80;
+  margin: 0;
+}
+.question-skipped .instructions,
+.question-skipped .field,
+.question-skipped .skip-note {
+  display: none;
+}
+.question-skip-summary {
+  font-size: 0.82rem;
+  color: #7a8a80;
+  margin-top: 3px;
+}

@@ -28,37 +28,54 @@ var QUESTIONS_B = {
               "field_id": "QUESTIONNAIR_intro_1",
               "label": "Questionnaire Version",
               "type": "text",
-              "required": false
+              "required": false,
+              "autoValue": "Version 1.0",
+              "readOnly": true,
+              "note": "Set by the application — not typed for each interview."
             },
             {
               "field_id": "QUESTIONNAIR_intro_2",
               "label": "Date of Version",
               "type": "date",
-              "required": false
+              "required": false,
+              "autoValue": "2026-08-27",
+              "readOnly": true,
+              "note": "Set by the application — not typed for each interview."
             },
             {
               "field_id": "QUESTIONNAIR_intro_3",
               "label": "Questionnaire Control Number",
               "type": "text",
-              "required": false
+              "required": false,
+              "autoValue": "generated",
+              "generator": "controlNumber",
+              "readOnly": true,
+              "note": "Generated automatically for this interview (instrument, date, device and sequence)."
             },
             {
               "field_id": "QUESTIONNAIR_intro_4",
               "label": "Comparison-Group Sampling Frame ID",
               "type": "text",
-              "required": false
+              "required": false,
+              "hint": "Sampling-frame ID exactly as printed on the approved list",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{2,}$",
+              "patternMessage": "Enter the ID as printed on the approved sampling frame (letters/numbers, at least 3 characters). If it cannot be verified, leave it blank and flag the case for the supervisor."
             },
             {
               "field_id": "QUESTIONNAIR_intro_5",
               "label": "Enumerator Name / ID",
               "type": "text",
-              "required": false
+              "required": false,
+              "suggestFrom": "enumerators",
+              "hint": "Start typing, then pick your name from the list"
             },
             {
               "field_id": "QUESTIONNAIR_intro_6",
               "label": "Supervisor Name / ID",
               "type": "text",
-              "required": false
+              "required": false,
+              "suggestFrom": "supervisors",
+              "hint": "Start typing, then pick your name from the list"
             },
             {
               "field_id": "QUESTIONNAIR_intro_7",
@@ -101,54 +118,6 @@ var QUESTIONS_B = {
               ],
               "allow_other": true,
               "required": true
-            },
-            {
-              "field_id": "QUESTIONNAIR_intro_12",
-              "label": "Interview Outcome:",
-              "type": "single_choice",
-              "options": [
-                "Completed",
-                "Partially completed",
-                "Respondent refused",
-                "Respondent unavailable",
-                "Respondent ineligible",
-                "Other: ____________________"
-              ],
-              "allow_other": true,
-              "required": false
-            },
-            {
-              "field_id": "QUESTIONNAIR_intro_13",
-              "label": "Supervisor Verification:",
-              "type": "single_choice",
-              "options": [
-                "Completed",
-                "Pending"
-              ],
-              "allow_other": false,
-              "required": false
-            },
-            {
-              "field_id": "QUESTIONNAIR_intro_14",
-              "label": "Data Verification Status:",
-              "type": "single_choice",
-              "options": [
-                "Verified",
-                "Pending verification"
-              ],
-              "allow_other": false,
-              "required": false
-            },
-            {
-              "field_id": "QUESTIONNAIR_intro_15",
-              "label": "Random Phone Back-check:",
-              "type": "single_choice",
-              "options": [
-                "Completed",
-                "Not selected"
-              ],
-              "allow_other": false,
-              "required": false
             }
           ]
         }
@@ -505,7 +474,7 @@ var QUESTIONS_B = {
                   ]
                 }
               ],
-              "required": false
+              "required": true
             },
             {
               "field_id": "A9_2",
@@ -516,7 +485,7 @@ var QUESTIONS_B = {
                 "No"
               ],
               "allow_other": false,
-              "required": false,
+              "required": true,
               "conditions": [
                 {
                   "field": "A2_1",
@@ -546,7 +515,153 @@ var QUESTIONS_B = {
                 "Replacement comparison respondent required"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "derived": true,
+              "deriveRules": [
+                {
+                  "when": [
+                    {
+                      "field": "A5_1",
+                      "in": [
+                        "Yes"
+                      ]
+                    }
+                  ],
+                  "value": "Current AGRISENSO Plus borrower – Ineligible"
+                },
+                {
+                  "when": [
+                    {
+                      "field": "A5_1",
+                      "in": [
+                        "Unable to verify"
+                      ]
+                    }
+                  ],
+                  "value": "Requires supervisor verification"
+                },
+                {
+                  "when": [
+                    {
+                      "field": "A6_1",
+                      "in": [
+                        "Yes"
+                      ]
+                    }
+                  ],
+                  "value": "Previous AGRISENSO Plus borrower – Ineligible"
+                },
+                {
+                  "when": [
+                    {
+                      "field": "A6_1",
+                      "in": [
+                        "Do not know / Unable to verify"
+                      ]
+                    }
+                  ],
+                  "value": "Requires supervisor verification"
+                },
+                {
+                  "when": [
+                    {
+                      "field": "A8_1",
+                      "in": [
+                        "No"
+                      ]
+                    }
+                  ],
+                  "value": "Replacement comparison respondent required"
+                },
+                {
+                  "when": [
+                    {
+                      "field": "A8_2",
+                      "in": [
+                        "No"
+                      ]
+                    }
+                  ],
+                  "value": "Respondent is not an eligible/knowledgeable representative"
+                },
+                {
+                  "when": [
+                    {
+                      "field": "A9_2",
+                      "in": [
+                        "No"
+                      ]
+                    }
+                  ],
+                  "value": "Respondent is not an eligible/knowledgeable representative"
+                },
+                {
+                  "when": [
+                    {
+                      "field": "A5_1",
+                      "in": [
+                        "No – Continue"
+                      ]
+                    },
+                    {
+                      "field": "A6_1",
+                      "in": [
+                        "No – Continue"
+                      ]
+                    },
+                    {
+                      "field": "A2_1",
+                      "in": [
+                        "Individual respondent"
+                      ]
+                    },
+                    {
+                      "field": "A8_1",
+                      "in": [
+                        "Yes"
+                      ]
+                    },
+                    {
+                      "field": "A8_2",
+                      "in": [
+                        "Yes"
+                      ]
+                    }
+                  ],
+                  "value": "Eligible Non-Borrower Comparison Respondent – Proceed to Section B"
+                },
+                {
+                  "when": [
+                    {
+                      "field": "A5_1",
+                      "in": [
+                        "No – Continue"
+                      ]
+                    },
+                    {
+                      "field": "A6_1",
+                      "in": [
+                        "No – Continue"
+                      ]
+                    },
+                    {
+                      "field": "A2_1",
+                      "in": [
+                        "Organizational / enterprise respondent"
+                      ]
+                    },
+                    {
+                      "field": "A9_2",
+                      "in": [
+                        "Yes – Continue"
+                      ]
+                    }
+                  ],
+                  "value": "Eligible Non-Borrower Comparison Respondent – Proceed to Section B"
+                }
+              ],
+              "derivePending": "Not yet determined — complete the screening questions above.",
+              "note": "Determined automatically from the screening answers above so the record can never say, for example, that loan verification failed but the respondent is eligible."
             }
           ]
         }
@@ -620,7 +735,12 @@ var QUESTIONS_B = {
                   ]
                 }
               ],
-              "required": true
+              "required": true,
+              "min": 18,
+              "max": 120,
+              "integer": true,
+              "hint": "Age in completed years (18 or older)",
+              "unit": "years"
             },
             {
               "field_id": "B2_2",
@@ -729,7 +849,12 @@ var QUESTIONS_B = {
                   ]
                 }
               ],
-              "required": false
+              "required": false,
+              "min": 1,
+              "max": 50,
+              "integer": true,
+              "hint": "Total persons in the household (including the respondent)",
+              "unit": "persons"
             }
           ]
         },
@@ -750,7 +875,12 @@ var QUESTIONS_B = {
                   ]
                 }
               ],
-              "required": false
+              "required": false,
+              "min": 0,
+              "max": 50,
+              "integer": true,
+              "maxOf": "B5_1",
+              "unit": "persons"
             }
           ]
         },
@@ -771,7 +901,12 @@ var QUESTIONS_B = {
                   ]
                 }
               ],
-              "required": false
+              "required": false,
+              "min": 0,
+              "max": 50,
+              "integer": true,
+              "maxOf": "B5_1",
+              "unit": "persons"
             }
           ]
         },
@@ -790,13 +925,16 @@ var QUESTIONS_B = {
                   "in": [
                     "Individual respondent"
                   ]
-                },
-                {
-                  "field": "B8_2",
-                  "empty": true
                 }
               ],
-              "required": false
+              "required": false,
+              "exclusiveWith": [
+                "B8_2",
+                "B8_3"
+              ],
+              "min": 0,
+              "hint": "Amount in PHP",
+              "unit": "PHP per month"
             },
             {
               "field_id": "B8_2",
@@ -814,11 +952,10 @@ var QUESTIONS_B = {
                   "in": [
                     "Individual respondent"
                   ]
-                },
-                {
-                  "field": "B8_1",
-                  "empty": true
                 }
+              ],
+              "exclusiveWith": [
+                "B8_1"
               ]
             },
             {
@@ -848,6 +985,9 @@ var QUESTIONS_B = {
                   "field": "B8_2",
                   "notEmpty": true
                 }
+              ],
+              "exclusiveWith": [
+                "B8_1"
               ]
             }
           ]
@@ -964,7 +1104,7 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "B12_1",
-              "label": "Do you or the organization have regular access to a mobile phone for communication or financial transactions?",
+              "label": "Do you have regular access to a mobile phone used for communication or financial transactions?",
               "type": "single_choice",
               "options": [
                 "Yes",
@@ -975,7 +1115,7 @@ var QUESTIONS_B = {
             },
             {
               "field_id": "B12_2",
-              "label": "For individuals:",
+              "label": "Is the phone:",
               "type": "single_choice",
               "options": [
                 "Own phone",
@@ -1034,7 +1174,7 @@ var QUESTIONS_B = {
             {
               "field_id": "C1_1",
               "label": "Current Agricultural / Enterprise Activities",
-              "type": "single_choice",
+              "type": "multi_choice",
               "options": [
                 "Crop production",
                 "Capture fisheries",
@@ -1061,9 +1201,14 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "C2_1",
-              "label": "Principal activity",
-              "type": "text",
-              "required": false
+              "label": "Which of the activities you selected is your principal activity?",
+              "type": "single_choice",
+              "required": false,
+              "optionsFrom": {
+                "field": "C1_1",
+                "emptyText": "Answer C1 first — the activities you tick there appear here."
+              },
+              "options": []
             },
             {
               "field_id": "C2_2",
@@ -1082,7 +1227,13 @@ var QUESTIONS_B = {
               "field_id": "C3_1",
               "label": "Response (years)",
               "type": "number",
-              "required": false
+              "required": false,
+              "min": 0,
+              "max": 100,
+              "unit": "years",
+              "exclusiveWith": [
+                "C3_2"
+              ]
             },
             {
               "field_id": "C3_2",
@@ -1092,7 +1243,10 @@ var QUESTIONS_B = {
                 "Less than one year"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "exclusiveWith": [
+                "C3_1"
+              ]
             }
           ]
         },
@@ -1103,13 +1257,30 @@ var QUESTIONS_B = {
           "fields": [
             {
               "field_id": "C4_1",
-              "label": "Where applicable. Total area",
-              "type": "text",
-              "required": false
+              "label": "Total area used for the principal activity",
+              "type": "number",
+              "required": false,
+              "min": 0,
+              "hint": "Total area (numbers only)",
+              "unit": "area",
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ],
+              "exclusiveWith": [
+                "C4_4"
+              ]
             },
             {
               "field_id": "C4_2",
-              "label": "Farm / Production Area",
+              "label": "Unit (applies to both areas above)",
               "type": "single_choice",
               "options": [
                 "Hectares",
@@ -1117,23 +1288,71 @@ var QUESTIONS_B = {
                 "Other: __________"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ],
+              "exclusiveWith": [
+                "C4_4"
+              ]
             },
             {
               "field_id": "C4_3",
-              "label": "Area utilized during most recent cycle",
-              "type": "text",
-              "required": false
+              "label": "Area actually cultivated / utilised during the most recent cycle",
+              "type": "number",
+              "required": false,
+              "min": 0,
+              "hint": "Area actually used (cannot exceed the total area)",
+              "maxOf": "C4_1",
+              "unit": "area",
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ],
+              "exclusiveWith": [
+                "C4_4"
+              ]
             },
             {
               "field_id": "C4_4",
-              "label": "Farm / Production Area",
+              "label": "No land or production area applies to this activity",
               "type": "single_choice",
               "options": [
                 "Not applicable"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ],
+              "exclusiveWith": [
+                "C4_1",
+                "C4_2",
+                "C4_3"
+              ]
             }
           ]
         },
@@ -1145,7 +1364,7 @@ var QUESTIONS_B = {
             {
               "field_id": "C5_1",
               "label": "Land Tenure / Access Arrangement",
-              "type": "single_choice",
+              "type": "multi_choice",
               "options": [
                 "Owned",
                 "Agrarian Reform Beneficiary / awarded land",
@@ -1157,7 +1376,21 @@ var QUESTIONS_B = {
                 "Not applicable"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ],
+              "exclusiveOptions": [
+                "Not applicable"
+              ]
             }
           ]
         },
@@ -1209,7 +1442,19 @@ var QUESTIONS_B = {
                   "__________________"
                 ]
               ],
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -1222,13 +1467,41 @@ var QUESTIONS_B = {
               "field_id": "C7_1",
               "label": "Commodity",
               "type": "text",
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ],
+              "copyFrom": "C2_2",
+              "hint": "Carried forward from the principal commodity in C2 — edit if this cycle differs."
             },
             {
               "field_id": "C7_2",
               "label": "Production volume",
-              "type": "text",
-              "required": false
+              "type": "number",
+              "required": false,
+              "min": 0,
+              "hint": "Volume produced (numbers only)",
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             },
             {
               "field_id": "C7_3",
@@ -1244,13 +1517,39 @@ var QUESTIONS_B = {
                 "Other: ____________________"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             },
             {
               "field_id": "C7_4",
               "label": "Estimated yield per hectare where applicable",
               "type": "number",
-              "required": false
+              "required": false,
+              "min": 0,
+              "hint": "Yield per hectare",
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -1262,8 +1561,26 @@ var QUESTIONS_B = {
             {
               "field_id": "C8_1",
               "label": "Past 12 months (cycles)",
-              "type": "text",
-              "required": false
+              "type": "number",
+              "required": false,
+              "min": 0,
+              "max": 24,
+              "unit": "cycles",
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ],
+              "exclusiveWith": [
+                "C8_2"
+              ]
             },
             {
               "field_id": "C8_2",
@@ -1274,7 +1591,22 @@ var QUESTIONS_B = {
                 "Not applicable"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ],
+              "exclusiveWith": [
+                "C8_1"
+              ]
             }
           ]
         },
@@ -1297,7 +1629,16 @@ var QUESTIONS_B = {
                 "Not applicable"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Aquaculture"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -1316,7 +1657,19 @@ var QUESTIONS_B = {
                 "Not applicable"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             },
             {
               "field_id": "C10_2",
@@ -1342,6 +1695,16 @@ var QUESTIONS_B = {
                   "in": [
                     "Yes"
                   ]
+                },
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
                 }
               ]
             },
@@ -1358,7 +1721,25 @@ var QUESTIONS_B = {
                 "Other: ____________________"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C10_1",
+                  "in": [
+                    "Yes"
+                  ]
+                },
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -1370,7 +1751,7 @@ var QUESTIONS_B = {
             {
               "field_id": "C11_1",
               "label": "Major Production Inputs",
-              "type": "single_choice",
+              "type": "multi_choice",
               "options": [
                 "Seeds / planting materials",
                 "Fertilizer",
@@ -1385,7 +1766,19 @@ var QUESTIONS_B = {
                 "Other: ____________________"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -1459,12 +1852,12 @@ var QUESTIONS_B = {
               "label": "Estimated total for most recent cycle/period PHP",
               "type": "number",
               "required": false,
-              "conditions": [
-                {
-                  "field": "C13_2",
-                  "empty": true
-                }
-              ]
+              "exclusiveWith": [
+                "C13_2"
+              ],
+              "min": 0,
+              "hint": "Amount in PHP",
+              "unit": "PHP"
             },
             {
               "field_id": "C13_2",
@@ -1476,11 +1869,8 @@ var QUESTIONS_B = {
               ],
               "allow_other": false,
               "required": false,
-              "conditions": [
-                {
-                  "field": "C13_1",
-                  "empty": true
-                }
+              "exclusiveWith": [
+                "C13_1"
               ]
             }
           ]
@@ -1495,12 +1885,12 @@ var QUESTIONS_B = {
               "label": "Estimated gross sales/revenue during same period PHP",
               "type": "number",
               "required": false,
-              "conditions": [
-                {
-                  "field": "C14_2",
-                  "empty": true
-                }
-              ]
+              "exclusiveWith": [
+                "C14_2"
+              ],
+              "min": 0,
+              "hint": "Amount in PHP",
+              "unit": "PHP"
             },
             {
               "field_id": "C14_2",
@@ -1512,11 +1902,8 @@ var QUESTIONS_B = {
               ],
               "allow_other": false,
               "required": false,
-              "conditions": [
-                {
-                  "field": "C14_1",
-                  "empty": true
-                }
+              "exclusiveWith": [
+                "C14_1"
               ]
             }
           ]
@@ -1531,12 +1918,11 @@ var QUESTIONS_B = {
               "label": "PHP",
               "type": "number",
               "required": false,
-              "conditions": [
-                {
-                  "field": "C15_2",
-                  "empty": true
-                }
-              ]
+              "exclusiveWith": [
+                "C15_2"
+              ],
+              "hint": "Amount in PHP (may be negative for a net loss)",
+              "unit": "PHP"
             },
             {
               "field_id": "C15_2",
@@ -1550,11 +1936,8 @@ var QUESTIONS_B = {
               ],
               "allow_other": false,
               "required": false,
-              "conditions": [
-                {
-                  "field": "C15_1",
-                  "empty": true
-                }
+              "exclusiveWith": [
+                "C15_1"
               ]
             }
           ]
@@ -1578,7 +1961,7 @@ var QUESTIONS_B = {
             },
             {
               "field_id": "C16_2",
-              "label": "Record Keeping",
+              "label": "Record Keeping — select all that apply",
               "type": "multi_choice",
               "options": [
                 "Notebook / ledger",
@@ -1649,7 +2032,22 @@ var QUESTIONS_B = {
                   "100%"
                 ]
               ],
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ],
+              "cellMin": 0,
+              "cellMax": 100,
+              "cellNumeric": true
             },
             {
               "field_id": "C17_2",
@@ -1660,7 +2058,19 @@ var QUESTIONS_B = {
                 "Not applicable"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -1679,7 +2089,19 @@ var QUESTIONS_B = {
                 "Not applicable"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             },
             {
               "field_id": "C18_2",
@@ -1692,14 +2114,46 @@ var QUESTIONS_B = {
                   "in": [
                     "Yes"
                   ]
+                },
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
                 }
-              ]
+              ],
+              "min": 0,
+              "max": 100,
+              "hint": "Percentage lost (0-100)",
+              "unit": "%"
             },
             {
               "field_id": "C18_3",
               "label": "Main reason",
               "type": "text",
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C18_1",
+                  "in": [
+                    "Yes"
+                  ]
+                },
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -1711,7 +2165,7 @@ var QUESTIONS_B = {
             {
               "field_id": "C19_1",
               "label": "Main Buyers / Market Outlets",
-              "type": "single_choice",
+              "type": "multi_choice",
               "options": [
                 "Local trader / consolidator",
                 "Cooperative / association",
@@ -1781,7 +2235,10 @@ var QUESTIONS_B = {
                 "None"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "exclusiveOptions": [
+                "None"
+              ]
             },
             {
               "field_id": "C21_2",
@@ -1805,7 +2262,7 @@ var QUESTIONS_B = {
               "conditions": [
                 {
                   "field": "C21_1",
-                  "in": [
+                  "containsAny": [
                     "Typhoon / severe storm",
                     "Flood",
                     "Drought / insufficient water",
@@ -1817,14 +2274,21 @@ var QUESTIONS_B = {
                     "Decline in selling prices",
                     "Difficulty accessing markets",
                     "Damage to equipment/facilities",
-                    "Other: ____________________"
+                    "Other"
                   ]
                 }
-              ]
+              ],
+              "optionsFrom": {
+                "field": "C21_1",
+                "exclude": [
+                  "None"
+                ],
+                "emptyText": "Tick the shocks experienced in C21 first."
+              }
             },
             {
               "field_id": "C21_3",
-              "label": "C21b. Main Effect",
+              "label": "Main effect of the most significant shock",
               "type": "single_choice",
               "options": [
                 "Reduced production",
@@ -1837,7 +2301,13 @@ var QUESTIONS_B = {
                 "Other: ____________________"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C21_2",
+                  "notEmpty": true
+                }
+              ]
             }
           ]
         },
@@ -1863,7 +2333,10 @@ var QUESTIONS_B = {
                 "None"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "exclusiveOptions": [
+                "None"
+              ]
             }
           ]
         },
@@ -1881,11 +2354,23 @@ var QUESTIONS_B = {
                 "No"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             },
             {
               "field_id": "C23_2",
-              "label": "Type:",
+              "label": "Type — select all that apply",
               "type": "multi_choice",
               "options": [
                 "Crop",
@@ -1902,12 +2387,22 @@ var QUESTIONS_B = {
                   "in": [
                     "Yes"
                   ]
+                },
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
                 }
               ]
             },
             {
               "field_id": "C23_3",
-              "label": "Provider:",
+              "label": "Provider — select all that apply",
               "type": "multi_choice",
               "options": [
                 "PCIC",
@@ -1916,7 +2411,25 @@ var QUESTIONS_B = {
                 "Other: ____________________"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C23_1",
+                  "in": [
+                    "Yes"
+                  ]
+                },
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             },
             {
               "field_id": "C23_4",
@@ -1927,7 +2440,25 @@ var QUESTIONS_B = {
                 "No"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "C23_1",
+                  "in": [
+                    "Yes"
+                  ]
+                },
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
+                  ]
+                }
+              ]
             },
             {
               "field_id": "C23_5",
@@ -1947,6 +2478,16 @@ var QUESTIONS_B = {
                   "field": "C23_4",
                   "in": [
                     "Yes"
+                  ]
+                },
+                {
+                  "field": "C1_1",
+                  "containsAny": [
+                    "Crop production",
+                    "Capture fisheries",
+                    "Aquaculture",
+                    "Livestock",
+                    "Poultry"
                   ]
                 }
               ]
@@ -2113,7 +2654,7 @@ var QUESTIONS_B = {
             {
               "field_id": "D5_1",
               "label": "Have you ever attempted to apply for AGRISENSO Plus?",
-              "type": "multi_choice",
+              "type": "single_choice",
               "options": [
                 "Yes",
                 "No"
@@ -2161,7 +2702,15 @@ var QUESTIONS_B = {
                 "Do not recall"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "D5_2",
+                  "in": [
+                    "Application declined/disapproved"
+                  ]
+                }
+              ]
             },
             {
               "field_id": "D6_2",
@@ -2284,7 +2833,13 @@ var QUESTIONS_B = {
               "field_id": "E3_1",
               "label": "Approximately how much financing would currently be needed? PHP",
               "type": "number",
-              "required": false
+              "required": false,
+              "exclusiveWith": [
+                "E3_2"
+              ],
+              "min": 0,
+              "hint": "Amount in PHP",
+              "unit": "PHP"
             },
             {
               "field_id": "E3_2",
@@ -2295,7 +2850,10 @@ var QUESTIONS_B = {
                 "Prefer not to answer"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "exclusiveWith": [
+                "E3_1"
+              ]
             }
           ]
         },
@@ -2307,7 +2865,7 @@ var QUESTIONS_B = {
             {
               "field_id": "E4_1",
               "label": "During the past 12 months, which sources have you used?",
-              "type": "single_choice",
+              "type": "multi_choice",
               "options": [
                 "Own savings / retained earnings",
                 "LANDBANK loan other than AGRISENSO Plus",
@@ -2427,7 +2985,10 @@ var QUESTIONS_B = {
                 "None"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "exclusiveOptions": [
+                "None"
+              ]
             }
           ]
         },
@@ -2444,7 +3005,45 @@ var QUESTIONS_B = {
                 "No significant barrier"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "optionsFrom": {
+                "field": "E8_1",
+                "exclude": [
+                  "None"
+                ],
+                "extra": [
+                  "No significant barrier"
+                ],
+                "emptyText": "Answer E8 first — whatever you tick there appears here."
+              },
+              "conditions": [
+                {
+                  "field": "E8_1",
+                  "containsAny": [
+                    "Lack of information",
+                    "Do not know where/how to apply",
+                    "Documentary requirements",
+                    "Lack of IDs",
+                    "Eligibility requirements",
+                    "Collateral/security",
+                    "Co-maker/guarantor",
+                    "Distance",
+                    "Travel costs",
+                    "Processing/application costs",
+                    "Long processing time",
+                    "Complex procedures",
+                    "Digital platform difficulty",
+                    "Limited digital literacy",
+                    "Connectivity",
+                    "Language/communication",
+                    "Interest/financing cost",
+                    "Concern about repayment",
+                    "Previous negative experience",
+                    "Preference for informal/familiar source",
+                    "Other"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -2677,8 +3276,8 @@ var QUESTIONS_B = {
             },
             {
               "field_id": "F11_2",
-              "label": "If Yes:",
-              "type": "single_choice",
+              "label": "Savings are set aside mainly for:",
+              "type": "multi_choice",
               "options": [
                 "Emergency needs",
                 "Production costs",
@@ -2690,7 +3289,16 @@ var QUESTIONS_B = {
                 "Other: ____________________"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "F11_1",
+                  "in": [
+                    "Regularly",
+                    "Occasionally"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -2752,8 +3360,8 @@ var QUESTIONS_B = {
             },
             {
               "field_id": "F12_2",
-              "label": "Difficulties, if any:",
-              "type": "single_choice",
+              "label": "Difficulties experienced with digital financial services",
+              "type": "multi_choice",
               "options": [
                 "Connectivity",
                 "Device access",
@@ -2779,7 +3387,7 @@ var QUESTIONS_B = {
             {
               "field_id": "F13_1",
               "label": "During the past 12 months:",
-              "type": "single_choice",
+              "type": "multi_choice",
               "options": [
                 "Financial literacy / management",
                 "Budgeting / bookkeeping",
@@ -2793,7 +3401,10 @@ var QUESTIONS_B = {
                 "None"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "exclusiveOptions": [
+                "None"
+              ]
             }
           ]
         },
@@ -2805,7 +3416,7 @@ var QUESTIONS_B = {
             {
               "field_id": "F14_1",
               "label": "Training Provider",
-              "type": "single_choice",
+              "type": "multi_choice",
               "options": [
                 "ACPC / DA",
                 "LANDBANK",
@@ -2819,7 +3430,23 @@ var QUESTIONS_B = {
                 "Other: ____________________"
               ],
               "allow_other": true,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "F13_1",
+                  "containsAny": [
+                    "Financial literacy / management",
+                    "Budgeting / bookkeeping",
+                    "Loan orientation / responsible borrowing",
+                    "Farm/fishery management",
+                    "Enterprise management",
+                    "Marketing",
+                    "Production technology",
+                    "Digital finance",
+                    "Other"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -2840,7 +3467,23 @@ var QUESTIONS_B = {
                 "Extremely useful"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "F13_1",
+                  "containsAny": [
+                    "Financial literacy / management",
+                    "Budgeting / bookkeeping",
+                    "Loan orientation / responsible borrowing",
+                    "Farm/fishery management",
+                    "Enterprise management",
+                    "Marketing",
+                    "Production technology",
+                    "Digital finance",
+                    "Other"
+                  ]
+                }
+              ]
             },
             {
               "field_id": "F15_2",
@@ -2853,7 +3496,23 @@ var QUESTIONS_B = {
                 "Too early to assess"
               ],
               "allow_other": false,
-              "required": false
+              "required": false,
+              "conditions": [
+                {
+                  "field": "F13_1",
+                  "containsAny": [
+                    "Financial literacy / management",
+                    "Budgeting / bookkeeping",
+                    "Loan orientation / responsible borrowing",
+                    "Farm/fishery management",
+                    "Enterprise management",
+                    "Marketing",
+                    "Production technology",
+                    "Digital finance",
+                    "Other"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -3188,7 +3847,7 @@ var QUESTIONS_B = {
             {
               "field_id": "H2_1",
               "label": "What Would Encourage Application?",
-              "type": "single_choice",
+              "type": "multi_choice",
               "options": [
                 "More information",
                 "Clearer eligibility requirements",
@@ -3217,7 +3876,7 @@ var QUESTIONS_B = {
             {
               "field_id": "H3_1",
               "label": "How would you prefer to receive information about AGRISENSO Plus?",
-              "type": "single_choice",
+              "type": "multi_choice",
               "options": [
                 "LANDBANK",
                 "ACPC / DA",
@@ -3291,7 +3950,7 @@ var QUESTIONS_B = {
             {
               "field_id": "H6_1",
               "label": "Aside from financing, what support would be useful?",
-              "type": "single_choice",
+              "type": "multi_choice",
               "options": [
                 "Production / technical training",
                 "Financial-management training",
@@ -3356,6 +4015,126 @@ var QUESTIONS_B = {
               "required": false
             }
           ]
+        },
+        {
+          "qid": "QC1",
+          "heading": "Interview Outcome",
+          "instructions": "Record how this interview actually ended. Complete this only after the respondent interview is finished.",
+          "fields": [
+            {
+              "field_id": "QUESTIONNAIR_intro_12",
+              "label": "Interview Outcome",
+              "type": "single_choice",
+              "options": [
+                "Completed",
+                "Partially completed",
+                "Callback required",
+                "Respondent refused",
+                "Respondent unavailable",
+                "Respondent ineligible",
+                "Other: ____________________"
+              ],
+              "allow_other": true,
+              "required": false
+            },
+            {
+              "field_id": "CALLBACK_date",
+              "label": "Callback date",
+              "type": "date",
+              "options": [],
+              "required": false,
+              "conditions": [
+                {
+                  "field": "QUESTIONNAIR_intro_12",
+                  "in": [
+                    "Callback required",
+                    "Respondent unavailable"
+                  ]
+                }
+              ]
+            },
+            {
+              "field_id": "CALLBACK_time",
+              "label": "Callback time",
+              "type": "time",
+              "options": [],
+              "required": false,
+              "conditions": [
+                {
+                  "field": "QUESTIONNAIR_intro_12",
+                  "in": [
+                    "Callback required",
+                    "Respondent unavailable"
+                  ]
+                }
+              ]
+            },
+            {
+              "field_id": "CALLBACK_note",
+              "label": "Callback arrangement / reason",
+              "type": "text",
+              "options": [],
+              "required": false,
+              "conditions": [
+                {
+                  "field": "QUESTIONNAIR_intro_12",
+                  "in": [
+                    "Callback required",
+                    "Respondent unavailable"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "qid": "QC2",
+          "heading": "Post-Interview Quality Control",
+          "instructions": "These fields are maintained by the field supervisor and the data manager after submission. Leave them at their default values — the enumerator does not verify their own interview.",
+          "fields": [
+            {
+              "field_id": "QUESTIONNAIR_intro_13",
+              "label": "Supervisor Verification",
+              "type": "single_choice",
+              "options": [
+                "Pending",
+                "Completed"
+              ],
+              "allow_other": false,
+              "required": false,
+              "default": "Pending",
+              "adminOnly": true
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_14",
+              "label": "Data Verification Status",
+              "type": "single_choice",
+              "options": [
+                "Pending verification",
+                "Verified"
+              ],
+              "allow_other": false,
+              "required": false,
+              "default": "Pending verification",
+              "adminOnly": true
+            },
+            {
+              "field_id": "QUESTIONNAIR_intro_15",
+              "label": "Back-check Status",
+              "type": "single_choice",
+              "options": [
+                "Not yet selected",
+                "Selected for back-check",
+                "Completed",
+                "Unable to complete",
+                "Not selected"
+              ],
+              "allow_other": false,
+              "required": false,
+              "default": "Not yet selected",
+              "adminOnly": true
+            }
+          ]
         }
       ]
     },
@@ -3415,5 +4194,78 @@ var QUESTIONS_B = {
         }
       ]
     }
-  ]
+  ],
+  "terminationRules": [
+    {
+      "when": [
+        {
+          "field": "Consent_to_Participa_1",
+          "in": [
+            "No – End interview and thank respondent"
+          ]
+        }
+      ],
+      "title": "Interview ends here — consent was not given",
+      "message": "Thank the respondent and close the interview. Submit this record so the refusal is counted in the sample disposition.",
+      "outcome": "Respondent refused"
+    },
+    {
+      "when": [
+        {
+          "field": "A5_1",
+          "in": [
+            "Yes"
+          ]
+        }
+      ],
+      "title": "Not eligible for the comparison group",
+      "message": "This respondent currently has an AGRISENSO Plus loan agreement and belongs in the borrower sample, not the comparison group. End the interview and refer the case to your supervisor.",
+      "outcome": "Respondent ineligible"
+    },
+    {
+      "when": [
+        {
+          "field": "A6_1",
+          "in": [
+            "Yes"
+          ]
+        }
+      ],
+      "title": "Not eligible for the comparison group",
+      "message": "This respondent previously had an AGRISENSO Plus loan agreement. End the interview and arrange a replacement respondent with your supervisor.",
+      "outcome": "Respondent ineligible"
+    },
+    {
+      "when": [
+        {
+          "field": "A8_1",
+          "in": [
+            "No"
+          ]
+        }
+      ],
+      "title": "Interview ends here — respondent is under 18",
+      "message": "A respondent under 18 cannot be interviewed. Thank the respondent, end the interview, and arrange a replacement respondent with your supervisor.",
+      "outcome": "Respondent ineligible"
+    },
+    {
+      "when": [
+        {
+          "field": "A9_2",
+          "in": [
+            "No"
+          ]
+        }
+      ],
+      "title": "Stop — an authorised representative is needed",
+      "message": "Identify an authorised or sufficiently knowledgeable representative of the organisation before proceeding, or schedule a callback.",
+      "outcome": "Callback required"
+    }
+  ],
+  "outcomeField": "QUESTIONNAIR_intro_12",
+  "meta": {
+    "version": "1.0",
+    "versionDate": "2026-08-27",
+    "instrument": "B"
+  }
 };

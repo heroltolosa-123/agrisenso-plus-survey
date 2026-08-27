@@ -368,50 +368,151 @@ frame is expected to cover more areas than initially listed).
    top of the freshly parsed schema.
 4. Run `tools/generate_gs_schema.py` to regenerate `src/Schema_A.gs` /
    `src/Schema_B.gs`.
-5. Paste the updated `Schema_*.gs` into the Apps Script editor and
-   redeploy (Deploy → Manage deployments → New version).
-6. `docs/` needs no changes — it renders whatever schema the backend
-   serves.
+5. Run `tools/generate_apps_script_client.py` whenever `docs/app.js` or
+   `docs/style.css` changed. It rebuilds `src/JavaScript.html` and
+   `src/Stylesheet.html` from the `docs/` originals (swapping `fetch()`
+   for `google.script.run` and the asset URLs for the embedded ones), so
+   the two copies of the client cannot drift apart. Those two files are
+   generated — do not hand-edit them.
+6. Paste the updated `Schema_*.gs`, `JavaScript.html`, `Stylesheet.html`
+   and `Index.html` into the Apps Script editor and redeploy
+   (Deploy → Manage deployments → New version — *not* a new deployment,
+   which would change the URL `docs/config.js` points at).
+7. `docs/` needs no changes to render the new schema — but if you only
+   redeploy the backend and forget step 6, the Apps Script page will run
+   an older client than the static site.
 
 ---
 
-## 8a. Known limitations / explicitly deferred
+## 8a. Round 6 — what changed in this pass
 
-Raised in review but not implemented in this pass — flagged here rather
-than silently skipped:
+Everything below came from the batch 3/4/5 review documents, the
+"Verification of Comments Resolution" sheet, or the field test. The
+reviewer comment each change answers is quoted in the code, next to the
+rule that implements it (`tools/enhance_schema.py`, `docs/app.js`).
 
-- **No cross-section "terminate on No"**: if Consent to Participate or the
-  Loan Agreement Verification comes back No/Unable, the questionnaire
-  doesn't automatically end the interview or skip the remaining sections
-  — the routing note is shown, but the enumerator still needs to
-  recognize it and use "\u2190 Menu" to end the interview manually. Building
-  a real early-termination flow (a short "interview ended" screen, a
-  partial-response submission path) is a bigger feature than a same-pass
-  extension could responsibly cover.
-- **Final Eligibility Determination (A10) is still a manual selection**,
-  not computed from A5/A6/A7/A8's answers, even though reviewers asked
-  for it to be automatic. The decision tree has enough edge cases
-  (verification-required states, replacement-respondent states) that I'd
-  rather build and test it deliberately than guess at the logic.
-- **No dynamic option population** — e.g. "Most Significant Difficulty"
-  (D6) still shows the full difficulty list rather than being filtered to
-  only what was checked in D5; "Principal Commodity/Activity" doesn't
-  pull its options from the enterprise-activities list in C1.
-- **No Loan Agreement/Account Reference Number input** — A9 still only
-  offers the two fallback options ("not collected"/"maintained
-  separately"), matching the reviewer's own suggested resolution (keep
-  identifiable loan-account numbers out of the survey dataset entirely,
-  tracked in a separate protected file instead) rather than adding a
-  field that would need to be treated as sensitive data.
-- **Interview Outcome / Data Verification / Random Phone Back-check**
-  still appear in Section 2 near the top, not moved to the end of the
-  survey as suggested — this is a schema-section-restructuring change
-  I haven't done yet.
-- **LANDBANK lending-center dropdown and enumerator/supervisor-name
-  dropdowns** need an actual list from LANDBANK/your team to populate —
-  they stay free text until you can supply that list.
-- **Region dropdown lists all 18 Philippine regions**, not narrowed to
-  ACPC's actual study areas/clusters — see Section 7e.
+### Field-reported faults, fixed
+
+- **"I mistakenly clicked the options, and cannot write the amount."**
+  Exact amount vs. "unable to provide an exact amount" were wired as a
+  hard condition that *disabled* whichever side you did not use. A radio
+  button cannot be un-clicked, so a mis-click permanently locked the
+  amount box. They are now soft `exclusiveWith` pairs: nothing is ever
+  disabled, answering one side simply clears the other, and you can
+  change your mind as often as you like. This also fixes the same fault
+  reported against B8 (household income) in the verification sheet.
+- **Every single-answer question now has a "Clear answer" link.** A
+  mis-clicked radio was previously unrecoverable without abandoning the
+  whole response.
+- **Gross sales now has a bracket fallback** (`C14_3`), matching
+  production cost, per the inception report.
+- **Net income keeps both the open PHP amount and the options**
+  (break-even / net loss / unable to estimate / prefer not to answer),
+  and the amount accepts a negative figure for a genuine loss.
+- **"Most significant difficulty" (D6) is built from what was ticked in
+  D5** — it previously shipped as a dropdown containing a single option.
+  Instrument B's equivalent pair (E9 from E8) works the same way, as do
+  "principal activity" (from C1) and "shock with the greatest effect"
+  (from C21).
+- **N/A removed from the 1-5 confidence scales.** Leave one blank
+  instead; nothing on those scales is required.
+- **Savings purpose (G11/F11) is properly gated on the savings answer** —
+  selecting "No" no longer leaves the purpose list selectable.
+- **"Which shock had the greatest effect?" (C21a) was permanently greyed
+  out for anyone reporting more than one shock.** Its condition compared
+  against the whole stored answer ("Flood; Drought"), which could only
+  ever match a single selection. Multi-select conditions now use a
+  `containsAny` clause, and a normalisation pass makes every condition
+  value match the text the app actually stores — the same silent
+  mismatch affected any condition referencing an "Other: ____" option.
+- **Instrument B's eligibility gate was wired to the wrong questions.**
+  The required-field list was shared between instruments, but B numbers
+  its screening differently (A7 is application status, A8 is *individual*
+  eligibility, A9 is *organisational*). Organisational respondents in B
+  therefore had no eligibility gate at all. All the item-number tables
+  are now per-instrument.
+- **Changing Region now resets Province / Municipality / Barangay
+  immediately** instead of requiring the enumerator to leave the section
+  and come back (verification sheet, item on A1).
+
+> On "A8 in Instrument B will not accept answers / could not continue past
+> A8": this could not be reproduced against the current code — A8 accepts
+> answers on the individual path and is correctly skipped on the
+> organisational path. The most likely explanation is that the deployed
+> Apps Script version predates the fixes, or that A8 was legitimately
+> greyed out with nothing on screen saying so. Both causes are addressed:
+> the eligibility gating is now correct per instrument, and every skipped
+> question states in plain language which answer skipped it. **Please
+> redeploy (Section 8) and re-test that path.**
+
+### Reviewer items now automated
+
+- **Final Eligibility Determination (A10) is computed**, not chosen. The
+  rules live in the schema so the record cannot say "loan verification =
+  No" and "eligible borrower" at the same time.
+- **Hard routing gates.** Consent = No, loan verification = No/Unable,
+  age under 18, or an unauthorised organisational representative now
+  block forward navigation and offer "End interview and submit this
+  record", so the disposition is still counted.
+- **Questionnaire version, version date and control number are
+  system-controlled** and read-only. Control numbers are generated as
+  `<instrument>-<YYYYMMDD>-<device>-<sequence>`, with a per-device tag so
+  two enumerators working offline cannot collide.
+- **Interview Outcome and the QC fields moved to the end**, into the
+  Enumerator Final Review section, where they belong. "Random Phone
+  Back-check" is now "Back-check Status" with the five agreed options;
+  Supervisor Verification and Data Verification default to "Pending".
+  "Callback required" was added to the outcome list, with callback
+  date/time/notes fields.
+- **Commodity-based routing through Section C.** A trader or processor no
+  longer walks through farm area, land tenure, irrigation, production
+  cycles and yield: for a trader, Section C asks 18 questions instead of
+  52, and the skipped groups collapse to a single line each rather than
+  filling the page with greyed-out controls.
+- **Numeric validation**: age 18+, household size 1+, percentages 0-100,
+  non-negative amounts, whole-number counts, and cross-field checks
+  (economically-active members and dependants cannot exceed household
+  size; cultivated area cannot exceed total area; amount released cannot
+  exceed amount approved). These warn rather than block — a real value
+  must always be recordable — but they surface the contradiction as it is
+  typed.
+- **Follow-ups are properly conditional**: mechanization mode of access,
+  insurance provider and claims, post-harvest loss reason, training
+  provider/usefulness, and the assistance-type question.
+- **"None" / "Not applicable" is mutually exclusive** with substantive
+  answers in every multi-select, so the data can no longer contain
+  "Flood; None".
+- **More questions are genuinely multi-select** where several answers
+  legitimately apply (major inputs, main buyers, land tenure, current
+  activities, financing sources, preferred channels, support needed).
+
+### Usability
+
+- Every skipped question says **why** it was skipped, naming the question
+  and answer responsible — the direct fix for questions that appear to
+  "not accept answers".
+- A **Sections** button lists all 14 sections with per-section answered
+  counts and outstanding required fields, so you can jump instead of
+  paging.
+- The header shows a **live answered count** for the current section.
+- Larger touch targets, units shown beside numeric fields, and no more
+  "or N/A if not applicable" prompt on free-text boxes.
+
+### Still outstanding (needs input from LANDBANK / DRVN / ACPC)
+
+- **Enumerator and supervisor name lists.** The fields now offer a
+  pick-list and remember names already used on the device, but the real
+  roster has to be pasted into `STAFF_LISTS` in `docs/config.js`.
+- **Sampling-frame ID is validated for shape only**, not against the real
+  LANDBANK borrower list — that list is not available to the app.
+  Borrower type, borrower segment and respondent name likewise still
+  need to be confirmed by the enumerator rather than preloaded.
+- **LANDBANK lending-centre list** — still free text.
+- **Region dropdown still lists all 18 regions**, not narrowed to ACPC's
+  study clusters.
+- **`guide/AGRISENSO_Plus_Survey_Enumerator_Guide.docx` is out of date.**
+  It still describes the old "everything required, click N/A" design and
+  needs reissuing before fieldwork briefings.
 
 ---
 
@@ -422,10 +523,12 @@ simulating an actual browser) before being handed to you, since this
 environment can't reach Google's or GitHub's live servers directly:
 
 - All `.gs` files and `docs/app.js` pass JavaScript syntax checks.
-- **Every one of the 267 (Instrument A) / 200 (Instrument B) field IDs the
+- **Every one of the 273 (Instrument A) / 205 (Instrument B) field IDs the
   static site generates matches exactly, in the same order,** the columns
   the Apps Script backend expects — so no answer lands in the wrong column
-  or gets silently dropped.
+  or gets silently dropped. (Re-checked after this round's schema changes;
+  the count grew by the new gross-sales bracket, the callback fields and
+  the two interview-disposition columns.)
 - A mocked `Code.gs` backend (fake `SpreadsheetApp`) confirmed
   `doGet(?action=schema)`, `doGet(?action=ping)`, and
   `doPost({action:'submit'})` all behave correctly, including invalid-input
@@ -515,26 +618,51 @@ environment can't reach Google's or GitHub's live servers directly:
   fully completable — verified both in jsdom and in a real Chromium
   browser with the PSGC requests deliberately blocked.
 
-**What's still untested** (can't be done from this environment): an actual
-live deployment on `script.google.com`, real GitHub Pages/Render hosting,
-Apps Script's real CORS behavior in a live browser, and — the one piece
-that matters most to flag — **whether `psgc.gitlab.io` actually responds
-to cross-origin requests from your published site's real domain**. I
-can't make live calls to that specific host from this sandbox, so while
-the cascade logic and its fallback are both thoroughly tested, the "does
-the live API actually answer" part is not. If it doesn't, the location
-fields simply stay as plain text — no functionality is lost, only the
-dropdown convenience. The `text/plain` Content-Type trick used in
-`docs/app.js`'s POST request to your own backend is a well-established
-pattern for calling Apps Script cross-origin without triggering a CORS
-preflight it can't answer — but do the pilot-run test below before real
-fieldwork regardless.
+**PSGC location cascade — now confirmed live.** Earlier rounds could only
+test this against a mock, because the sandbox had no route to
+`psgc.gitlab.io`. In this round it was driven against the real API in a
+real browser: picking "Region III – Central Luzon" populated Province
+with its 8 provinces, picking Bataan populated Municipality/City with 13
+entries, and switching to "Region VII – Central Visayas" correctly reset
+the dependent fields and repopulated them with Bohol / Cebu / Negros
+Oriental. The documented fallback (all three stay plain text if the API
+is unreachable) remains tested too.
 
-**Pilot test before real fieldwork:** open your published site, submit 2–3
-test responses — try leaving something blank on purpose to confirm it's
-blocked, try the N/A checkboxes on a date/time/number field, try picking a
-Region and confirm Province turns into a dropdown (or note if it doesn't —
-see above), and test the Individual/Organizational branch in Section A to
-confirm the right fields gray out. Confirm the good responses appear
-correctly in the Sheet with sequential `response_no` values, then delete
-those test rows and any stray tabs per Section 6.
+**What's still untested** (cannot be done from this environment): an
+actual live deployment on `script.google.com`, real GitHub Pages/Render
+hosting, and Apps Script's real CORS behaviour from your published
+domain. The `text/plain` Content-Type trick used in `docs/app.js`'s POST
+is a well-established pattern for calling Apps Script cross-origin
+without triggering a preflight it cannot answer, but do the pilot run
+below before real fieldwork regardless.
+
+**Pilot test before real fieldwork.** Open your published site and work
+through 2-3 test responses, checking specifically:
+
+1. **Redeploy first** (Section 8, steps 5-7) — several of this round's
+   fixes are in `Schema_*.gs` and `JavaScript.html`, not just `docs/`.
+2. **Instrument B, questions A8/A9.** Run the individual path (A2 =
+   Individual respondent → A8 must accept answers) and the organisational
+   path (A2 = Organizational → A9 must accept answers, A8 shows a
+   "Skipped — ..." note). This is the path that was reported as stuck.
+3. **Amounts.** On production cost, gross sales, net income and household
+   income: click a fallback option *first*, then type an amount — the
+   amount box must stay usable and the fallback must clear itself.
+4. **Section C routing.** Pick "Agricultural trading / aggregation" alone
+   in C1 and confirm the farm-area, irrigation, production-cycle and
+   yield groups collapse to single greyed lines with a reason.
+5. **Routing gates.** Set Loan Agreement Verification = No and confirm
+   Next is blocked and "End interview and submit this record" appears.
+6. **Final Eligibility (A10)** shows a computed value and cannot be
+   clicked.
+7. **Control numbers** differ between responses, and version/date are
+   filled in and locked.
+8. Confirm the good responses land in the Sheet with sequential
+   `response_no` values, then delete the test rows and any stray tabs per
+   Section 6.
+
+Note that the Sheet gains new columns this round (the gross-sales
+bracket, callback fields, and two interview-disposition columns). They
+are appended after the existing question columns, so previously collected
+rows stay aligned — but if you have live data you care about, take a copy
+of the Sheet before the first submission on the new version.

@@ -21,12 +21,23 @@
   <footer class="navbar" id="navbar" style="display:none;">
     <button id="prevBtn">&#9664; Previous</button>
     <div class="navgroup">
+      <button id="jumpBtn" class="link">Sections</button>
       <button id="syncBtn" class="link">Sync Pending Now</button>
       <button id="menuBtn" class="link">&#8592; Menu</button>
     </div>
     <button id="nextBtn">Next &#9654;</button>
     <button id="submitBtn" class="primary" style="display:none;">Submit Response</button>
   </footer>
+
+  <div class="sheet" id="jumpSheet" hidden>
+    <div class="sheet-panel">
+      <div class="sheet-head">
+        <h2>Jump to a section</h2>
+        <button id="jumpClose" class="link">Close</button>
+      </div>
+      <div id="jumpList"></div>
+    </div>
+  </div>
 
   <div class="spinner-overlay" id="spinner">
     Working <span class="dot"></span><span class="dot"></span><span class="dot"></span>

@@ -122,6 +122,15 @@ function matrixCells_(field) {
 /** Ordered [ [column_id, human_label], ... ] covering every data point,
  * including one column per matrix cell. Must match the client's rendering
  * order exactly, since it defines the sheet's header row. */
+/** Columns the client writes that are not questions in the instrument:
+ * the routing-gate disposition. Appended AFTER every question column so
+ * adding them never shifts existing data in a sheet that already has
+ * rows. */
+var EXTRA_COLUMNS = [
+  ['INTERVIEW_COMPLETION', 'Interview completion (auto: set when a routing rule ended the interview)'],
+  ['INTERVIEW_TERMINATION_REASON', 'Reason the interview was ended early (auto)']
+];
+
 function flatColumns_(schema) {
   var cols = [];
   schema.sections.forEach(function (section) {
@@ -140,6 +149,7 @@ function flatColumns_(schema) {
       });
     });
   });
+  EXTRA_COLUMNS.forEach(function (c) { cols.push([c[0], c[1]]); });
   return cols;
 }
 
