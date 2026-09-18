@@ -272,3 +272,4 @@ ENUMERATOR_O_intro_2,Enumerator Observation / Interview Notes > Enumerator Obser
 CLOSING_STAT_intro_1,Closing Statement > Closing Statement > End Time
 INTERVIEW_COMPLETION,Interview completion (auto: set when a routing rule ended the interview)
 INTERVIEW_TERMINATION_REASON,Reason the interview was ended early (auto)
+CLIENT_SUBMISSION_ID,Idempotency key generated on the device (auto: prevents duplicate rows on retry)

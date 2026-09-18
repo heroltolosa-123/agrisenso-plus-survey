@@ -13,8 +13,8 @@ files are therefore laid out exactly as the live Sheet tabs will be.
 
 | File | Contents |
 | --- | --- |
-| `Instrument_A_Borrowers.csv` | 8 responses × 276 columns |
-| `Instrument_B_NonBorrowers.csv` | 8 responses × 208 columns |
+| `Instrument_A_Borrowers.csv` | 13 records × 277 columns |
+| `Instrument_B_NonBorrowers.csv` | 13 records × 209 columns |
 | `Instrument_A_Borrowers_Dictionary.csv` | field_id → question text |
 | `Instrument_B_NonBorrowers_Dictionary.csv` | field_id → question text |
 

@@ -128,8 +128,34 @@ function matrixCells_(field) {
  * rows. */
 var EXTRA_COLUMNS = [
   ['INTERVIEW_COMPLETION', 'Interview completion (auto: set when a routing rule ended the interview)'],
-  ['INTERVIEW_TERMINATION_REASON', 'Reason the interview was ended early (auto)']
+  ['INTERVIEW_TERMINATION_REASON', 'Reason the interview was ended early (auto)'],
+  ['CLIENT_SUBMISSION_ID', 'Idempotency key generated on the device (auto: prevents duplicate rows on retry)']
 ];
+
+/** Row number of an already-stored submission carrying this client id, or
+ * 0 if there is none.
+ *
+ * Every failed submit is queued on the device and retried, including one
+ * that actually reached the Sheet but whose reply was lost on the way
+ * back — a common outcome on a weak rural connection, and more likely
+ * still when several encoders submit at the same instant and contend for
+ * the script lock. Without this check the retry appends the same
+ * interview a second time under a second response number. */
+function findClientSubmission_(sheet, columns, clientId) {
+  if (!clientId) return 0;
+  var offset = 0;
+  for (var i = 0; i < columns.length; i++) {
+    if (columns[i][0] === 'CLIENT_SUBMISSION_ID') { offset = i + 4; break; }  // 3 leading cols, 1-based
+  }
+  if (!offset) return 0;
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 3) return 0;                                   // 2 header rows
+  var existing = sheet.getRange(3, offset, lastRow - 2, 1).getValues();
+  for (var r = 0; r < existing.length; r++) {
+    if (existing[r][0] && String(existing[r][0]) === String(clientId)) return 3 + r;
+  }
+  return 0;
+}
 
 function flatColumns_(schema) {
   var cols = [];
@@ -169,6 +195,14 @@ function submitResponse(instrumentKey, values) {
     if (!sheet) sheet = ss.insertSheet(tabName);
     ensureHeaders_(sheet, columns);
     ensureDictionary_(ss, tabName, columns);
+
+    // Same interview submitted twice? Return what was stored the first
+    // time instead of appending it again.
+    var dupRow = findClientSubmission_(sheet, columns, values['CLIENT_SUBMISSION_ID']);
+    if (dupRow) {
+      var prior = sheet.getRange(dupRow, 1, 1, 2).getValues()[0];
+      return { ok: true, submissionId: prior[0], responseNo: prior[1], duplicate: true };
+    }
 
     var responseNo = nextResponseNumber_(sheet, instrumentKey);
     var submissionId = Utilities.getUuid();

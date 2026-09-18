@@ -1450,6 +1450,23 @@
     return tag;
   }
 
+  /** Idempotency key for THIS response, created once and then reused for
+   * every retry of it. Stored in state.answers so it is saved with the
+   * draft, travels inside the queued payload, and is cleared along with
+   * the answers when a new response starts. The backend uses it to
+   * recognise a resubmission and return the original response number
+   * instead of appending a duplicate row. */
+  function ensureClientSubmissionId() {
+    if (!state.answers['CLIENT_SUBMISSION_ID']) {
+      var rand = Math.random().toString(36).slice(2, 10) +
+                 Math.random().toString(36).slice(2, 10);
+      state.answers['CLIENT_SUBMISSION_ID'] =
+        state.instrument + '-' + Date.now().toString(36) + '-' + deviceTag() + '-' + rand;
+      saveDraft();
+    }
+    return state.answers['CLIENT_SUBMISSION_ID'];
+  }
+
   function nextControlNumber() {
     var key = 'agrisenso_control_seq_' + state.instrument;
     var seq = 0;
@@ -1902,6 +1919,7 @@
       state.answers['INTERVIEW_COMPLETION'] = 'Ended early by routing rule';
     }
 
+    ensureClientSubmissionId();
     var payload = { instrument: state.instrument, values: JSON.parse(JSON.stringify(state.answers)) };
     submitBtn.disabled = true;
     showSpinner(true);
@@ -1911,7 +1929,10 @@
       submitBtn.disabled = false;
       appendToArray(backupKey(), payload);
       clearDraft();
-      setStatus('Response ' + (res && res.responseNo ? res.responseNo + ' ' : '') + 'submitted to Google Sheets.', true);
+      var already = res && res.duplicate;
+      setStatus('Response ' + (res && res.responseNo ? res.responseNo + ' ' : '') +
+        (already ? 'was already saved \u2014 no duplicate was created.'
+                 : 'submitted to Google Sheets.'), true);
       afterSubmit();
     }).catch(function (err) {
       showSpinner(false);
