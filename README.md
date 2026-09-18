@@ -361,11 +361,27 @@ frame is expected to cover more areas than initially listed).
    section (see `tools/parse_questionnaire.py`'s docstring for the pandoc
    command).
 2. Run `tools/parse_questionnaire.py` to produce updated
-   `tools/questions_A.json` / `questions_B.json`.
+   `tools/questions_A_raw.json` / `questions_B_raw.json`, then copy each
+   raw file over its enhanced counterpart:
+
+   ```bash
+   cp tools/questions_A_raw.json tools/questions_A.json
+   cp tools/questions_B_raw.json tools/questions_B.json
+   ```
+
 3. Run `tools/enhance_schema.py` to reapply the Region dropdown, date/
    time/month/numeric field types, hints, conditional-logic detection, the
    required-field list, and the multi-choice/mutual-exclusivity fixes on
    top of the freshly parsed schema.
+
+   **`enhance_schema.py` rewrites `questions_*.json` in place and is not
+   idempotent.** Running it twice against an already-enhanced file appends
+   a second copy of every condition and `exclusiveWith` link it adds, and a
+   third run appends a third. Step 2's copy is what makes the run
+   repeatable, which is why the `_raw.json` files are committed to the
+   repo. If you ever run it by mistake, restore with
+   `git checkout tools/questions_A.json tools/questions_B.json` rather than
+   trying to unpick the duplicates.
 4. Run `tools/generate_gs_schema.py` to regenerate `src/Schema_A.gs` /
    `src/Schema_B.gs`.
 5. Run `tools/generate_apps_script_client.py` whenever `docs/app.js` or

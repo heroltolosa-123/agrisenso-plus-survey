@@ -1,3 +1,11 @@
 .clasp.json
 node_modules/
-tools/*_raw.json
+# NOT ignored: tools/questions_*_raw.json are the pipeline's reset point.
+# enhance_schema.py rewrites questions_*.json IN PLACE and is not
+# idempotent — running it twice duplicates every condition it adds. The
+# documented workflow starts by copying the raw file over the enhanced
+# one, so the raw files have to be in the repo for a fresh clone to
+# rebuild the schema at all.
+
+# macOS Finder metadata — created on every folder the user opens.
+.DS_Store
