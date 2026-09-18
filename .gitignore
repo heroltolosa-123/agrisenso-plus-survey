@@ -9,3 +9,9 @@ node_modules/
 
 # macOS Finder metadata — created on every folder the user opens.
 .DS_Store
+
+# Simulation build artefacts — regenerate with tools/simulate.
+tools/simulate/node_modules/
+tools/simulate/out/
+tools/simulate/*.json
+!tools/simulate/package.json

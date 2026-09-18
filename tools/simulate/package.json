@@ -1,0 +1,6 @@
+{
+  "name": "agrisenso-simulate",
+  "private": true,
+  "description": "Generates simulated survey responses by driving the real client.",
+  "dependencies": { "jsdom": "^30.0.0" }
+}
