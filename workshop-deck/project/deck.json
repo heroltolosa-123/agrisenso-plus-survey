@@ -1,0 +1,21 @@
+{
+  "v": 4,
+  "createdOnFiles": { "v": 1, "at": "2026-09-18T00:00:00Z" },
+  "title": "AGRISENSO Plus Enumerator Field Guide",
+  "cover": "cover",
+  "order": ["cover","agenda","instruments","duration","timebudget","target","appdoes","appnot","prep","twoquestions","required","autofilled","gates","nonanswer","amounts","selectall","saving","dataloss","supervisor","practice","close"],
+  "sections": {
+    "open":    { "description": "What the training covers and which instrument is which", "start": "cover" },
+    "timing":  { "description": "How long an interview actually takes, and why the stated target does not hold", "start": "duration" },
+    "app":     { "description": "What the app does for the enumerator and what it leaves to them", "start": "appdoes" },
+    "rules":   { "description": "Required fields, auto-filled fields and the routing gates that stop an interview", "start": "required" },
+    "answers": { "description": "Recording answers correctly: non-answers, amounts, select-all and skipped questions", "start": "nonanswer" },
+    "data":    { "description": "Saving, syncing, the two ways data has been lost, and the supervisor's checks", "start": "saving" },
+    "close":   { "description": "Practice scenarios and the closing competency checklist", "start": "practice" }
+  },
+  "faces": {
+    "source-serif-4": { "family": "Source Serif 4", "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@300..700&display=swap" },
+    "inter": { "family": "Inter", "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" }
+  },
+  "designSystems": []
+}

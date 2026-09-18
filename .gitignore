@@ -15,3 +15,7 @@ tools/simulate/node_modules/
 tools/simulate/out/
 tools/simulate/*.json
 !tools/simulate/package.json
+
+# Simulation and reference build artefacts are committed deliberately
+# (see reference/README.md) — but never the macOS metadata beside them.
+reference/__pycache__/

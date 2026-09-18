@@ -1,0 +1,206 @@
+field_id,question_text
+QUESTIONNAIR_intro_1,Questionnaire Administration and Quality-Control Information > Questionnaire Administration and Quality-Control Information > Questionnaire Version
+QUESTIONNAIR_intro_2,Questionnaire Administration and Quality-Control Information > Questionnaire Administration and Quality-Control Information > Date of Version
+QUESTIONNAIR_intro_3,Questionnaire Administration and Quality-Control Information > Questionnaire Administration and Quality-Control Information > Questionnaire Control Number
+QUESTIONNAIR_intro_4,Questionnaire Administration and Quality-Control Information > Questionnaire Administration and Quality-Control Information > Comparison-Group Sampling Frame ID
+QUESTIONNAIR_intro_5,Questionnaire Administration and Quality-Control Information > Questionnaire Administration and Quality-Control Information > Enumerator Name / ID
+QUESTIONNAIR_intro_6,Questionnaire Administration and Quality-Control Information > Questionnaire Administration and Quality-Control Information > Supervisor Name / ID
+QUESTIONNAIR_intro_7,Questionnaire Administration and Quality-Control Information > Questionnaire Administration and Quality-Control Information > Date of Interview
+QUESTIONNAIR_intro_8,Questionnaire Administration and Quality-Control Information > Questionnaire Administration and Quality-Control Information > Interview Start Time
+QUESTIONNAIR_intro_9,Questionnaire Administration and Quality-Control Information > Questionnaire Administration and Quality-Control Information > Interview End Time
+QUESTIONNAIR_intro_10,Questionnaire Administration and Quality-Control Information > Questionnaire Administration and Quality-Control Information > Language Primarily Used:
+QUESTIONNAIR_intro_11,Questionnaire Administration and Quality-Control Information > Questionnaire Administration and Quality-Control Information > Interview Mode:
+Consent_to_Participa_1,Introduction and Informed Consent > Consent to Participate > Do you voluntarily agree to participate?
+Consent_for_Possible_1,"Introduction and Informed Consent > Consent for Possible Validation / Back-check > May the research team contact you again, if necessary, for a brief validation or back-check?"
+Consent_Confirmation_1,Introduction and Informed Consent > Consent Confirmation > Enumerator Attestation
+Consent_Confirmation_4,Introduction and Informed Consent > Consent Confirmation > Respondent Signature (optional)
+A1_1,Identification and Eligibility Screening > Location of Interview > Region
+A1_2,Identification and Eligibility Screening > Location of Interview > Province
+A1_3,Identification and Eligibility Screening > Location of Interview > Municipality/City
+A1_4,Identification and Eligibility Screening > Location of Interview > Barangay
+A1_5,Identification and Eligibility Screening > Location of Interview > Island Group:
+A2_1,"Identification and Eligibility Screening > Respondent Type > Based on the approved comparison-group sampling frame, is the respondent:"
+A3_1,Identification and Eligibility Screening > Respondent Segment > Respondent Segment
+A4_1,Identification and Eligibility Screening > Respondent / Organization Name > Name
+A4_2,Identification and Eligibility Screening > Respondent / Organization Name > Name of organization / enterprise
+A5_1,Identification and Eligibility Screening > Current AGRISENSO Plus Loan Agreement Verification > Does the respondent or organization currently have an AGRISENSO Plus Program loan agreement with LANDBANK?
+A6_1,"Identification and Eligibility Screening > Previous AGRISENSO Plus Loan Agreement > Has the respondent or organization ever previously had an AGRISENSO Plus Program loan agreement with LANDBANK, including one that has already been fully paid, closed, or terminated?"
+A7_1,"Identification and Eligibility Screening > Current AGRISENSO Plus Application Status > Are you or your organization currently applying for, or have you previously attempted to apply for, AGRISENSO Plus financing?"
+A8_1,Identification and Eligibility Screening > Individual Respondent Eligibility > Is the respondent at least 18 years old?
+A8_2,"Identification and Eligibility Screening > Individual Respondent Eligibility > Are you directly involved in decisions concerning your farm, fishery, livelihood, or agriculture-related enterprise?"
+A9_1,Identification and Eligibility Screening > Organizational / Enterprise Respondent Eligibility > What is your role?
+A9_2,Identification and Eligibility Screening > Organizational / Enterprise Respondent Eligibility > Are you authorized or sufficiently knowledgeable to answer questions concerning the organization’s: - agricultural or enterprise operations; - financing needs; - current financing sources; - financial practices; and - production or enterprise conditions?
+A10_1,Identification and Eligibility Screening > Final Eligibility Determination > Final Eligibility Determination
+B1_1,Respondent and Household / Organization Profile > Respondent Sex > Respondent Sex
+B1_2,Respondent and Household / Organization Profile > Respondent Sex > Record the sex of the representative only. Do not interpret this as the sex classification of the organization.
+B2_1,Respondent and Household / Organization Profile > Age > Age in completed years
+B2_2,Respondent and Household / Organization Profile > Age > Age
+B3_1,Respondent and Household / Organization Profile > Highest Educational Attainment > Highest Educational Attainment
+B4_1,Respondent and Household / Organization Profile > Civil Status > Civil Status
+B5_1,Respondent and Household / Organization Profile > Household Size > Total household members (persons)
+B6_1,"Respondent and Household / Organization Profile > Economically Active Household Members > Number of adult household members currently earning or engaged in farming, fishing, employment, business, or livelihood (persons)"
+B7_1,Respondent and Household / Organization Profile > Household Dependents > Number primarily dependent on others for financial support (persons)
+B8_1,Respondent and Household / Organization Profile > Estimated Average Monthly Household Income > Estimated amount: PHP
+B8_2,Respondent and Household / Organization Profile > Estimated Average Monthly Household Income > Estimated Average Monthly Household Income
+B8_3,Respondent and Household / Organization Profile > Estimated Average Monthly Household Income > If necessary:
+B9_1,Respondent and Household / Organization Profile > Primary Household Livelihood > Primary Household Livelihood
+B10_1,Respondent and Household / Organization Profile > Indigenous Peoples Identification > Do you identify as a member of an Indigenous Cultural Community / Indigenous Peoples group?
+B10_2,Respondent and Household / Organization Profile > Indigenous Peoples Identification > If Yes and willing to specify:
+B11_1,Respondent and Household / Organization Profile > Disability Status > Do you identify as a person with disability?
+B12_1,Respondent and Household / Organization Profile > Mobile Phone Access > Do you have regular access to a mobile phone used for communication or financial transactions?
+B12_2,Respondent and Household / Organization Profile > Mobile Phone Access > Is the phone:
+B13_1,Respondent and Household / Organization Profile > Internet / Mobile Data Access > Internet / Mobile Data Access
+C1_1,"Farm, Fishery, and Enterprise Profile > Current Agricultural / Enterprise Activities > Current Agricultural / Enterprise Activities"
+C2_1,"Farm, Fishery, and Enterprise Profile > Principal Commodity / Enterprise Activity > Which of the activities you selected is your principal activity?"
+C2_2,"Farm, Fishery, and Enterprise Profile > Principal Commodity / Enterprise Activity > Commodity/product"
+C3_1,"Farm, Fishery, and Enterprise Profile > Years in Operation > Response (years)"
+C3_2,"Farm, Fishery, and Enterprise Profile > Years in Operation > Years in Operation"
+C4_1,"Farm, Fishery, and Enterprise Profile > Farm / Production Area > Total area used for the principal activity"
+C4_2,"Farm, Fishery, and Enterprise Profile > Farm / Production Area > Unit (applies to both areas above)"
+C4_3,"Farm, Fishery, and Enterprise Profile > Farm / Production Area > Area actually cultivated / utilised during the most recent cycle"
+C4_4,"Farm, Fishery, and Enterprise Profile > Farm / Production Area > No land or production area applies to this activity"
+C5_1,"Farm, Fishery, and Enterprise Profile > Land Tenure / Access Arrangement > Land Tenure / Access Arrangement"
+C6_table1__Crops__Area_Number,"Farm, Fishery, and Enterprise Profile > Production Scale > Production Scale > Crops > Area / Number"
+C6_table1__Crops__Unit_Classification,"Farm, Fishery, and Enterprise Profile > Production Scale > Production Scale > Crops > Unit / Classification"
+C6_table1__Fisheries_Aquaculture__Area_Number,"Farm, Fishery, and Enterprise Profile > Production Scale > Production Scale > Fisheries / Aquaculture > Area / Number"
+C6_table1__Fisheries_Aquaculture__Unit_Classification,"Farm, Fishery, and Enterprise Profile > Production Scale > Production Scale > Fisheries / Aquaculture > Unit / Classification"
+C6_table1__Livestock__Area_Number,"Farm, Fishery, and Enterprise Profile > Production Scale > Production Scale > Livestock > Area / Number"
+C6_table1__Livestock__Unit_Classification,"Farm, Fishery, and Enterprise Profile > Production Scale > Production Scale > Livestock > Unit / Classification"
+C6_table1__Poultry__Area_Number,"Farm, Fishery, and Enterprise Profile > Production Scale > Production Scale > Poultry > Area / Number"
+C6_table1__Poultry__Unit_Classification,"Farm, Fishery, and Enterprise Profile > Production Scale > Production Scale > Poultry > Unit / Classification"
+C6_table1__Other__Area_Number,"Farm, Fishery, and Enterprise Profile > Production Scale > Production Scale > Other > Area / Number"
+C6_table1__Other__Unit_Classification,"Farm, Fishery, and Enterprise Profile > Production Scale > Production Scale > Other > Unit / Classification"
+C7_1,"Farm, Fishery, and Enterprise Profile > Production During Most Recent Completed Cycle > Commodity"
+C7_2,"Farm, Fishery, and Enterprise Profile > Production During Most Recent Completed Cycle > Production volume"
+C7_3,"Farm, Fishery, and Enterprise Profile > Production During Most Recent Completed Cycle > Unit:"
+C7_4,"Farm, Fishery, and Enterprise Profile > Production During Most Recent Completed Cycle > Estimated yield per hectare where applicable"
+C8_1,"Farm, Fishery, and Enterprise Profile > Number of Production Cycles > Past 12 months (cycles)"
+C8_2,"Farm, Fishery, and Enterprise Profile > Number of Production Cycles > Number of Production Cycles"
+C9_1,"Farm, Fishery, and Enterprise Profile > Irrigation / Water Source > Irrigation / Water Source"
+C10_1,"Farm, Fishery, and Enterprise Profile > Mechanization / Equipment > Did you use machinery or mechanized equipment?"
+C10_2,"Farm, Fishery, and Enterprise Profile > Mechanization / Equipment > Mechanization / Equipment"
+C10_3,"Farm, Fishery, and Enterprise Profile > Mechanization / Equipment > Mode of access:"
+C11_1,"Farm, Fishery, and Enterprise Profile > Major Production Inputs > Major Production Inputs"
+C12_1,"Farm, Fishery, and Enterprise Profile > Extension / Technical Support > During the past 12 months, did you receive extension or technical support?"
+C12_2,"Farm, Fishery, and Enterprise Profile > Extension / Technical Support > Extension / Technical Support"
+C12_3,"Farm, Fishery, and Enterprise Profile > Extension / Technical Support > Provider:"
+C13_1,"Farm, Fishery, and Enterprise Profile > Production / Operating Cost > Estimated total for most recent cycle/period PHP"
+C13_2,"Farm, Fishery, and Enterprise Profile > Production / Operating Cost > Production / Operating Cost"
+C14_1,"Farm, Fishery, and Enterprise Profile > Gross Sales / Revenue > Estimated gross sales/revenue during same period PHP"
+C14_2,"Farm, Fishery, and Enterprise Profile > Gross Sales / Revenue > Gross Sales / Revenue"
+C15_1,"Farm, Fishery, and Enterprise Profile > Estimated Net Income / Profit > PHP"
+C15_2,"Farm, Fishery, and Enterprise Profile > Estimated Net Income / Profit > Estimated Net Income / Profit"
+C16_1,"Farm, Fishery, and Enterprise Profile > Record Keeping > Record Keeping"
+C16_2,"Farm, Fishery, and Enterprise Profile > Record Keeping > Record Keeping — select all that apply"
+C17_table1__Sold__Approximate,"Farm, Fishery, and Enterprise Profile > Output Disposition > Output Disposition > Sold > Approximate %"
+C17_table1__Consumed_by_household_members__Approximate,"Farm, Fishery, and Enterprise Profile > Output Disposition > Output Disposition > Consumed by household / members > Approximate %"
+C17_table1__Retained_as_seed_input_feed__Approximate,"Farm, Fishery, and Enterprise Profile > Output Disposition > Output Disposition > Retained as seed/input/feed > Approximate %"
+C17_table1__Given_away_other_use__Approximate,"Farm, Fishery, and Enterprise Profile > Output Disposition > Output Disposition > Given away / other use > Approximate %"
+C17_table1__Lost_spoiled_wasted__Approximate,"Farm, Fishery, and Enterprise Profile > Output Disposition > Output Disposition > Lost / spoiled / wasted > Approximate %"
+C17_table1__Total__Approximate,"Farm, Fishery, and Enterprise Profile > Output Disposition > Output Disposition > Total > Approximate %"
+C17_2,"Farm, Fishery, and Enterprise Profile > Output Disposition > Output Disposition"
+C18_1,"Farm, Fishery, and Enterprise Profile > Production / Post-Harvest Losses > Production / Post-Harvest Losses"
+C18_2,"Farm, Fishery, and Enterprise Profile > Production / Post-Harvest Losses > Approximate proportion lost (%)"
+C18_3,"Farm, Fishery, and Enterprise Profile > Production / Post-Harvest Losses > Main reason"
+C19_1,"Farm, Fishery, and Enterprise Profile > Main Buyers / Market Outlets > Main Buyers / Market Outlets"
+C20_1,"Farm, Fishery, and Enterprise Profile > Value-Chain Participation > Value-Chain Participation"
+C21_1,"Farm, Fishery, and Enterprise Profile > Major Shocks During Past 12 Months > Major Shocks During Past 12 Months"
+C21_2,"Farm, Fishery, and Enterprise Profile > Major Shocks During Past 12 Months > Which shock had the greatest effect?"
+C21_3,"Farm, Fishery, and Enterprise Profile > Major Shocks During Past 12 Months > Main effect of the most significant shock"
+C22_1,"Farm, Fishery, and Enterprise Profile > Selected Risk-Management Practices > Selected Risk-Management Practices"
+C23_1,"Farm, Fishery, and Enterprise Profile > Agricultural / Enterprise Insurance > Do you currently have relevant insurance?"
+C23_2,"Farm, Fishery, and Enterprise Profile > Agricultural / Enterprise Insurance > Type — select all that apply"
+C23_3,"Farm, Fishery, and Enterprise Profile > Agricultural / Enterprise Insurance > Provider — select all that apply"
+C23_4,"Farm, Fishery, and Enterprise Profile > Agricultural / Enterprise Insurance > Have you filed a claim?"
+C23_5,"Farm, Fishery, and Enterprise Profile > Agricultural / Enterprise Insurance > Agricultural / Enterprise Insurance"
+D1_1,"AGRISENSO Plus Awareness and Application Experience > Awareness of AGRISENSO Plus > Before this interview, had you heard of AGRISENSO Plus?"
+D2_1,AGRISENSO Plus Awareness and Application Experience > Source of Program Information > How did you first hear about AGRISENSO Plus?
+D3_likert1,AGRISENSO Plus Awareness and Application Experience > Self-Assessed Understanding > How confident are you that you understand how AGRISENSO Plus works?
+D4_table1__Who_may_qualify,AGRISENSO Plus Awareness and Application Experience > Awareness of Program Features > Were you aware of: > Who may qualify
+D4_table1__Eligible_financing_activities,AGRISENSO Plus Awareness and Application Experience > Awareness of Program Features > Were you aware of: > Eligible financing activities
+D4_table1__Loan_amount_ceiling,AGRISENSO Plus Awareness and Application Experience > Awareness of Program Features > Were you aware of: > Loan amount / ceiling
+D4_table1__Interest_financing_cost,AGRISENSO Plus Awareness and Application Experience > Awareness of Program Features > Were you aware of: > Interest / financing cost
+D4_table1__Loan_term,AGRISENSO Plus Awareness and Application Experience > Awareness of Program Features > Were you aware of: > Loan term
+D4_table1__Grace_period,AGRISENSO Plus Awareness and Application Experience > Awareness of Program Features > Were you aware of: > Grace period
+D4_table1__Documentary_requirements,AGRISENSO Plus Awareness and Application Experience > Awareness of Program Features > Were you aware of: > Documentary requirements
+D4_table1__Repayment_requirements,AGRISENSO Plus Awareness and Application Experience > Awareness of Program Features > Were you aware of: > Repayment requirements
+D4_table1__Where_how_to_apply,AGRISENSO Plus Awareness and Application Experience > Awareness of Program Features > Were you aware of: > Where/how to apply
+D5_1,AGRISENSO Plus Awareness and Application Experience > Application Experience > Have you ever attempted to apply for AGRISENSO Plus?
+D5_2,AGRISENSO Plus Awareness and Application Experience > Application Experience > What happened?
+D6_1,AGRISENSO Plus Awareness and Application Experience > Reason for Declined Application > If declined: Were you told the reason?
+D6_2,AGRISENSO Plus Awareness and Application Experience > Reason for Declined Application > Reason for Declined Application
+D7_1,AGRISENSO Plus Awareness and Application Experience > Reason for Withdrawal / Incomplete Application > Reason for Withdrawal / Incomplete Application
+E1_1,"Current Financing Needs, Sources, and Access Barriers > Current Need for Financing > Do you or the organization currently need additional financing for the farm, fishery, or enterprise?"
+E2_1,"Current Financing Needs, Sources, and Access Barriers > Purpose of Current / Anticipated Financing Need > If Yes or Not sure, select all that apply."
+E3_1,"Current Financing Needs, Sources, and Access Barriers > Estimated Financing Need > Approximately how much financing would currently be needed? PHP"
+E3_2,"Current Financing Needs, Sources, and Access Barriers > Estimated Financing Need > Estimated Financing Need"
+E4_1,"Current Financing Needs, Sources, and Access Barriers > Current Financing Sources > During the past 12 months, which sources have you used?"
+E5_1,"Current Financing Needs, Sources, and Access Barriers > Primary Financing Source > Which was your main financing source?"
+E6_1,"Current Financing Needs, Sources, and Access Barriers > Adequacy of Current Financing > Does your current financing fully meet your farm/fishery/enterprise needs?"
+E7_1,"Current Financing Needs, Sources, and Access Barriers > Reason for Not Availing AGRISENSO Plus > What is the main reason you do not currently have an AGRISENSO Plus loan agreement?"
+E8_1,"Current Financing Needs, Sources, and Access Barriers > Barriers to Formal Agricultural Financing > Which of the following make access difficult?"
+E9_1,"Current Financing Needs, Sources, and Access Barriers > Most Significant Barrier > Most Significant Barrier"
+E10_1,"Current Financing Needs, Sources, and Access Barriers > Perceived Ease of Formal Financing Access > Perceived Ease of Formal Financing Access"
+F_intro_1,Financial Knowledge and Capability > Financial Knowledge and Capability > Use the same response scales and wording as the Borrower Survey to support valid comparison.
+F1_likert1,"Financial Knowledge and Capability > Understanding Financing Terms > Confidence in understanding interest, loan term, repayment schedules, grace periods, and fees:"
+F2_likert1,Financial Knowledge and Capability > Comparing Financing Options > Confidence in comparing financing options:
+F3_likert1,Financial Knowledge and Capability > Preparing a Budget > Confidence in preparing a simple farm/enterprise budget:
+F4_likert1,"Financial Knowledge and Capability > Understanding Cost of Borrowing > Confidence in understanding how interest, duration, and charges affect repayment:"
+F5_likert1,Financial Knowledge and Capability > Assessing Repayment Capacity > Confidence in assessing whether expected income can meet repayments:
+F6_likert1,Financial Knowledge and Capability > Repayment Planning > Confidence in planning repayment against expected income/production cycles:
+F7_1,Financial Knowledge and Capability > Separation of Household and Enterprise Finances > Separation of Household and Enterprise Finances
+F8_1,Financial Knowledge and Capability > Budgeting Practice > Budgeting Practice
+F9_1,Financial Knowledge and Capability > Record-Keeping Practice > Record-Keeping Practice
+F10_1,"Financial Knowledge and Capability > Repayment Planning Practice > Ask respondents with borrowing experience. Before borrowing, do you normally identify where repayment funds will come from and when they will be available?"
+F11_1,Financial Knowledge and Capability > Savings / Financial Buffer > Savings / Financial Buffer
+F11_2,Financial Knowledge and Capability > Savings / Financial Buffer > Savings are set aside mainly for:
+F12_table1__Mobile_banking,"Financial Knowledge and Capability > Digital Financial Services > During the past 12 months, have you used: > Mobile banking"
+F12_table1__Digital_wallet,"Financial Knowledge and Capability > Digital Financial Services > During the past 12 months, have you used: > Digital wallet"
+F12_table1__Digital_payment_to_supplier_wo,"Financial Knowledge and Capability > Digital Financial Services > During the past 12 months, have you used: > Digital payment to supplier/worker"
+F12_table1__Digital_receipt_of_payment,"Financial Knowledge and Capability > Digital Financial Services > During the past 12 months, have you used: > Digital receipt of payment"
+F12_table1__Online_bank_transfer,"Financial Knowledge and Capability > Digital Financial Services > During the past 12 months, have you used: > Online bank transfer"
+F12_table1__Online_digital_loan_applicatio,"Financial Knowledge and Capability > Digital Financial Services > During the past 12 months, have you used: > Online/digital loan application"
+F12_2,Financial Knowledge and Capability > Digital Financial Services > Difficulties experienced with digital financial services
+F13_1,Financial Knowledge and Capability > Training / Advisory Support > During the past 12 months:
+F14_1,Financial Knowledge and Capability > Training Provider > Training Provider
+F15_1,Financial Knowledge and Capability > Usefulness of Training > Usefulness of Training
+F15_2,Financial Knowledge and Capability > Usefulness of Training > Have you applied what you learned?
+F16_table1__Whether_to_apply_for_financing,Financial Knowledge and Capability > Financing and Enterprise Decision-Making > Financing and Enterprise Decision-Making > Whether to apply for financing
+F16_table1__How_borrowed_funds_would_be_us,Financial Knowledge and Capability > Financing and Enterprise Decision-Making > Financing and Enterprise Decision-Making > How borrowed funds would be used
+F16_table1__Major_investments,Financial Knowledge and Capability > Financing and Enterprise Decision-Making > Financing and Enterprise Decision-Making > Major investments
+F16_table1__Marketing_buyer_decisions,Financial Knowledge and Capability > Financing and Enterprise Decision-Making > Financing and Enterprise Decision-Making > Marketing/buyer decisions
+F16_table1__Major_expenditures,Financial Knowledge and Capability > Financing and Enterprise Decision-Making > Financing and Enterprise Decision-Making > Major expenditures
+F16_table2__Applying_for_financing,Financial Knowledge and Capability > Financing and Enterprise Decision-Making > Financing and Enterprise Decision-Making > Applying for financing
+F16_table2__Use_of_borrowed_funds,Financial Knowledge and Capability > Financing and Enterprise Decision-Making > Financing and Enterprise Decision-Making > Use of borrowed funds
+F16_table2__Major_investments,Financial Knowledge and Capability > Financing and Enterprise Decision-Making > Financing and Enterprise Decision-Making > Major investments
+F16_table2__Marketing_buyer_decisions,Financial Knowledge and Capability > Financing and Enterprise Decision-Making > Financing and Enterprise Decision-Making > Marketing/buyer decisions
+F16_table2__Major_expenditures,Financial Knowledge and Capability > Financing and Enterprise Decision-Making > Financing and Enterprise Decision-Making > Major expenditures
+F17_likert1,Financial Knowledge and Capability > Overall Financial-Management Confidence > Overall Financial-Management Confidence
+G1_1,Perceptions of AGRISENSO Plus and Agricultural Financing > Potential Benefit of Affordable Formal Financing > What would be the most important potential benefit?
+G2_1,"Perceptions of AGRISENSO Plus and Agricultural Financing > Perceived Fairness of Access > Do qualified farmers, fisherfolk, organizations, and agri-enterprises in your area generally have a fair opportunity to access formal agricultural financing?"
+G2_2,Perceptions of AGRISENSO Plus and Agricultural Financing > Perceived Fairness of Access > Why?
+G3_1,Perceptions of AGRISENSO Plus and Agricultural Financing > Trust in Government-Supported Agricultural Financing > How much confidence do you have in government-supported agricultural financing programs?
+G3_2,Perceptions of AGRISENSO Plus and Agricultural Financing > Trust in Government-Supported Agricultural Financing > Why?
+G4_1,"Perceptions of AGRISENSO Plus and Agricultural Financing > Perceived Differences Between Borrowers and Non-Borrowers > Based on what you observe, what most distinguishes farmers, fisherfolk, organizations, or enterprises that are able to obtain formal agricultural financing from those that are not?"
+H1_1,"Future Financing Intentions and Suggestions > Future Interest in AGRISENSO Plus > If you need financing and are eligible, how likely are you to apply for AGRISENSO Plus in the future?"
+H1_2,Future Financing Intentions and Suggestions > Future Interest in AGRISENSO Plus > Why?
+H2_1,Future Financing Intentions and Suggestions > What Would Encourage Application? > What Would Encourage Application?
+H3_1,Future Financing Intentions and Suggestions > Preferred Information Channels > How would you prefer to receive information about AGRISENSO Plus?
+H4_1,Future Financing Intentions and Suggestions > Most Significant Financing Challenge > What is the single most significant challenge you currently face in obtaining agricultural financing?
+H5_1,Future Financing Intentions and Suggestions > Most Important Improvement to AGRISENSO Plus > What is the one most important improvement you would recommend?
+H5_2,Future Financing Intentions and Suggestions > Most Important Improvement to AGRISENSO Plus > Why?
+H6_1,"Future Financing Intentions and Suggestions > Additional Support Needed > Aside from financing, what support would be useful?"
+H7_1,"Future Financing Intentions and Suggestions > Additional Comments > Is there anything else you would like ACPC to know about your financing needs, difficulties in accessing agricultural credit, or AGRISENSO Plus?"
+ENUMERATOR_F_intro_1,Enumerator Final Review > Enumerator Final Review > Confirm:
+QUESTIONNAIR_intro_12,Enumerator Final Review > Interview Outcome > Interview Outcome
+CALLBACK_date,Enumerator Final Review > Interview Outcome > Callback date
+CALLBACK_time,Enumerator Final Review > Interview Outcome > Callback time
+CALLBACK_note,Enumerator Final Review > Interview Outcome > Callback arrangement / reason
+QUESTIONNAIR_intro_13,Enumerator Final Review > Post-Interview Quality Control > Supervisor Verification
+QUESTIONNAIR_intro_14,Enumerator Final Review > Post-Interview Quality Control > Data Verification Status
+QUESTIONNAIR_intro_15,Enumerator Final Review > Post-Interview Quality Control > Back-check Status
+ENUMERATOR_O_intro_1,Enumerator Observation / Interview Notes > Enumerator Observation / Interview Notes > Record objective conditions only.
+ENUMERATOR_O_intro_2,Enumerator Observation / Interview Notes > Enumerator Observation / Interview Notes > Brief factual notes:
+CLOSING_STAT_intro_1,Closing Statement > Closing Statement > End Time
+INTERVIEW_COMPLETION,Interview completion (auto: set when a routing rule ended the interview)
+INTERVIEW_TERMINATION_REASON,Reason the interview was ended early (auto)

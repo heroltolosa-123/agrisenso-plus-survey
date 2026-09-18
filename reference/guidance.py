@@ -1,0 +1,470 @@
+# -*- coding: utf-8 -*-
+"""Per-item training notes, keyed by question id.
+
+Looked up instrument-first, then 'both'. Anything with no entry still gets
+its question text, options, routing and validation printed from the
+schema — the notes add the training value on top.
+
+Each entry: (purpose, how to ask, what to watch)
+"""
+
+BOTH = {
+"QUESTIONNAIR_intro": (
+ "Identifies the interview and links it to the sample. None of it is read aloud.",
+ "Complete before greeting the respondent, while you still have signal.",
+ "The Sampling Frame ID is the only link between this interview and the approved list. "
+ "Copy it exactly, including dashes and leading zeros. If you cannot find it, leave it blank "
+ "and call your supervisor rather than inventing one. Use the same spelling of your own name every time."),
+"Consent_to_Participa": (
+ "The legal basis for the interview. Everything that follows depends on it.",
+ "Read the consent script in full, word for word, inserting your own name where indicated. Then ask the question.",
+ "No ends the interview immediately. Thank the respondent, submit the record so the refusal is counted "
+ "in the sample disposition, and do not attempt to persuade them."),
+"Consent_for_Possible": (
+ "Permission for a later validation call or back-check.",
+ "Ask plainly, after consent to participate.",
+ "Say clearly that No here does not affect the present interview. Respondents often assume "
+ "refusing will end the interview."),
+"Consent_Confirmation": (
+ "Your certification that consent was properly obtained.",
+ "You tick the attestation, not the respondent. Offer the signature line; never insist.",
+ "Only tick it if you genuinely read or explained the consent. A respondent who agreed verbally "
+ "but will not sign is still a valid interview."),
+
+# ---- Section B: respondent and household profile -------------------
+"B1": ("Respondent sex, for disaggregation.",
+ "Observe where obvious; ask if unsure.",
+ "For an organisational respondent this records the representative only. It is not the sex "
+ "classification of the organisation — say so if the respondent looks puzzled."),
+"B2": ("Age, and the age band derived from it.",
+ "Ask for completed years. Help the respondent work it from a birth year if unsure.",
+ "Must be 18 or over; the app rejects less. Never leave a stray 0. The age group below fills itself."),
+"B3": ("Educational attainment, a standard correlate of financial capability.",
+ "Read the options. Do not infer from appearance or speech.",
+ "'Level' means attended but did not finish; 'graduate' means completed. Do not merge them."),
+"B4": ("Civil status.", "Read the options.",
+ "'Living with partner' is distinct from 'Married'. Record what the respondent says, not what is on paper."),
+"B5": ("Household size, the denominator for the two questions that follow.",
+ "'Including yourself, how many persons usually live in your household?'",
+ "Minimum 1, because the respondent counts. 'Usually live' means regular members: include a student "
+ "who comes home, exclude a long-term overseas worker unless the household treats them as resident."),
+"B6": ("How many household members earn, a measure of dependency.",
+ "Aged 18 or older, earning income or actively engaged in a livelihood.",
+ "Cannot exceed household size; the app warns if it does. Zero is a legitimate answer and is not "
+ "the same as leaving it blank."),
+"B7": ("How many household members depend on others.",
+ "Members primarily dependent on other members for financial support.",
+ "Cannot exceed household size. This and the previous item need not sum to household size — "
+ "some members are neither."),
+"B8": ("Household income, the main welfare measure in the profile.",
+ "Ask for the exact average monthly amount first, across all sources and the whole household. "
+ "Only if that fails, offer the reason, then the bracket.",
+ "The most refused question in the instrument. Ask it matter-of-factly and move on. "
+ "Distinguish 'unable to estimate' from 'prefers not to'. If the respondent refuses outright, "
+ "do not push for a bracket."),
+"B9": ("The household's main income source, which may differ from the farm enterprise.",
+ "Ask for the main source for the household as a whole.",
+ "A household can farm while its largest income is a pension or remittances. Record what they say."),
+"B10": ("Indigenous Peoples identification, for disaggregation.",
+ "Read as written. This is self-identification.",
+ "Never infer it from language, place or appearance. The follow-up appears only after Yes and stays optional."),
+"B11": ("Disability status, for disaggregation.", "Self-identification again.",
+ "Do not infer from what you observe."),
+"B12": ("Mobile phone access, a precondition for digital financial services.",
+ "Ask about regular access for communication or financial transactions.",
+ "Access, not ownership. The follow-up separates an own phone from a shared household phone."),
+"B13": ("Internet or mobile data access.", "Read all four options.",
+ "Asked of both individual and organisational respondents. 'Rarely' and 'No access' are different answers."),
+}
+
+BOTH.update({
+# ---- Section C: farm, fishery and enterprise -----------------------
+"C1": ("The activities the respondent is engaged in. This item controls the whole section.",
+ "Read every option before accepting an answer. Select all that apply.",
+ "The most consequential item in Section C. Production questions appear only for crop, fisheries, "
+ "aquaculture, livestock or poultry. A trader answers 18 questions here; a mixed farmer answers 52. "
+ "Every careless extra tick opens another production block."),
+"C2": ("The principal activity and commodity, which later questions refer back to.",
+ "The dropdown offers only what was ticked above. Ask which is the main activity, not the first mentioned.",
+ "Be specific on the commodity: 'Palay (rice)', not 'farming'. It carries forward to the production question."),
+"C3": ("Experience in the principal activity.", "Years engaged in this activity.",
+ "For under a year, leave the number blank and tick 'Less than one year' instead. The two are alternatives — "
+ "answering one clears the other."),
+"C4": ("Land or production area, total and actually used.",
+ "Numbers only. Choose the unit once; it applies to both areas.",
+ "Cultivated area cannot exceed total area; the app warns. The difference is fallow or idle land. "
+ "If no land applies to this activity, tick 'Not applicable' — it clears the area fields."),
+"C5": ("How land is held or accessed.", "Select all that apply.",
+ "Several can be true at once: owned plus rented is common."),
+"C6": ("Scale of production, in commodity-appropriate units.",
+ "Fill only the rows matching the reported activities.",
+ "Leave irrelevant rows empty rather than writing N/A in them."),
+"C7": ("Output in the most recent completed cycle.",
+ "Commodity carries forward; edit only if this cycle differed. Record volume and match the unit to it.",
+ "Cavans and kilograms are not interchangeable — record the unit the respondent actually used. "
+ "Yield per hectare applies only where it is meaningful; skip it for livestock, poultry and enterprises."),
+"C8": ("Production intensity over the year.", "Completed cycles in the past 12 months.",
+ "For continuous operations leave the number blank and tick 'Continuous production'. "
+ "Livestock and poultry are often continuous."),
+"C9": ("Water source, a key production constraint.", "Ask for the principal source only.",
+ "Shown only for crop production and aquaculture."),
+"C10": ("Mechanisation and how equipment is obtained.",
+ "Ask whether machinery was used this cycle; the follow-ups open on Yes.",
+ "Mode of access is the main one. Rented and borrowed are different arrangements."),
+"C11": ("Inputs used, an indicator of intensification.", "Select all that apply.", ""),
+"C12": ("Extension and technical support received.",
+ "Past 12 months, any agricultural, fisheries, enterprise or technical support.",
+ "More than one provider is common; the provider question takes several answers."),
+"C13": ("Production or operating cost for the reference cycle.",
+ "Ask for the exact peso amount first. Prompt for the components — seeds, fertiliser, labour, fuel — "
+ "if the respondent hesitates. Only if that fails, offer the reason, then the bracket.",
+ "If you tap a fallback by mistake, the amount box stays open and answering it clears the fallback."),
+"C14": ("Gross sales or revenue for the same period, before expenses.",
+ "Ask for the exact amount first, same reference period as the cost.",
+ "Say 'before expenses' clearly. Respondents frequently give a net figure here, which makes the "
+ "three money questions inconsistent."),
+"C15": ("Net income or profit for the same period.",
+ "After deducting production or operating expenses.",
+ "The field accepts a negative number. Record a loss as a negative figure, never as 0 — zero reads as "
+ "break-even, which is a different finding. Sanity-check it against the cost and sales figures above."),
+"C16": ("Record-keeping practice.", "Ask whether records are kept, then how.",
+ "Several methods can be true at once. Should be consistent with the record-keeping practice question in the "
+ "financial capability section."),
+"C17": ("Where output went, as percentages.",
+ "Read the five uses. Enter a percentage for each.",
+ "The Total is computed for you and should reach 100. Enter 0 for a category with no output — "
+ "leaving it blank is not the same as zero."),
+"C18": ("Production and post-harvest losses.", "Ask whether losses occurred; the follow-ups open on Yes.",
+ "Record the proportion lost as a percentage and the main reason in the respondent's own words."),
+"C19": ("Where output is sold.", "Select all that apply.", ""),
+"C20": ("Which value-chain stages the respondent operates in.", "Select all that apply.",
+ "Most smallholders are production only. Do not over-tick: involvement means they actually do that stage."),
+"C21": ("Shocks experienced, which one hurt most, and its effect.",
+ "Read every option. Select all that apply, then ask which had the greatest effect.",
+ "'None' clears the other ticks automatically. The greatest-effect question offers only what was "
+ "ticked, so answer the first part properly."),
+"C22": ("Risk-management practices currently used.", "Select all that apply.",
+ "'None' clears the others."),
+"C23": ("Insurance cover, type, provider and claims experience.",
+ "Ask whether any cover exists; the follow-ups open on Yes.",
+ "'Do not know' is a valid answer for the provider. Claim outcome appears only if a claim was filed."),
+
+# ---- closing, both instruments -------------------------------------
+"ENUMERATOR_F_intro": ("Your own completeness check before submitting.",
+ "Work through the nine points after the interview ends.",
+ "Tick only what you actually did. It exists to catch your own omissions, not as a formality."),
+"QC1": ("How the interview actually ended. Builds the sample disposition.",
+ "Complete after the interview, not before.",
+ "'Completed' only if you reached the last section and asked every applicable question. "
+ "'Callback required' and 'Respondent unavailable' open the callback date, time and notes."),
+"QC2": ("Post-interview quality control, owned by the supervisor and data manager.",
+ "Leave every field at its default.",
+ "An enumerator marking their own interview verified defeats the control. The supervisor changes these, not you."),
+"ENUMERATOR_O_intro": ("Objective conditions that may bear on data quality.",
+ "Complete immediately after the interview, while it is fresh.",
+ "Facts, not impressions. 'Respondent consulted loan documents' is useful; 'seemed evasive' is not. "
+ "Tick 'No significant issue' if nothing occurred."),
+"CLOSING_STAT_intro": ("The closing statement and the automatic end time.",
+ "Read the closing statement before putting the device away.",
+ "Thank the respondent, confirm what happens next, and answer any questions about the study."),
+})
+
+# =====================================================================
+# Instrument A — borrowers
+# =====================================================================
+A = {
+"A1": ("Where the interview took place.",
+ "Pick the region; province, municipality and barangay follow from it where there is signal.",
+ "Changing the region clears the three fields below it — that is intended. With no signal they stay "
+ "text boxes; type them exactly as printed on the sampling frame. Island Group fills itself."),
+"A2": ("Whether this is an individual or an organisational borrower. Controls the whole interview.",
+ "Read it off the approved sampling frame. Do not ask the respondent to classify themselves.",
+ "The single most consequential answer in the instrument. Individual opens the household questions; "
+ "organisational opens the enterprise questions and skips the household block entirely. "
+ "Correcting it later clears the answers that no longer apply."),
+"A3": ("The borrower segment under the Program.", "Confirm against the approved sampling frame.",
+ "Must be consistent with borrower type: a cooperative or ARBO is not an individual borrower. "
+ "If the frame and what you see disagree, record the frame and flag it to your supervisor."),
+"A4": ("The borrower's name as it appears on the Program record.",
+ "Only the field matching the borrower type appears.",
+ "Confirm against the frame. Do not correct a spelling on the respondent's say-so — note it and tell "
+ "your supervisor."),
+"A5": ("Whether an AGRISENSO Plus loan agreement exists on the Program record. A hard gate.",
+ "This is about the record, not the respondent's memory.",
+ "Yes continues. No stops the interview — this is not an AGRISENSO Plus borrower. Unable to verify stops "
+ "it and refers the case to the supervisor. Do not ask substantive questions after either."),
+"A6": ("Whether loan proceeds have been released. Decides whether the utilisation section is asked.",
+ "Ask how much of the approved loan has actually been released or disbursed.",
+ "'Not yet released' skips the whole loan-utilisation section, correctly, because there are no proceeds "
+ "to discuss. Do not answer this on the respondent's behalf."),
+"A7": ("Individual borrower eligibility: named borrower, adult, involved in decisions. All three are gates.",
+ "Ask each directly. Individual branch only.",
+ "Not the named borrower refers to the supervisor — a spouse or child answering for the borrower is not "
+ "the borrower. Under 18 ends the interview. Not involved in decisions refers to the supervisor; "
+ "someone who only helps with labour is not involved in decisions."),
+"A8": ("Organisational eligibility: the respondent's role, and whether they can speak for the organisation.",
+ "Read the full list in the authorisation question: the loan, operations, use of proceeds, finances.",
+ "Record the actual role, not the most senior-sounding one. 'No' on authorisation stops the interview — "
+ "ask for an authorised officer or book a callback. Do not proceed with a willing but uninformed person."),
+"A9": ("Loan reference information, deliberately kept out of the survey dataset.",
+ "Select the single option.",
+ "Identifiable loan-account numbers stay in the protected tracking file, not here."),
+"A10": ("Final eligibility, computed from the screening answers above.",
+ "Do not ask and do not click. Read it to confirm the screening was answered consistently.",
+ "If it reads 'Not yet determined', a screening answer above is missing. Scroll up rather than "
+ "looking for somewhere to type."),
+
+"D1": ("How the borrower first learned of the programme — a communications finding.",
+ "Ask for the first source, not every source they have since encountered.", ""),
+"D2": ("Self-assessed understanding of how the programme works.",
+ "Explain the 1 to 5 scale once: 1 is not at all confident, 5 is very confident.",
+ "Self-assessment. Do not correct or coach the answer."),
+"D3": ("Awareness of nine specific programme features before borrowing.",
+ "Ask about awareness before entering the agreement, not what they know today.",
+ "'Not sure' is a real answer and should be recorded as such."),
+"D4": ("How clear the pre-application information was.",
+ "Five-point scale; the follow-up opens on the three lower answers.",
+ "Record what was difficult in the respondent's own words."),
+"D5": ("Difficulties encountered during application. Feeds the next question.",
+ "Read all sixteen options. Select all that apply.",
+ "'None' clears the other ticks. Answer this properly — the most-significant question offers only what is ticked here."),
+"D6": ("Which difficulty mattered most.", "The list shows only what was ticked above.",
+ "If it says to answer the previous question first, go back and complete it."),
+"D7": ("Whether help was received to complete the application, and from whom.",
+ "The follow-ups open on Yes.", "Record the type of assistance in the respondent's words."),
+"D8": ("Overall judgement on ease of access.", "Ask it last in the section, as a summary.", ""),
+
+"E_intro": ("Scope note for the loan agreement section.",
+ "Refers to the most recent or current AGRISENSO Plus loan agreement.",
+ "Encourage the respondent to fetch their loan documents. This section is far more accurate with papers in hand."),
+"E1": ("Which LANDBANK lending centre handled the loan.", "Record the full official branch name.",
+ "Free text for now; spellings should be consistent across your assignment."),
+"E2": ("Application, approval and release dates.", "Month and year for each.",
+ "They should run in chronological order. If release has not happened, use the 'not yet released' option."),
+"E3": ("Processing time as experienced by the borrower.",
+ "From a substantially complete application to release — not from first enquiry.", ""),
+"E4": ("Amounts applied for, approved and released.", "Peso amounts.",
+ "Approved may be less than applied for; that difference is meaningful data. Released cannot exceed "
+ "approved — the app warns. For a partial release, record what has actually been received so far."),
+"E5": ("The purpose stated in the application.", "Select all that apply, then the primary one.",
+ "This is the stated purpose, not what the money was actually used for — that comes later."),
+"E6": ("Interest rate as the borrower understands it.", "Record the rate and its basis.",
+ "Record what they believe even if it sounds wrong; do not correct it. 'Do not know' is common and acceptable."),
+"E7": ("Loan term in years.", "", ""),
+"E8": ("Repayment schedule agreed.", "", ""),
+"E9": ("Grace period, where one applies.", "", ""),
+"E10": ("Whether collateral or security was required.", "The follow-up opens on Yes.", ""),
+"E11": ("Whether a co-maker or guarantor was required.", "The follow-up opens on Yes.", ""),
+"E12": ("Documentary burden of applying.", "Approximate number of documents required.",
+ "The bracket is an alternative to the count, not an addition to it."),
+"E13": ("Number of office visits needed — a transaction-cost measure.",
+ "Visits to LANDBANK or another relevant office.", ""),
+"E14": ("Out-of-pocket cost of applying.", "Transport and other document-related costs.",
+ "Both amounts are alternatives to 'unable to estimate'."),
+"E15": ("Whether this is a first or repeat AGRISENSO Plus loan.",
+ "The count opens if it is a repeat.", ""),
+"E16": ("Other active borrowing, which bears on repayment capacity.",
+ "Any current loan aside from AGRISENSO Plus. The source question opens on Yes.", ""),
+"E17": ("Current repayment status.", "Ask only if repayment has actually commenced.",
+ "Skip it entirely where repayment has not started."),
+
+"F1": ("How the proceeds were actually used, as percentages.",
+ "Read the categories and record a percentage for each.",
+ "The Total is computed. Enter 0 for categories with no spend rather than leaving them blank."),
+"F2": ("The single largest use of the loan.", "", ""),
+"F3": ("Whether actual use matched the stated purpose.",
+ "Ask without judgement; the 'why' follow-up opens on anything other than a full match.",
+ "This is explanatory, not accusatory. Diverted use is a finding, not a fault to be hidden."),
+"F4": ("Whether the approved amount was sufficient.", "", ""),
+"F5": ("Activities that could not be undertaken for lack of funds.", "The follow-up opens on Yes.", ""),
+"F6": ("Size of the financing gap.", "Ask for the peso amount of additional financing needed.", ""),
+"F7": ("Whether other funds were used for the same activity.", "The source follow-up opens on Yes.", ""),
+"F8": ("Whether the loan arrived when it was needed.",
+ "The effect follow-up opens where the release was late.",
+ "Timeliness matters as much as amount for seasonal activities."),
+"F9": ("Overall adequacy, taking amount, timing and use together.",
+ "A summary judgement, with a reason in the respondent's words.", ""),
+
+"G1": ("Confidence in understanding financing terms.",
+ "Explain the 1 to 5 scale once here, and do not re-explain it at every following scale.",
+ "Read each question stem in full even though the scale repeats. No N/A — leave blank if they will not answer."),
+"G2": ("Confidence in comparing financing options.", "", ""),
+"G3": ("Confidence in preparing a budget.", "", ""),
+"G4": ("Confidence in understanding the cost of borrowing.", "", ""),
+"G5": ("Confidence in assessing repayment capacity.", "", ""),
+"G6": ("Confidence in planning repayment.", "", ""),
+"G7": ("Whether enterprise and household money are kept separate.",
+ "Individual branch only. Ask for frequency, not yes or no.", ""),
+"G8": ("Budgeting practice, as opposed to budgeting confidence.", "How often.",
+ "A confident respondent may still never budget. Record practice, not capability."),
+"G9": ("Record-keeping practice.", "How often.",
+ "Should be consistent with the record-keeping answer in Section C."),
+"G10": ("Whether repayment was planned before borrowing.", "", ""),
+"G11": ("Savings behaviour and what savings are for.",
+ "The purpose question opens only for 'regularly' or 'occasionally'.",
+ "Answering 'No' closes the purpose list, correctly."),
+"G12": ("Use of digital financial services, and difficulties with them.",
+ "Six services, each yes or no, for the past 12 months.", ""),
+"G13": ("Training or advisory support received in the past 12 months.",
+ "Select all. 'None' closes the provider and usefulness questions.", ""),
+"G14": ("Who provided the training.", "Select all.", ""),
+"G15": ("Usefulness of the training and whether anything was applied.", "", ""),
+"G16": ("Who decides on financing and enterprise matters.",
+ "Only the version matching the borrower type appears — household roles for individuals, "
+ "governance roles for organisations.", ""),
+"G17": ("Overall financial-management confidence.", "The closing scale.", ""),
+
+"H1": ("What the borrower expected the financing to achieve.",
+ "Ask about expectations before the agreement.", ""),
+"H2": ("Whether those expectations have been met.",
+ "Ask only where loan proceeds have been released.", "Skip it where they have not."),
+"H3": ("The most important benefit experienced so far.", "", ""),
+"H4": ("Whether confidence in decision-making has changed since the financing.", "", ""),
+"H5": ("Challenges experienced after receiving the financing.", "Select all that apply.", ""),
+"H6": ("Overall satisfaction.", "",
+ "The 'why' answer here is one of the most useful free-text responses in the study. Give it time."),
+"H7": ("Likelihood of borrowing again.", "If in need and still eligible.", ""),
+"H8": ("Comparison with other agricultural financing programmes.",
+ "The comparison opens only if another programme was used.", ""),
+"H9": ("The single most significant financing challenge, in the respondent's own words.",
+ "Open text. Do not lead and do not offer categories.", "Record their words, not your summary."),
+"H10": ("The one most important improvement they would recommend.",
+ "Push gently for one, not a list.", ""),
+"H11": ("Non-financial support that would be useful.", "Select all that apply.", ""),
+"H12": ("Anything else the respondent wants ACPC to know.",
+ "Give them time. Silence is fine — do not fill it.", ""),
+}
+
+# =====================================================================
+# Instrument B — non-borrower comparison group
+# =====================================================================
+B = {
+"A1": A["A1"],
+"A2": ("Whether this is an individual or an organisational respondent. Controls the whole interview.",
+ "Read it off the approved comparison-group sampling frame.",
+ "Same consequence as in Instrument A: it opens either the household block or the enterprise block."),
+"A3": ("The comparison-group segment.", "Confirm against the frame.",
+ "Must be consistent with respondent type."),
+"A4": ("The respondent's or organisation's name.",
+ "Only the field matching the respondent type appears.", ""),
+"A5": ("Whether the respondent currently has an AGRISENSO Plus loan. A hard gate.",
+ "Note the option order: 'No - Continue' comes first, because No is the expected answer here.",
+ "Yes ends the interview — this person belongs in the borrower sample, not the comparison group. "
+ "Refer to your supervisor for a replacement."),
+"A6": ("Whether they have ever had one, including loans already settled. A hard gate.",
+ "Read the whole question. 'Previously' includes loans already fully paid, closed or terminated.",
+ "Yes ends the interview. Respondents often answer No meaning 'not right now' — probe once: "
+ "'Kahit matagal na, o bayad na?'"),
+"A7": ("Application history. Separates never-applied from tried-and-failed.",
+ "Read all options before accepting an answer.",
+ "Not a gate, but analytically central to the comparison. If the answer is 'Approved but no loan "
+ "agreement executed', refer to your supervisor before continuing — eligibility depends on the final protocol."),
+"A8": ("Individual eligibility: adult, and involved in decisions. Both are gates.",
+ "Individual branch only. Note that in Instrument B these are A8, not A7.",
+ "Under 18 ends the interview. Not involved in decisions refers to the supervisor."),
+"A9": ("Organisational eligibility: role, and whether they can speak for the organisation.",
+ "Read the full list: operations, financing needs, current financing sources, finances.",
+ "'No' on authorisation stops the interview. Find an authorised officer or book a callback."),
+"A10": ("Final eligibility, computed from the screening answers above.",
+ "Do not ask and do not click.",
+ "If it reads 'Not yet determined', a screening answer above is missing."),
+
+"D1": ("Whether the respondent had heard of the programme at all. A key comparison measure.",
+ "Ask before explaining anything about AGRISENSO Plus.",
+ "Explaining the programme first contaminates this answer. Ask it, record it, then explain if they ask."),
+"D2": ("How they first heard of it, where they had.", "", ""),
+"D3": ("Self-assessed understanding of the programme.",
+ "Explain the 1 to 5 scale once.",
+ "Someone who has never heard of it may still rate low rather than leave it blank; both are acceptable."),
+"D4": ("Awareness of specific programme features.", "Each feature, yes, no or not sure.",
+ "'Not sure' is a real answer here."),
+"D5": ("Whether they ever attempted to apply, and what happened.",
+ "The outcome question opens on Yes.",
+ "Must be consistent with the application-status answer in the screening section."),
+"D6": ("For declined applications: whether a reason was given, and what it was.",
+ "Ask for the reason they were told, not their own theory.",
+ "If they were never told, the first question is No and you stop there."),
+"D7": ("Reason for withdrawing or not completing an application.", "", ""),
+
+"E1": ("Whether financing is currently needed.", "",
+ "'Not sure' is allowed and is not the same as No."),
+"E2": ("What the financing would be for.", "Select all that apply.",
+ "Asked where the need is Yes or Not sure."),
+"E3": ("How much financing is needed.",
+ "Ask for the exact peso amount first.",
+ "The amount needed, not the amount they expect to be able to get."),
+"E4": ("Financing sources actually used in the past 12 months.",
+ "Read every option and select all that apply.",
+ "Informal sources — traders, input suppliers, family — are easy to under-report. Read them out. "
+ "'No external financing used' is a real and important answer."),
+"E5": ("The main financing source among those used.", "", ""),
+"E6": ("Whether current financing meets their needs.", "", ""),
+"E7": ("Why they do not have an AGRISENSO Plus loan. Central to the whole study.",
+ "Ask for the main reason.",
+ "Do not accept a vague answer — probe once. This is the question the comparison group exists to answer."),
+"E8": ("Barriers to formal agricultural financing. Feeds the next question.",
+ "Read all twenty-one options. Select all that apply.",
+ "The longest select-all in either instrument, and worth the time. 'None' clears the others."),
+"E9": ("Which barrier matters most.", "The list shows only what was ticked above.",
+ "If it says to answer the previous question first, go back."),
+"E10": ("Overall perceived ease of access to formal financing.", "", ""),
+
+"F_intro": ("Scope note: this block is worded to match the Borrower Survey exactly.",
+ "Do not reword anything in this section.",
+ "The wording is identical to Instrument A so borrowers and non-borrowers can be compared directly."),
+"F1": ("Confidence in understanding financing terms.",
+ "Explain the 1 to 5 scale once here, and do not re-explain it at every following scale.",
+ "No N/A — leave blank if the respondent will not answer."),
+"F2": ("Confidence in comparing financing options.", "", ""),
+"F3": ("Confidence in preparing a budget.", "", ""),
+"F4": ("Confidence in understanding the cost of borrowing.", "", ""),
+"F5": ("Confidence in assessing repayment capacity.", "", ""),
+"F6": ("Confidence in planning repayment.", "", ""),
+"F7": ("Whether enterprise and household money are kept separate.",
+ "Individual branch only.", ""),
+"F8": ("Budgeting practice.", "How often.", "Practice, not confidence."),
+"F9": ("Record-keeping practice.", "How often.",
+ "Should be consistent with the record-keeping answer in Section C."),
+"F10": ("Whether repayment is normally planned before borrowing.",
+ "Ask only of respondents with borrowing experience.",
+ "Skip it for someone who has never borrowed from any source."),
+"F11": ("Savings behaviour and purpose.",
+ "The purpose question opens only for 'regularly' or 'occasionally'.", ""),
+"F12": ("Use of digital financial services, and difficulties with them.", "", ""),
+"F13": ("Training or advisory support received.",
+ "'None' closes the provider and usefulness questions.", ""),
+"F14": ("Who provided the training.", "Select all.", ""),
+"F15": ("Usefulness, and whether anything was applied.", "", ""),
+"F16": ("Who decides on financing and enterprise matters.",
+ "Only the version matching the respondent type appears.", ""),
+"F17": ("Overall financial-management confidence.", "The closing scale.", ""),
+
+"G1": ("The most important benefit affordable formal financing would bring.",
+ "This is hypothetical — what it would achieve, not what they already have.", ""),
+"G2": ("Whether access in their area is perceived as fair.",
+ "About qualified people in their community, not about themselves.",
+ "The 'why' answer is valuable free text; give it time."),
+"G3": ("Trust in government-supported agricultural financing.",
+ "Ask neutrally.",
+ "Do not defend the programme if the answer is negative. You are recording a perception, not correcting it."),
+"G4": ("What the respondent observes distinguishes those who get financing from those who do not.",
+ "Let them think before answering.",
+ "The single most insightful question in Instrument B. Do not rush it or offer examples."),
+
+"H1": ("Likelihood of applying in future.", "If in need and eligible.", ""),
+"H2": ("What would encourage them to apply.", "Select all that apply.", ""),
+"H3": ("How they would prefer to receive programme information.",
+ "Select all that apply.",
+ "Directly useful to programme design. Do not rush it."),
+"H4": ("The single most significant financing challenge, in their own words.",
+ "Open text. Do not lead.", ""),
+"H5": ("The one most important improvement they would recommend.",
+ "Push gently for one, not a list.", ""),
+"H6": ("Non-financial support that would be useful.", "Select all that apply.", ""),
+"H7": ("Anything else the respondent wants ACPC to know.",
+ "Give them time. Do not fill the silence.", ""),
+}
+
+def lookup(instrument, qid):
+    table = A if instrument == "A" else B
+    return table.get(qid) or BOTH.get(qid)
