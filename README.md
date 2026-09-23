@@ -105,7 +105,27 @@ easier to read out to an enumerator than the github.io one.
 
 Every push to `main` redeploys automatically, exactly like Pages.
 
-### Option C — Netlify
+### Option C — Vercel
+
+`vercel.json` in the repo root carries the settings, including
+`outputDirectory: docs`, so the project needs no build command and no
+framework preset.
+
+**Leave the project's Root Directory at the repository root.** Vercel
+reads `vercel.json` from the Root Directory, so if you set it to `docs`
+instead, that file is ignored — the site will still work, but without the
+cache headers below, and an enumerator can keep running an old `app.js`
+after a redeploy. If you already set it to `docs`, either clear it back
+to the root, or accept the default caching and tell the field team to
+hard-refresh after any update.
+
+The cache headers matter more than they look: `app.js` is not
+content-hashed, so without them a browser can hold on to a previous build.
+The round-6 client carries the fix that stops a retried submission
+duplicating a row, and that fix is only in effect if the device actually
+loads the new file.
+
+### Option D — Netlify
 
 `netlify.toml` in the repo root already carries the settings, so there is
 nothing to configure: **Add new site → Import an existing project**,
