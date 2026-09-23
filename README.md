@@ -81,26 +81,58 @@ on the existing one), which gets a different `/exec` URL:
 
 ## 3. Publish the site
 
-### Option A — GitHub Pages (recommended, free, works with the git repo you already have)
-1. Push this project to GitHub (see Section 5 below if you haven't).
-2. On GitHub: **Settings → Pages**.
-3. Under "Build and deployment", set **Source: Deploy from a branch**,
-   **Branch: main**, **Folder: /docs**. Save.
-4. GitHub gives you a URL like `https://heroltolosa-123.github.io/agrisenso-plus-survey/`
-   within a minute or two. That's your shareable survey link.
-5. Whenever you push changes to `docs/`, the site updates automatically
-   (usually within a minute).
+### Option A — GitHub Pages (already set up, nothing to do)
 
-### Option B — Render (static site)
-1. In Render: **New → Static Site**, connect your GitHub repo.
-2. **Root directory:** leave blank (repo root). **Publish directory:** `docs`.
-3. No build command needed (it's plain HTML/CSS/JS).
-4. Deploy — Render gives you a `.onrender.com` URL (or attach your own domain).
+This repo is already published this way, and it is the simplest option
+because it needs no second account and no separate deploy step: pushing
+to `main` republishes the site within a minute or two.
 
-### Option C — Netlify / any static host
-Point it at the `docs/` folder the same way; no build step required.
+    https://heroltolosa-123.github.io/agrisenso-plus-survey/
 
----
+Settings → Pages → Source: *Deploy from a branch*, Branch: `main`,
+Folder: `/docs`.
+
+### Option B — Cloudflare Pages (recommended if you want a shorter URL)
+
+Free, fast in the Philippines, and gives a `*.pages.dev` address that is
+easier to read out to an enumerator than the github.io one.
+
+1. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git**.
+2. Pick this repository.
+3. **Framework preset:** None. **Build command:** leave empty.
+   **Build output directory:** `docs`
+4. Deploy. You get `agrisenso-plus-survey.pages.dev`.
+
+Every push to `main` redeploys automatically, exactly like Pages.
+
+### Option C — Netlify
+
+`netlify.toml` in the repo root already carries the settings, so there is
+nothing to configure: **Add new site → Import an existing project**,
+choose the repo, and deploy. You get a `*.netlify.app` address.
+
+### A note on Render
+
+Render's free tier is a poor fit here and the README used to recommend it
+without that caveat. Its free **web services** sleep after inactivity and
+take roughly a minute to wake, which in the field reads as a broken app.
+Its **static sites** do not sleep, but the survey is a static site, so
+there is no reason to prefer Render over the three options above.
+
+If a Render deployment is still running, the safest thing is to take it
+down once you have confirmed another URL works, so nobody hands an
+enumerator the wrong link.
+
+### Whichever host you use
+
+The front end is portable. The questionnaire and the submissions live in
+Apps Script and Google Sheets, and `docs/config.js` keeps pointing at the
+same `/exec` URL, so moving hosts changes nothing about the data and
+needs no backend change. You can run two hosts side by side during a
+switchover and both will write to the same Sheet.
+
+**Tell the field team exactly one URL.** Two live URLs is how an
+enumerator ends up on a stale build.
 
 ## 4. Using the app in the field
 

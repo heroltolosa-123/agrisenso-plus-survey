@@ -1,0 +1,36 @@
+# Netlify deploy config.
+#
+# The survey is a plain static site with no build step: docs/ is the whole
+# thing. Point Netlify at this repo and it needs no other settings.
+#
+# The backend stays on Apps Script wherever the front end is hosted, so
+# moving hosts changes nothing about the data — docs/config.js keeps
+# pointing at the same /exec URL.
+
+[build]
+  publish = "docs"
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# The questionnaire schema is fetched fresh from Apps Script on every
+# load, but the app shell should not be cached aggressively either, or an
+# enumerator can keep running an old client after a redeploy.
+[[headers]]
+  for = "/app.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/config.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
