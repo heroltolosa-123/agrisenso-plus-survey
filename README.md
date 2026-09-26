@@ -434,8 +434,22 @@ frame is expected to cover more areas than initially listed).
    repo. If you ever run it by mistake, restore with
    `git checkout tools/questions_A.json tools/questions_B.json` rather than
    trying to unpick the duplicates.
-4. Run `tools/generate_gs_schema.py` to regenerate `src/Schema_A.gs` /
-   `src/Schema_B.gs`.
+4. Run `tools/generate_gs_schema.py`. It writes **both** copies of the
+   schema: `src/Schema_A.gs` / `Schema_B.gs` for the Apps Script backend,
+   and `docs/schema_A.json` / `schema_B.json` which the website serves as
+   static files.
+
+   The static copies are what make the app start quickly. The client used
+   to fetch the schema from Apps Script on every page load, cache-busted,
+   which cost 1.3-1.6s on a good connection and far more on rural mobile
+   — before the enumerator could do anything. Served from the same CDN as
+   `app.js` that is a fraction of the time, and starting an interview no
+   longer depends on Apps Script answering at all. Apps Script remains the
+   automatic fallback if the static file is missing.
+
+   **Because of this, the site and the Apps Script project must be
+   redeployed together.** If only one is updated, the column ids the
+   client sends stop matching the ones the backend writes.
 5. Run `tools/generate_apps_script_client.py` whenever `docs/app.js` or
    `docs/style.css` changed. It rebuilds `src/JavaScript.html` and
    `src/Stylesheet.html` from the `docs/` originals (swapping `fetch()`

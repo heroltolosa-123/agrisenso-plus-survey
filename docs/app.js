@@ -43,13 +43,37 @@
   // ---------------------------------------------------------------
   // API calls
   // ---------------------------------------------------------------
+  /** The questionnaire, fetched from the website itself.
+   *
+   * It used to come from Apps Script on every page load, cache-busted, so
+   * every enumerator waited 1.3-1.6s on a good connection -- and much
+   * longer on rural mobile -- before they could do anything. The schema
+   * only changes when the questionnaire is rebuilt, so it is now shipped
+   * as a static file beside app.js and served from the same CDN.
+   *
+   * Apps Script stays as the fallback, so a site published without the
+   * static copies still works exactly as before. */
   function apiGetSchema(key) {
-    var url = APPS_SCRIPT_URL + '?action=schema&instrument=' + encodeURIComponent(key)
-      + '&_=' + Date.now(); // cache-bust
-    return fetch(url).then(function (r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    });
+    var staticUrl = 'schema_' + encodeURIComponent(key) + '.json';
+    return fetch(staticUrl)
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (schema) {
+        if (!schema || !schema.sections || !schema.sections.length) {
+          throw new Error('static schema looks empty');
+        }
+        return schema;
+      })
+      .catch(function () {
+        var url = APPS_SCRIPT_URL + '?action=schema&instrument=' + encodeURIComponent(key)
+          + '&_=' + Date.now(); // cache-bust
+        return fetch(url).then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        });
+      });
   }
 
   function apiSubmit(instrumentKey, values) {
