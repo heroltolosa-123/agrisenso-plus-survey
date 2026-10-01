@@ -57,9 +57,9 @@ var QUESTIONS_A = {
               "label": "Borrower / Sampling Frame ID",
               "type": "text",
               "required": false,
-              "hint": "Sampling-frame ID exactly as printed on the approved list",
+              "hint": "e.g. A-02-ISA-0147 — copy exactly from the approved list",
               "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{2,}$",
-              "patternMessage": "Enter the ID as printed on the approved sampling frame (letters/numbers, at least 3 characters). If it cannot be verified, leave it blank and flag the case for the supervisor."
+              "patternMessage": "Copy the ID exactly as printed on the approved sampling frame — normally A-02-ISA-0147. A replacement from the reserve list keeps its own ID with -R1, -R2 appended. If the ID cannot be verified, leave it blank and flag the case for the supervisor."
             },
             {
               "field_id": "QUESTIONNAIR_intro_5",
@@ -67,7 +67,8 @@ var QUESTIONS_A = {
               "type": "text",
               "required": false,
               "suggestFrom": "enumerators",
-              "hint": "Start typing, then pick your name from the list"
+              "hint": "e.g. EN-02-07 — Dela Cruz, Juan M.",
+              "patternMessage": "Format: EN-RR-NN — Surname, First M. (as on your assignment sheet)."
             },
             {
               "field_id": "QUESTIONNAIR_intro_6",
@@ -75,7 +76,8 @@ var QUESTIONS_A = {
               "type": "text",
               "required": false,
               "suggestFrom": "supervisors",
-              "hint": "Start typing, then pick your name from the list"
+              "hint": "e.g. SV-02-1 — Santos, Maria L.",
+              "patternMessage": "Format: SV-RR-N — Surname, First M. (as on your assignment sheet)."
             },
             {
               "field_id": "QUESTIONNAIR_intro_7",

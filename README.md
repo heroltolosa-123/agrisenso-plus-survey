@@ -582,9 +582,18 @@ rule that implements it (`tools/enhance_schema.py`, `docs/app.js`).
 
 ### Still outstanding (needs input from LANDBANK / DRVN / ACPC)
 
-- **Enumerator and supervisor name lists.** The fields now offer a
-  pick-list and remember names already used on the device, but the real
-  roster has to be pasted into `STAFF_LISTS` in `docs/config.js`.
+- **Enumerator and supervisor rosters.** The coding is agreed and the
+  fields show it (`EN-RR-NN — Surname, First M.`,
+  `SV-RR-N — Surname, First M.`), but the real roster has to be pasted
+  into `STAFF_LISTS` in `docs/config.js` before the fields become genuine
+  pick-lists. Until then they stay free text and only remember names
+  already used on the same device. See
+  `reference/AGRISENSO_Coding_Reference.pdf`, the card the field teams get.
+- **Province abbreviations for the respondent code** (the `PPP` in
+  `A-02-ISA-0147`) are left blank on that card: they depend on which
+  clusters are sampled, which is still open. If the approved frame arrives
+  with its own IDs already printed, those are used verbatim instead and no
+  abbreviation key is needed.
 - **Sampling-frame ID is validated for shape only**, not against the real
   LANDBANK borrower list — that list is not available to the app.
   Borrower type, borrower segment and respondent name likewise still

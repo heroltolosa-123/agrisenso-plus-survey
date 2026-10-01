@@ -1,0 +1,216 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Enumerator and Respondent Coding — AGRISENSO Plus Baseline Study</title><style>
+@page { size: A4; margin: 15mm 14mm 16mm 14mm; }
+* { box-sizing: border-box; }
+body { font-family: "Charter","Georgia",serif; font-size: 9.6pt; line-height: 1.42;
+       color: #1a1a1a; margin: 0; }
+h1 { font-size: 19pt; margin: 0 0 2mm; line-height: 1.15; }
+.sub { font-size: 10pt; color: #555; margin: 0 0 5mm; }
+h2 { font-size: 12.5pt; background: #14342b; color: #fff; padding: 2.2mm 3mm;
+     margin: 6mm 0 3mm; border-radius: 1mm; page-break-after: avoid; }
+h2:first-of-type { margin-top: 0; }
+h3 { font-size: 10.4pt; margin: 4mm 0 1.4mm; page-break-after: avoid; }
+p { margin: 0 0 2mm; }
+.legend { border: 0.4pt solid #cfd6d0; border-radius: 1.4mm; padding: 3mm 4mm; margin: 0 0 5mm;
+          font-size: 8.8pt; background: #fafbfa; }
+.legend p:last-child { margin: 0; }
+code, .mono { font-family: "SF Mono","Menlo",monospace; font-size: 8.8pt; }
+.big { font-family: "SF Mono","Menlo",monospace; font-size: 13pt; font-weight: 700;
+       color: #14342b; letter-spacing: 0.3pt; }
+table { border-collapse: collapse; width: 100%; font-size: 8.8pt; margin: 0 0 3mm;
+        page-break-inside: avoid; }
+th { background: #eef3ee; color: #14342b; text-align: left; font-weight: 700;
+     padding: 1.4mm 2mm; border: 0.3pt solid #bcd0c2; font-size: 8.2pt;
+     font-family: "Helvetica Neue",Arial,sans-serif; text-transform: uppercase;
+     letter-spacing: 0.3pt; }
+td { padding: 1.3mm 2mm; border: 0.3pt solid #d8ddd8; vertical-align: top; }
+td.m { font-family: "SF Mono","Menlo",monospace; font-size: 8.4pt; white-space: nowrap; }
+/* Prose set inside a mono cell must still wrap, or it runs off the page. */
+td.m span { white-space: normal; }
+.parts { margin: 0 0 3mm; }
+.parts td { border: none; padding: 0.8mm 2mm 0.8mm 0; }
+.parts td.k { font-family: "SF Mono","Menlo",monospace; font-weight: 700; color: #14342b;
+              white-space: nowrap; width: 20mm; }
+.meta { font-family: "Helvetica Neue",Arial,sans-serif; font-size: 8pt; color: #7a5a1a;
+        background: #fdf6e6; border-left: 1.2pt solid #d9a441; padding: 1.6mm 2.6mm;
+        margin: 0 0 3mm; border-radius: 0.6mm; }
+.warn { font-family: "Helvetica Neue",Arial,sans-serif; font-size: 8pt; color: #8f2020;
+        background: #fdecec; border-left: 1.2pt solid #c86a6a; padding: 1.6mm 2.6mm;
+        margin: 0 0 3mm; border-radius: 0.6mm; }
+.cols { column-count: 2; column-gap: 7mm; }
+.fill { color: #999; }
+.pb { page-break-before: always; }
+.note { font-size: 8.4pt; color: #5a6a5f; font-style: italic; }
+</style></head><body>
+
+<h1>Enumerator and Respondent Coding</h1>
+<p class="sub">AGRISENSO Plus Baseline Study &mdash; reference card for the webapp survey
+(Instruments A and B)</p>
+
+<div class="legend">
+<p><b>Why codes at all.</b> The identifier columns are the only link between an interview and
+the approved sample. Free text breaks that link: <span class="mono">Hero Tolosa</span>,
+<span class="mono">H. Tolosa</span> and <span class="mono">HT</span> are one person to you and
+three people to the dataset, and a case that cannot be matched back to the frame cannot be
+weighted, verified or re&#8209;interviewed.</p>
+<p><b>Where this applies.</b> One screen only &mdash; <i>Questionnaire Administration and
+Quality&#8209;Control Information</i>, the first screen of both instruments. Nothing on it is
+read aloud to the respondent. Fill it before you greet them, while you still have signal.</p>
+<p><b>Three codes.</b> Yours (<span class="mono">EN&#8209;RR&#8209;NN</span>), your
+supervisor's (<span class="mono">SV&#8209;RR&#8209;N</span>), and the respondent's, which is the
+Sampling Frame ID (<span class="mono">I&#8209;RR&#8209;PPP&#8209;NNNN</span>). The Control Number
+is written by the app &mdash; never type it.</p>
+</div>
+
+<h2>What goes in each field on that screen</h2>
+<table>
+<tr><th style="width:38mm">Field on screen</th><th style="width:34mm">What to enter</th>
+    <th>Example and rule</th></tr>
+<tr><td>Questionnaire Version</td><td>nothing</td>
+    <td class="m">1.0 &nbsp;<span style="font-family:Charter,Georgia,serif" class="note">&mdash; filled by the app, read&#8209;only</span></td></tr>
+<tr><td>Date of Version</td><td>nothing</td>
+    <td class="m">2026-09-15 &nbsp;<span style="font-family:Charter,Georgia,serif" class="note">&mdash; filled by the app, read&#8209;only</span></td></tr>
+<tr><td>Questionnaire Control&nbsp;Number</td><td>nothing</td>
+    <td class="m">A-20261001-K3F2-0001<br><span style="font-family:Charter,Georgia,serif" class="note">Generated per interview: instrument, date, device, sequence. It is the key that stops a retry writing the same interview twice. Do not overwrite it, and do not quote it to the respondent.</span></td></tr>
+<tr><td>Borrower&nbsp;/ Comparison&#8209;Group<br>Sampling Frame ID</td><td><b>the respondent code</b>, copied exactly</td>
+    <td class="m">A-02-ISA-0147<br><span style="font-family:Charter,Georgia,serif" class="note">Transcribe from the approved list. Do not compose it from memory.</span></td></tr>
+<tr><td>Enumerator Name / ID</td><td><b>your code and name</b></td>
+    <td class="m">EN-02-07 &mdash; Dela Cruz, Juan M.<br><span style="font-family:Charter,Georgia,serif" class="note">Pick your own entry from the list. Type it only if the list is empty.</span></td></tr>
+<tr><td>Supervisor Name / ID</td><td><b>their code and name</b></td>
+    <td class="m">SV-02-1 &mdash; Santos, Maria L.</td></tr>
+<tr><td>Date of Interview</td><td>today's date</td><td class="m">2026-10-01</td></tr>
+<tr><td>Interview Start&nbsp;/ End Time</td><td>24&#8209;hour clock</td>
+    <td class="m">08:40 &nbsp;/&nbsp; 10:05 &nbsp;<span style="font-family:Charter,Georgia,serif" class="note">&mdash; end time at the actual end, not when you start</span></td></tr>
+<tr><td>Language Primarily&nbsp;Used</td><td>pick one</td><td>The language the <i>interview</i> ran in, not the respondent's mother tongue.</td></tr>
+<tr><td>Interview Mode</td><td>pick one</td><td><span class="mono">Face-to-face</span> unless a supervisor approved otherwise in writing.</td></tr>
+</table>
+
+<h2>Enumerator code &mdash; <span class="mono">EN-RR-NN</span></h2>
+<p class="big">EN-02-07 &mdash; Dela Cruz, Juan M.</p>
+<table class="parts">
+<tr><td class="k">EN</td><td>Fixed. Always <span class="mono">EN</span> for an enumerator.</td></tr>
+<tr><td class="k">RR</td><td>Two&#8209;digit region code of your <b>home cluster</b> &mdash; the region you were hired into, from the table below. It stays the same even on a week helping another cluster, so that the audit trail does not break on reassignment.</td></tr>
+<tr><td class="k">NN</td><td>Your number inside that region, <span class="mono">01</span> upward, from the master roster. Assigned once, never reused &mdash; if you leave the study, your number is retired rather than given to your replacement.</td></tr>
+<tr><td class="k">&mdash; Name</td><td>Space, em dash, space, then <b>Surname, First M.</b> &mdash; surname first, comma, given name, middle initial with a full stop.</td></tr>
+</table>
+<div class="meta"><b>The separator matters.</b> Code and name are stored in one column and split
+apart during analysis on that <span class="mono">&nbsp;&mdash;&nbsp;</span>. Choose your entry
+from the pick&#8209;list and it is always right. If you must type it, use the em dash the list
+uses &mdash; a hyphen, a slash or a double hyphen will not split.</div>
+
+<h2>Supervisor code &mdash; <span class="mono">SV-RR-N</span></h2>
+<p class="big">SV-02-1 &mdash; Santos, Maria L.</p>
+<p>Same structure, one digit instead of two, because a region has a handful of supervisors rather
+than dozens of enumerators. Enter the officer who <b>signs off your work</b>, not whoever
+happens to be nearest. If your supervisor changes mid&#8209;fieldwork, enter the one responsible
+for that day's work and tell both of them.</p>
+
+<h2 class="pb">Respondent code &mdash; the Sampling Frame ID</h2>
+<p class="big">A-02-ISA-0147</p>
+<table class="parts">
+<tr><td class="k">I</td><td><span class="mono">A</span> for a borrower, <span class="mono">B</span> for a comparison&#8209;group respondent. A and B never share a code, even for the same household in the same barangay.</td></tr>
+<tr><td class="k">RR</td><td>Region code, from the table below.</td></tr>
+<tr><td class="k">PPP</td><td>Three&#8209;letter province abbreviation, from the key your cluster is issued with.</td></tr>
+<tr><td class="k">NNNN</td><td>The <b>row number on the approved sampling frame</b>, four digits, zero&#8209;padded. This is what makes the code verifiable: it is a transcription, not an invention, and it reconciles one&#8209;to&#8209;one with the list.</td></tr>
+</table>
+
+<h3>Replacements</h3>
+<p>A replacement drawn from the reserve list keeps <b>its own</b> row number. Where your cluster's
+protocol tracks which case it replaced, append <span class="mono">-R1</span> for the first
+replacement of that case, <span class="mono">-R2</span> for the second:
+<span class="mono">A-02-ISA-0147-R1</span>. Never reuse the code of the case that dropped out, and
+never renumber the frame.</p>
+<div class="warn"><b>If the ID is not on the list, or is unreadable.</b> Leave the field blank and
+flag the case for your supervisor the same day. Do not invent a number, do not guess the province
+abbreviation, and do not copy the ID from a neighbouring row. A blank flagged case is recoverable;
+a plausible wrong ID attaches this interview to someone else's record and is not.</div>
+
+<h3>Why there is no separate respondent number to compose</h3>
+<p>The app already holds two identifiers: this frame ID, which links the case to the sample, and
+the Control Number, which it writes itself and which is unique per interview. A third
+hand&#8209;composed number would add nothing and would be the field most often typed wrong.
+So the frame ID <i>is</i> the respondent code &mdash; which is also why copying it exactly
+matters more than any other keystroke on that screen.</p>
+
+<h2>Region codes (RR)</h2>
+<p class="note">Philippine Standard Geographic Code region codes, so the data joins to PSA
+statistics without a translation table. These are the same regions as the Region dropdown in
+Section A.</p>
+<div class="cols">
+<table>
+<tr><th>Region</th><th style="width:12mm">RR</th></tr>
+<tr><td>Region I &ndash; Ilocos</td><td class="m">01</td></tr>
+<tr><td>Region II &ndash; Cagayan Valley</td><td class="m">02</td></tr>
+<tr><td>Region III &ndash; Central Luzon</td><td class="m">03</td></tr>
+<tr><td>Region IV-A &ndash; CALABARZON</td><td class="m">04</td></tr>
+<tr><td>Region V &ndash; Bicol</td><td class="m">05</td></tr>
+<tr><td>Region VI &ndash; Western Visayas</td><td class="m">06</td></tr>
+<tr><td>Region VII &ndash; Central Visayas</td><td class="m">07</td></tr>
+<tr><td>Region VIII &ndash; Eastern Visayas</td><td class="m">08</td></tr>
+<tr><td>Region IX &ndash; Zamboanga Peninsula</td><td class="m">09</td></tr>
+<tr><td>Region X &ndash; Northern Mindanao</td><td class="m">10</td></tr>
+<tr><td>Region XI &ndash; Davao</td><td class="m">11</td></tr>
+<tr><td>Region XII &ndash; SOCCSKSARGEN</td><td class="m">12</td></tr>
+<tr><td>National Capital Region</td><td class="m">13</td></tr>
+<tr><td>Cordillera Admin. Region</td><td class="m">14</td></tr>
+<tr><td>BARMM</td><td class="m">15</td></tr>
+<tr><td>Region XIII &ndash; Caraga</td><td class="m">16</td></tr>
+<tr><td>MIMAROPA</td><td class="m">17</td></tr>
+<tr><td>Negros Island Region</td><td class="m">18</td></tr>
+</table>
+</div>
+
+<h2>Province abbreviations (PPP)</h2>
+<p>Filled in by the study team for the sampled clusters only, and issued with your assignment
+sheet. Three letters, uppercase. Write your cluster's entries here on the first day of fieldwork
+so you are never abbreviating from memory:</p>
+<table>
+<tr><th style="width:14mm">PPP</th><th style="width:50mm">Province</th><th style="width:14mm">RR</th><th>Lending centre / cluster covered</th></tr>
+<tr><td class="m">ISA</td><td>Isabela</td><td class="m">02</td><td class="fill">&mdash; example row, replace with your own &mdash;</td></tr>
+<tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
+<tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
+<tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
+<tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
+<tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
+<tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
+</table>
+<div class="meta"><b>Where a province already has an ID on the frame.</b> If the approved list
+arrives with its own IDs printed on it &mdash; a LANDBANK account reference, for instance &mdash;
+<b>those win</b>. Copy them verbatim and ignore the structure above. The structure is for building
+a frame that has no IDs yet, not for rewriting one that has them.</div>
+
+<h2>Worked example</h2>
+<p>Seventh enumerator hired for Region II, working the Isabela cluster under supervisor Santos,
+interviewing the borrower on row 147 of the approved Instrument A frame, on 1 October 2026 from
+08:40 to 10:05 in Filipino, face to face:</p>
+<table>
+<tr><th style="width:52mm">Field</th><th>Entered</th></tr>
+<tr><td>Questionnaire Control Number</td><td class="m">A-20261001-K3F2-0001 <span style="font-family:Charter,Georgia,serif" class="note">(untouched)</span></td></tr>
+<tr><td>Borrower / Sampling Frame ID</td><td class="m">A-02-ISA-0147</td></tr>
+<tr><td>Enumerator Name / ID</td><td class="m">EN-02-07 &mdash; Dela Cruz, Juan M.</td></tr>
+<tr><td>Supervisor Name / ID</td><td class="m">SV-02-1 &mdash; Santos, Maria L.</td></tr>
+<tr><td>Date of Interview</td><td class="m">2026-10-01</td></tr>
+<tr><td>Interview Start / End Time</td><td class="m">08:40 / 10:05</td></tr>
+<tr><td>Language Primarily Used</td><td class="m">Filipino</td></tr>
+<tr><td>Interview Mode</td><td class="m">Face-to-face</td></tr>
+</table>
+<p>The same enumerator interviewing that respondent's non&#8209;borrower counterpart, row 31 of
+the Instrument B frame, enters <span class="mono">B-02-ISA-0031</span> &mdash; new instrument
+letter, new row number, same enumerator and supervisor codes.</p>
+
+<h2>Five ways this goes wrong</h2>
+<table>
+<tr><th style="width:62mm">Do not</th><th>Because</th></tr>
+<tr><td>Type your name without your code</td><td>The roster column is split on the em dash; a bare name lands in the code position and the case is attributed to nobody.</td></tr>
+<tr><td>Type over the Control Number</td><td>It is the key that makes a retry on bad signal write one row instead of two.</td></tr>
+<tr><td>Shorten or re&#8209;spell the frame ID</td><td><span class="mono">A-2-ISA-147</span> does not match <span class="mono">A-02-ISA-0147</span>. Zero&#8209;padding is not decoration.</td></tr>
+<tr><td>Use a colleague's code because you are covering their case</td><td>The code records who was in the room. Enter your own, always.</td></tr>
+<tr><td>Guess an ID to get past the screen</td><td>Blank is accepted here and is recoverable. A wrong ID silently binds this interview to another respondent's record.</td></tr>
+</table>
+
+<p class="note" style="margin-top:6mm">AGRISENSO Plus Baseline Study &mdash; ACPC / DRVN / LANDBANK.
+Codes and the pick&#8209;lists that enforce them are maintained in <span class="mono">docs/config.js</span>;
+field hints shown on screen come from <span class="mono">tools/enhance_schema.py</span>, so this card
+and the app cannot drift apart without one of those files changing.</p>
+
+</body></html>

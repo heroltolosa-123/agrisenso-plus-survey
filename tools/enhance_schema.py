@@ -77,6 +77,35 @@ LOCATION_HINTS = {
     "A1_4": "e.g. Malasin (as recorded on the sampling frame)",
 }
 
+# ---------------------------------------------------------------------
+# Staff and respondent coding
+#
+# Nothing in the questionnaire told the enumerator what to type into
+# "Enumerator Name / ID" or the sampling-frame ID, so the columns filled
+# with "Juan", "J. Dela Cruz" and "enum 7" for the same person. The codes
+# below are the agreed structure; reference/coding_reference.html is the
+# printable card, and docs/config.js holds the roster that turns these
+# fields into pick-lists.
+# ---------------------------------------------------------------------
+STAFF_CODE_HINT = {
+    "enumerators": "e.g. EN-02-07 \u2014 Dela Cruz, Juan M.",
+    "supervisors": "e.g. SV-02-1 \u2014 Santos, Maria L.",
+}
+STAFF_CODE_MESSAGE = {
+    "enumerators": "Format: EN-RR-NN \u2014 Surname, First M. (as on your assignment sheet).",
+    "supervisors": "Format: SV-RR-N \u2014 Surname, First M. (as on your assignment sheet).",
+}
+# Respondent code = the sampling-frame ID: instrument, region, province,
+# then the row number on the approved frame.
+RESPONDENT_CODE_EXAMPLE = {
+    "A": "A-02-ISA-0147",
+    "B": "B-02-ISA-0031",
+}
+RESPONDENT_CODE_HINT = {
+    "A": "e.g. A-02-ISA-0147 \u2014 copy exactly from the approved list",
+    "B": "e.g. B-02-ISA-0031 \u2014 copy exactly from the approved list",
+}
+
 # Numeric field detection: label patterns strongly implying a numeric answer.
 NUMERIC_PATTERNS = [
     r"\bage\b", r"\bhow many\b", r"\bhow much\b", r"\bnumber of\b",
@@ -939,11 +968,18 @@ def apply_system_controlled_metadata(schema, instrument_key):
         n += 1
     frame = find_field(schema, "QUESTIONNAIR_intro_4")
     if frame:
-        frame["hint"] = "Sampling-frame ID exactly as printed on the approved list"
+        # This field is the respondent code. There is no second
+        # respondent identifier to invent: the frame ID is what reconciles
+        # the interview back to the approved list, and the control number
+        # above is the machine key. See reference/coding_reference.html
+        # for the agreed structure, I-RR-PPP-NNNN.
+        frame["hint"] = RESPONDENT_CODE_HINT[instrument_key]
         frame["pattern"] = "^[A-Za-z0-9][A-Za-z0-9._/-]{2,}$"
-        frame["patternMessage"] = ("Enter the ID as printed on the approved sampling frame "
-                                   "(letters/numbers, at least 3 characters). If it cannot be "
-                                   "verified, leave it blank and flag the case for the supervisor.")
+        frame["patternMessage"] = ("Copy the ID exactly as printed on the approved sampling "
+                                   "frame \u2014 normally " + RESPONDENT_CODE_EXAMPLE[instrument_key]
+                                   + ". A replacement from the reserve list keeps its own ID with "
+                                   "-R1, -R2 appended. If the ID cannot be verified, leave it "
+                                   "blank and flag the case for the supervisor.")
         n += 1
     for fid, listname in (("QUESTIONNAIR_intro_5", "enumerators"),
                           ("QUESTIONNAIR_intro_6", "supervisors")):
@@ -953,7 +989,8 @@ def apply_system_controlled_metadata(schema, instrument_key):
             # LANDBANK/DRVN provide them the field stays free text with a
             # datalist so at least spellings converge.
             f["suggestFrom"] = listname
-            f["hint"] = "Start typing, then pick your name from the list"
+            f["hint"] = STAFF_CODE_HINT[listname]
+            f["patternMessage"] = STAFF_CODE_MESSAGE[listname]
             n += 1
     return n
 
