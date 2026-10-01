@@ -63,6 +63,22 @@ ROSTER.supervisors.forEach(function (s) { assert.match(s, SUPERVISOR_RE, s); });
   assert.strictEqual(onCard, byCode.size,
     'the card lists ' + onCard + ' people, docs/config.js has ' + byCode.size);
 
+  // Province abbreviations live in tools/build_frame.py, which stamps
+  // them onto the approved frame, and on the card the enumerator reads
+  // them from. A frame numbered with a province the card does not list
+  // is a code nobody in the field can check.
+  const builder = fs.readFileSync(path.join(ROOT, 'tools/build_frame.py'), 'utf8');
+  const table = builder.slice(builder.indexOf('PROVINCES = {'));
+  const provinces = [...table.slice(0, table.indexOf('}')).matchAll(
+    /"([A-Z]{3})":\s*\("([^"]+)",\s*"(\d{2})"\)/g)];
+  assert.ok(provinces.length, 'no PROVINCES found in tools/build_frame.py');
+  provinces.forEach(function (m) {
+    assert.ok(card.indexOf('>' + m[1] + '</td><td>' + m[2] + '</td><td class="m">' + m[3]) !== -1,
+      'reference/coding_reference.html is missing, or disagrees about, province ' +
+      m[1] + ' = ' + m[2] + ' (region ' + m[3] + ')');
+  });
+  console.log('province table ok (' + provinces.map(m => m[1]).join(', ') + ')');
+
   console.log('docs/config.js roster ok (' + live.enumerators.length + ' enumerators, ' +
     live.supervisors.length + ' supervisors)');
 })();
