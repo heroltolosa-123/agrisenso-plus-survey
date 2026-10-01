@@ -582,13 +582,20 @@ rule that implements it (`tools/enhance_schema.py`, `docs/app.js`).
 
 ### Still outstanding (needs input from LANDBANK / DRVN / ACPC)
 
-- **Enumerator and supervisor rosters.** The coding is agreed and the
-  fields show it (`EN-RR-NN — Surname, First M.`,
-  `SV-RR-N — Surname, First M.`), but the real roster has to be pasted
-  into `STAFF_LISTS` in `docs/config.js` before the fields become genuine
-  pick-lists. Until then they stay free text and only remember names
-  already used on the same device. See
-  `reference/AGRISENSO_Coding_Reference.pdf`, the card the field teams get.
+- **Enumerator and supervisor roster is partial.** Region I (La Union,
+  Ilocos Sur) and Occidental Mindoro are coded and loaded into
+  `STAFF_LISTS` in `docs/config.js`, so both name fields are real
+  pick-lists for those clusters. The remaining provinces are still to
+  come; append them with the next free number per region and never
+  renumber anyone already listed. Benguet is named as a second province
+  for the Region I supervisor but has no enumerators yet (`EN-14-NN`).
+  `node tools/simulate/check_coding.js` validates the file and fails if
+  the printable card disagrees with it.
+- **Two roles unconfirmed on the source sheet.** Maui Paz is shaded as a
+  heading rather than a name and is coded `EN-17-04` provisionally;
+  Lacasandile and Sibayan appear under both La Union and Ilocos Sur and
+  are coded as one person each. Both notes are recorded at the bottom of
+  `docs/config.js`.
 - **Province abbreviations for the respondent code** (the `PPP` in
   `A-02-ISA-0147`) are left blank on that card: they depend on which
   clusters are sampled, which is still open. If the approved frame arrives

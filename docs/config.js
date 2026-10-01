@@ -14,37 +14,67 @@ var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxE-lSBrz-mAhWin3
 //
 // Reviewers asked for these to be controlled lists rather than free text
 // ("Hero Tolosa" / "H. Tolosa" / "HT" all landing in the same column).
-// Paste the approved roster between the brackets and republish — the
-// fields turn into pick-lists automatically. Left empty, they stay free
-// text but still suggest names already used on the same device, so at
-// least spellings converge within an enumerator's own work.
+// With names here, the two name fields become pick-lists. Left empty,
+// they fall back to free text that only suggests names already used on
+// the same device.
 //
-// Use the agreed coding, one string per person, code first:
+// The agreed coding, one string per person, code first:
 //
 //     enumerators: "EN-RR-NN — Surname, First M."
 //     supervisors: "SV-RR-N — Surname, First M."
 //
-// RR is the two-digit region of the enumerator's home cluster (02 for
-// Region II, 06 for Region VI; NCR = 00, CAR = 14, BARMM = 15). NN is
-// their number inside that region, 01 upward, assigned once and never
-// reused — a code stays with the person even if they help in another
-// cluster, so the audit trail does not break on reassignment.
+// RR is the PSGC region code of the person's home cluster (01 Ilocos,
+// 13 NCR, 14 CAR, 17 MIMAROPA — full table on the printable card).
+// The number after it is their number inside that region, 01 upward.
 //
-// The em dash and the spaces around it matter: the roster string is
-// stored verbatim in one column, and splitting it back into code and
-// name during analysis relies on that separator being identical in
-// every row. Copy the pattern below rather than retyping it.
+// Assigned once, never reused, never reordered. Someone covering a
+// second province keeps the one code they were issued, so the audit
+// trail does not break on reassignment — which is why this list is
+// people, not assignments, and why a person working two provinces
+// appears once. New names are appended with the next free number; the
+// first batch happens to be alphabetical, later ones will not be.
 //
+// The em dash and the spaces around it matter: the whole string is
+// stored verbatim in one column and split back into code and name on
+// that separator during analysis. Copy an existing line and edit it
+// rather than retyping the dash.
+//
+// After editing, run: node tools/simulate/check_coding.js
 // Printable card for the field teams: reference/AGRISENSO_Coding_Reference.pdf
 // ---------------------------------------------------------------------
 var STAFF_LISTS = {
   enumerators: [
-    // "EN-02-01 — Dela Cruz, Juan M.",
-    // "EN-02-02 — Reyes, Ana P.",
-    // "EN-06-01 — Bautista, Mark L.",
+    // Region I — Ilocos (La Union, Ilocos Sur)
+    "EN-01-01 — Alipda, Marvin",              // Ilocos Sur
+    "EN-01-02 — Balio-an, Elmer G.",          // Ilocos Sur
+    "EN-01-03 — Daproza, Lea T.",             // Ilocos Sur
+    "EN-01-04 — Lacasandile, Maybelline L.",  // La Union + Ilocos Sur
+    "EN-01-05 — Rivera, Jaynifer",            // La Union
+    "EN-01-06 — Sibayan, Grace",              // La Union + Ilocos Sur
+
+    // MIMAROPA (Occidental Mindoro)
+    "EN-17-01 — Fabrigas Jr., Greg S.",
+    "EN-17-02 — Gundran, Jhon Lester",
+    "EN-17-03 — Lutap, Aldrick Jetrix B.",
+    "EN-17-04 — Paz, Maui",                   // role unconfirmed — see note below
+    "EN-17-05 — Roldan, Marc Jaime",
   ],
   supervisors: [
-    // "SV-02-1 — Santos, Maria L.",
-    // "SV-06-1 — Villanueva, Ramon T.",
+    "SV-01-1 — Bay-od, Ferlina",              // La Union + Benguet (CAR)
   ]
 };
+
+// Unconfirmed, pending the rest of the roster:
+//
+//   - Maui Paz is shaded as a heading rather than a name on the source
+//     sheet. Listed above as EN-17-04 for now. If she is in fact the
+//     MIMAROPA team supervisor, move the line to `supervisors` as
+//     "SV-17-1 — Paz, Maui" and leave EN-17-04 vacant — numbers are
+//     retired, not reused, so nothing below it shifts.
+//   - Lacasandile and Sibayan appear under both La Union and Ilocos Sur.
+//     Coded as one person each, which is correct either way; only the
+//     EN/SV prefix would change if they turn out to be team leads.
+//   - Benguet is named as Bay-od's second province but has no enumerator
+//     list yet. Its codes will be EN-14-NN (CAR).
+//   - ALL-CAPS names on the source sheet were title-cased here. Confirm
+//     the spellings, in particular "Balio-an" and "Fabrigas Jr.".

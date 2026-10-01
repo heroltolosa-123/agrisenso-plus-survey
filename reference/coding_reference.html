@@ -39,7 +39,8 @@ td.m span { white-space: normal; }
         margin: 0 0 3mm; border-radius: 0.6mm; }
 .cols { column-count: 2; column-gap: 7mm; }
 .fill { color: #999; }
-.pb { page-break-before: always; }
+.roster { page-break-inside: auto; }
+.roster tr { page-break-inside: avoid; }
 .note { font-size: 8.4pt; color: #5a6a5f; font-style: italic; }
 </style></head><body>
 
@@ -73,11 +74,11 @@ is written by the app &mdash; never type it.</p>
 <tr><td>Questionnaire Control&nbsp;Number</td><td>nothing</td>
     <td class="m">A-20261001-K3F2-0001<br><span style="font-family:Charter,Georgia,serif" class="note">Generated per interview: instrument, date, device, sequence. It is the key that stops a retry writing the same interview twice. Do not overwrite it, and do not quote it to the respondent.</span></td></tr>
 <tr><td>Borrower&nbsp;/ Comparison&#8209;Group<br>Sampling Frame ID</td><td><b>the respondent code</b>, copied exactly</td>
-    <td class="m">A-02-ISA-0147<br><span style="font-family:Charter,Georgia,serif" class="note">Transcribe from the approved list. Do not compose it from memory.</span></td></tr>
+    <td class="m">A-01-LUN-0147<br><span style="font-family:Charter,Georgia,serif" class="note">Transcribe from the approved list. Do not compose it from memory.</span></td></tr>
 <tr><td>Enumerator Name / ID</td><td><b>your code and name</b></td>
-    <td class="m">EN-02-07 &mdash; Dela Cruz, Juan M.<br><span style="font-family:Charter,Georgia,serif" class="note">Pick your own entry from the list. Type it only if the list is empty.</span></td></tr>
+    <td class="m">EN-01-05 &mdash; Rivera, Jaynifer<br><span style="font-family:Charter,Georgia,serif" class="note">Pick your own entry from the list. Type it only if the list is empty.</span></td></tr>
 <tr><td>Supervisor Name / ID</td><td><b>their code and name</b></td>
-    <td class="m">SV-02-1 &mdash; Santos, Maria L.</td></tr>
+    <td class="m">SV-01-1 &mdash; Bay-od, Ferlina</td></tr>
 <tr><td>Date of Interview</td><td>today's date</td><td class="m">2026-10-01</td></tr>
 <tr><td>Interview Start&nbsp;/ End Time</td><td>24&#8209;hour clock</td>
     <td class="m">08:40 &nbsp;/&nbsp; 10:05 &nbsp;<span style="font-family:Charter,Georgia,serif" class="note">&mdash; end time at the actual end, not when you start</span></td></tr>
@@ -86,7 +87,7 @@ is written by the app &mdash; never type it.</p>
 </table>
 
 <h2>Enumerator code &mdash; <span class="mono">EN-RR-NN</span></h2>
-<p class="big">EN-02-07 &mdash; Dela Cruz, Juan M.</p>
+<p class="big">EN-01-05 &mdash; Rivera, Jaynifer</p>
 <table class="parts">
 <tr><td class="k">EN</td><td>Fixed. Always <span class="mono">EN</span> for an enumerator.</td></tr>
 <tr><td class="k">RR</td><td>Two&#8209;digit region code of your <b>home cluster</b> &mdash; the region you were hired into, from the table below. It stays the same even on a week helping another cluster, so that the audit trail does not break on reassignment.</td></tr>
@@ -99,14 +100,14 @@ from the pick&#8209;list and it is always right. If you must type it, use the em
 uses &mdash; a hyphen, a slash or a double hyphen will not split.</div>
 
 <h2>Supervisor code &mdash; <span class="mono">SV-RR-N</span></h2>
-<p class="big">SV-02-1 &mdash; Santos, Maria L.</p>
+<p class="big">SV-01-1 &mdash; Bay-od, Ferlina</p>
 <p>Same structure, one digit instead of two, because a region has a handful of supervisors rather
 than dozens of enumerators. Enter the officer who <b>signs off your work</b>, not whoever
 happens to be nearest. If your supervisor changes mid&#8209;fieldwork, enter the one responsible
 for that day's work and tell both of them.</p>
 
-<h2 class="pb">Respondent code &mdash; the Sampling Frame ID</h2>
-<p class="big">A-02-ISA-0147</p>
+<h2>Respondent code &mdash; the Sampling Frame ID</h2>
+<p class="big">A-01-LUN-0147</p>
 <table class="parts">
 <tr><td class="k">I</td><td><span class="mono">A</span> for a borrower, <span class="mono">B</span> for a comparison&#8209;group respondent. A and B never share a code, even for the same household in the same barangay.</td></tr>
 <tr><td class="k">RR</td><td>Region code, from the table below.</td></tr>
@@ -118,7 +119,7 @@ for that day's work and tell both of them.</p>
 <p>A replacement drawn from the reserve list keeps <b>its own</b> row number. Where your cluster's
 protocol tracks which case it replaced, append <span class="mono">-R1</span> for the first
 replacement of that case, <span class="mono">-R2</span> for the second:
-<span class="mono">A-02-ISA-0147-R1</span>. Never reuse the code of the case that dropped out, and
+<span class="mono">A-01-LUN-0147-R1</span>. Never reuse the code of the case that dropped out, and
 never renumber the frame.</p>
 <div class="warn"><b>If the ID is not on the list, or is unreadable.</b> Leave the field blank and
 flag the case for your supervisor the same day. Do not invent a number, do not guess the province
@@ -137,7 +138,7 @@ matters more than any other keystroke on that screen.</p>
 statistics without a translation table. These are the same regions as the Region dropdown in
 Section A.</p>
 <div class="cols">
-<table>
+<table class="roster">
 <tr><th>Region</th><th style="width:12mm">RR</th></tr>
 <tr><td>Region I &ndash; Ilocos</td><td class="m">01</td></tr>
 <tr><td>Region II &ndash; Cagayan Valley</td><td class="m">02</td></tr>
@@ -161,15 +162,15 @@ Section A.</p>
 </div>
 
 <h2>Province abbreviations (PPP)</h2>
-<p>Filled in by the study team for the sampled clusters only, and issued with your assignment
-sheet. Three letters, uppercase. Write your cluster's entries here on the first day of fieldwork
-so you are never abbreviating from memory:</p>
+<p>Three letters, uppercase, for the sampled provinces only. The four below are confirmed;
+write in any further province your cluster is issued on the first day of fieldwork, so you are
+never abbreviating from memory. Fill the last column from your assignment sheet.</p>
 <table>
 <tr><th style="width:14mm">PPP</th><th style="width:50mm">Province</th><th style="width:14mm">RR</th><th>Lending centre / cluster covered</th></tr>
-<tr><td class="m">ISA</td><td>Isabela</td><td class="m">02</td><td class="fill">&mdash; example row, replace with your own &mdash;</td></tr>
-<tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
-<tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
-<tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
+<tr><td class="m">LUN</td><td>La Union</td><td class="m">01</td><td class="fill">&nbsp;</td></tr>
+<tr><td class="m">ILS</td><td>Ilocos Sur</td><td class="m">01</td><td class="fill">&nbsp;</td></tr>
+<tr><td class="m">OCM</td><td>Occidental Mindoro</td><td class="m">17</td><td class="fill">&nbsp;</td></tr>
+<tr><td class="m">BEN</td><td>Benguet</td><td class="m">14</td><td class="fill">&nbsp;</td></tr>
 <tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
 <tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
 <tr><td class="fill m">&nbsp;</td><td></td><td></td><td></td></tr>
@@ -179,31 +180,64 @@ arrives with its own IDs printed on it &mdash; a LANDBANK account reference, for
 <b>those win</b>. Copy them verbatim and ignore the structure above. The structure is for building
 a frame that has no IDs yet, not for rewriting one that has them.</div>
 
+
+<h2>The roster as issued</h2>
+<p class="note">As loaded into the app. If your name is not here, or the spelling is wrong, tell
+your supervisor before you start &mdash; do not type a corrected version into the field, because
+that creates a second you in the dataset.</p>
+<table>
+<tr><th style="width:26mm">Code</th><th style="width:58mm">Name</th><th>Province worked</th></tr>
+<tr><td class="m">EN-01-01</td><td>Alipda, Marvin</td><td>Ilocos Sur</td></tr>
+<tr><td class="m">EN-01-02</td><td>Balio-an, Elmer G.</td><td>Ilocos Sur</td></tr>
+<tr><td class="m">EN-01-03</td><td>Daproza, Lea T.</td><td>Ilocos Sur</td></tr>
+<tr><td class="m">EN-01-04</td><td>Lacasandile, Maybelline L.</td><td>La Union and Ilocos Sur</td></tr>
+<tr><td class="m">EN-01-05</td><td>Rivera, Jaynifer</td><td>La Union</td></tr>
+<tr><td class="m">EN-01-06</td><td>Sibayan, Grace</td><td>La Union and Ilocos Sur</td></tr>
+<tr><td class="m">SV-01-1</td><td>Bay-od, Ferlina</td><td>Team supervisor &mdash; La Union and Benguet</td></tr>
+<tr><td class="m">EN-17-01</td><td>Fabrigas Jr., Greg S.</td><td>Occidental Mindoro</td></tr>
+<tr><td class="m">EN-17-02</td><td>Gundran, Jhon Lester</td><td>Occidental Mindoro</td></tr>
+<tr><td class="m">EN-17-03</td><td>Lutap, Aldrick Jetrix B.</td><td>Occidental Mindoro</td></tr>
+<tr><td class="m">EN-17-04</td><td>Paz, Maui</td><td>Occidental Mindoro</td></tr>
+<tr><td class="m">EN-17-05</td><td>Roldan, Marc Jaime</td><td>Occidental Mindoro</td></tr>
+</table>
+<div class="meta"><b>Two provinces, one code.</b> Lacasandile and Sibayan work La Union and
+Ilocos Sur and have one code each, not one per province &mdash; the code is the person, not the
+posting. Both provinces are Region I in any case, so the <span class="mono">RR</span> does not
+move either. What changes between them is the frame ID, because that comes from whichever list
+the case was drawn from.</div>
+<div class="warn"><b>Incomplete.</b> This is the roster as it stood when the card was printed:
+Region I and Occidental Mindoro only. Benguet is named as a second province for Bay-od but has no
+enumerators listed yet; its codes will be <span class="mono">EN-14-NN</span>. Later names are
+appended with the next free number and never renumber anyone already listed.</div>
+
 <h2>Worked example</h2>
-<p>Seventh enumerator hired for Region II, working the Isabela cluster under supervisor Santos,
-interviewing the borrower on row 147 of the approved Instrument A frame, on 1 October 2026 from
-08:40 to 10:05 in Filipino, face to face:</p>
+<p>Jaynifer Rivera, fifth on the Region I roster, working the La Union cluster under
+Ferlina Bay-od, interviewing the borrower on row 147 of the approved Instrument A frame, on
+1 October 2026 from 08:40 to 10:05 in Filipino, face to face:</p>
 <table>
 <tr><th style="width:52mm">Field</th><th>Entered</th></tr>
 <tr><td>Questionnaire Control Number</td><td class="m">A-20261001-K3F2-0001 <span style="font-family:Charter,Georgia,serif" class="note">(untouched)</span></td></tr>
-<tr><td>Borrower / Sampling Frame ID</td><td class="m">A-02-ISA-0147</td></tr>
-<tr><td>Enumerator Name / ID</td><td class="m">EN-02-07 &mdash; Dela Cruz, Juan M.</td></tr>
-<tr><td>Supervisor Name / ID</td><td class="m">SV-02-1 &mdash; Santos, Maria L.</td></tr>
+<tr><td>Borrower / Sampling Frame ID</td><td class="m">A-01-LUN-0147</td></tr>
+<tr><td>Enumerator Name / ID</td><td class="m">EN-01-05 &mdash; Rivera, Jaynifer</td></tr>
+<tr><td>Supervisor Name / ID</td><td class="m">SV-01-1 &mdash; Bay-od, Ferlina</td></tr>
 <tr><td>Date of Interview</td><td class="m">2026-10-01</td></tr>
 <tr><td>Interview Start / End Time</td><td class="m">08:40 / 10:05</td></tr>
 <tr><td>Language Primarily Used</td><td class="m">Filipino</td></tr>
 <tr><td>Interview Mode</td><td class="m">Face-to-face</td></tr>
 </table>
 <p>The same enumerator interviewing that respondent's non&#8209;borrower counterpart, row 31 of
-the Instrument B frame, enters <span class="mono">B-02-ISA-0031</span> &mdash; new instrument
+the Instrument B frame, enters <span class="mono">B-01-LUN-0031</span> &mdash; new instrument
 letter, new row number, same enumerator and supervisor codes.</p>
+<p>Working a day in Ilocos Sur she keeps <span class="mono">EN-01-05</span>: the code is the
+person, not the posting, and both provinces are Region I in any case. The frame ID changes to
+<span class="mono">A-01-ILS-&hellip;</span> because that is the list the case came from.</p>
 
 <h2>Five ways this goes wrong</h2>
 <table>
 <tr><th style="width:62mm">Do not</th><th>Because</th></tr>
 <tr><td>Type your name without your code</td><td>The roster column is split on the em dash; a bare name lands in the code position and the case is attributed to nobody.</td></tr>
 <tr><td>Type over the Control Number</td><td>It is the key that makes a retry on bad signal write one row instead of two.</td></tr>
-<tr><td>Shorten or re&#8209;spell the frame ID</td><td><span class="mono">A-2-ISA-147</span> does not match <span class="mono">A-02-ISA-0147</span>. Zero&#8209;padding is not decoration.</td></tr>
+<tr><td>Shorten or re&#8209;spell the frame ID</td><td><span class="mono">A-1-LUN-147</span> does not match <span class="mono">A-01-LUN-0147</span>. Zero&#8209;padding is not decoration.</td></tr>
 <tr><td>Use a colleague's code because you are covering their case</td><td>The code records who was in the room. Enter your own, always.</td></tr>
 <tr><td>Guess an ID to get past the screen</td><td>Blank is accepted here and is recoverable. A wrong ID silently binds this interview to another respondent's record.</td></tr>
 </table>

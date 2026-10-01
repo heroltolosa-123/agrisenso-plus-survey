@@ -88,8 +88,8 @@ LOCATION_HINTS = {
 # fields into pick-lists.
 # ---------------------------------------------------------------------
 STAFF_CODE_HINT = {
-    "enumerators": "e.g. EN-02-07 \u2014 Dela Cruz, Juan M.",
-    "supervisors": "e.g. SV-02-1 \u2014 Santos, Maria L.",
+    "enumerators": "e.g. EN-01-05 \u2014 Rivera, Jaynifer",
+    "supervisors": "e.g. SV-01-1 \u2014 Bay-od, Ferlina",
 }
 STAFF_CODE_MESSAGE = {
     "enumerators": "Format: EN-RR-NN \u2014 Surname, First M. (as on your assignment sheet).",
@@ -98,12 +98,12 @@ STAFF_CODE_MESSAGE = {
 # Respondent code = the sampling-frame ID: instrument, region, province,
 # then the row number on the approved frame.
 RESPONDENT_CODE_EXAMPLE = {
-    "A": "A-02-ISA-0147",
-    "B": "B-02-ISA-0031",
+    "A": "A-01-LUN-0147",
+    "B": "B-01-LUN-0031",
 }
 RESPONDENT_CODE_HINT = {
-    "A": "e.g. A-02-ISA-0147 \u2014 copy exactly from the approved list",
-    "B": "e.g. B-02-ISA-0031 \u2014 copy exactly from the approved list",
+    "A": "e.g. A-01-LUN-0147 \u2014 copy exactly from the approved list",
+    "B": "e.g. B-01-LUN-0031 \u2014 copy exactly from the approved list",
 }
 
 # Numeric field detection: label patterns strongly implying a numeric answer.
