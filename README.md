@@ -538,6 +538,36 @@ frame is expected to cover more areas than initially listed).
 
 ---
 
+## 8b. Instrument B, item E2 — a question the app had silently deleted
+
+Found by `reference/build_questionnaire.py`, which refuses to print an
+option list it cannot find anywhere on the page.
+
+`MONTH_FIELDS` keyed `E2_1`, `E2_2` and `E2_3` by id and applied to both
+instruments. In A those are months (application, approval, release). In B
+there is only `E2_1`, and it is "Purpose of Current / Anticipated
+Financing Need" — a 14-option multi-select. The shared table retyped it
+to a month picker, so **every one of the 14 options was unreachable and
+the item collected a date instead.**
+
+Two changes, both in `tools/enhance_schema.py`:
+
+- `MONTH_FIELDS_BY_INSTRUMENT`, so A keeps its month pickers and B does
+  not. This is the same per-instrument fix already applied to the
+  required, multi-choice, amount-fallback and numeric tables; these two
+  were missed.
+- A guard before any of those tables run: **a field that has options is a
+  choice, whatever an id-keyed table says.** That is what stops the next
+  id collision between the two instruments from deleting a question
+  rather than merely mislabelling one.
+
+Verified through the real client and backend: B's E2 now records answers
+like `Working capital; Marketing; Diversification`, the audit reports 0
+problems, and column counts are unchanged at 277 / 209 (E2_1 was always a
+column — only its type was wrong).
+
+---
+
 ## 8a. Round 6 — what changed in this pass
 
 Everything below came from the batch 3/4/5 review documents, the

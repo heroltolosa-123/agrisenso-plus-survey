@@ -1,0 +1,2142 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Instrument B — Non-Borrower Comparison Group</title><style>
+@page { size: A4; margin: 15mm 13mm 16mm 13mm; }
+* { box-sizing: border-box; }
+body { font-family: "Charter","Georgia",serif; font-size: 9.8pt; line-height: 1.4;
+       color: #111; margin: 0; }
+h1 { font-size: 19pt; margin: 0 0 1.5mm; line-height: 1.15; }
+.sub { font-size: 10pt; color: #555; margin: 0 0 5mm; }
+h2 { font-size: 12.5pt; background: #14342b; color: #fff; padding: 2.2mm 3mm;
+     margin: 0 0 3mm; border-radius: 1mm; page-break-after: avoid; }
+.sec { page-break-before: always; }
+.sec:first-of-type { page-break-before: avoid; }
+.item { page-break-inside: avoid; margin: 0 0 3.6mm; padding: 0 0 2.4mm;
+        border-bottom: 0.3pt solid #d5dad5; }
+h3 { font-size: 10.6pt; margin: 0 0 1.4mm; page-break-after: avoid; }
+.code { display: inline-block; min-width: 12mm; font-weight: 700; color: #14342b; }
+.instr { font-size: 8.8pt; color: #4e5c52; font-style: italic; margin: 0 0 1.6mm 12mm; }
+.fld { margin: 0 0 2.2mm 12mm; }
+.q { margin: 0 0 1mm; }
+.pick { font-size: 8.4pt; color: #4e5c52; font-style: italic; margin: 0 0 0.8mm; }
+.route { font-family: "Helvetica Neue",Arial,sans-serif; font-size: 7.8pt; color: #7a5a1a;
+         background: #fdf6e6; border-left: 1.2pt solid #d9a441; padding: 0.9mm 2mm;
+         margin: 0 0 1.2mm; border-radius: 0.6mm; }
+.office { font-family: "Helvetica Neue",Arial,sans-serif; font-size: 7.8pt; color: #41614d;
+          background: #eef3ee; padding: 0.9mm 2mm; margin: 0; border-radius: 0.6mm; }
+ul.opts { list-style: none; margin: 0; padding: 0; font-size: 9.4pt; }
+ul.opts li { margin: 0 0 0.9mm; padding: 0; }
+ul.opts.two { column-count: 2; column-gap: 6mm; }
+ul.opts.two li { break-inside: avoid; }
+.scale { font-size: 8.6pt; color: #4e5c52; margin: 0 0 1mm; font-style: italic; }
+.scale.boxes { font-size: 11pt; font-style: normal; color: #111; margin: 0; }
+.writein { margin: 1mm 0 0; }
+.writein span { display: block; border-bottom: 0.4pt solid #9aa49c; height: 6mm; }
+.rulerow { margin: 0.5mm 0 0; }
+.boxline { display: inline-block; width: 46mm; border-bottom: 0.4pt solid #9aa49c; }
+.rule.short { display: inline-block; width: 52mm; border-bottom: 0.4pt solid #9aa49c; }
+.unit { font-size: 8.4pt; color: #4e5c52; margin-left: 2mm; }
+table.grid { border-collapse: collapse; width: 100%; font-size: 8.8pt; margin: 1mm 0 0;
+             page-break-inside: avoid; }
+table.grid th { background: #eef3ee; color: #14342b; text-align: left; padding: 1.2mm 1.8mm;
+                border: 0.3pt solid #bcd0c2; font-family: "Helvetica Neue",Arial,sans-serif;
+                font-size: 7.8pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+table.grid td { padding: 1.6mm 1.8mm; border: 0.3pt solid #c9d1ca; }
+table.grid td.tick { text-align: center; font-size: 10pt; width: 16mm; }
+table.grid td.blank { min-width: 22mm; color: #4e5c52; font-size: 8.4pt; }
+.stop { font-family: "Helvetica Neue",Arial,sans-serif; font-size: 8.2pt; color: #8f2020;
+        background: #fdecec; border-left: 1.6pt solid #c86a6a; padding: 1.6mm 2.6mm;
+        margin: 0 0 2.4mm 12mm; border-radius: 0.6mm; page-break-inside: avoid; }
+.legend { page-break-inside: avoid; border: 0.4pt solid #cfd6d0; border-radius: 1.4mm; padding: 3mm 4mm; margin: 0 0 5mm;
+          font-size: 8.8pt; background: #fafbfa; }
+.legend p { margin: 0 0 1.6mm; }
+.legend p:last-child { margin: 0; }
+.wopt { margin: 0 0 0.6mm; }
+.wline { margin: 0.6mm 0; font-family: "Courier New",monospace; }
+</style></head><body>
+<h1>Instrument B — Non-Borrower Comparison Group</h1>
+<p class="sub">AGRISENSO Plus Baseline Study &mdash; paper questionnaire, version 1.0
+(2026-08-27)</p>
+<div class="legend">
+<p><b>This is the paper form.</b> Fieldwork is done in the webapp; print this for review,
+for briefings, and as the fallback when a device fails. Every item, option and rule here is
+generated from the live questionnaire, so the two cannot drift.</p>
+<p><b>Paper has no routing.</b> The app skips what does not apply. On paper the shaded line
+above an item tells you when to ask it &mdash; <i>Ask only if A5 = Yes</i> &mdash; and a red box
+tells you when to stop. Follow them, or the form collects answers the dataset will reject.</p>
+<p><b>Blank is a valid answer</b> for everything except the eligibility and consent items.
+Never write a filler to fill a space.</p>
+<p>☐ one answer &nbsp;&middot;&nbsp; <i>Tick all that apply</i> above a list means more
+than one may be ticked &nbsp;&middot;&nbsp; items marked for office use are completed by the app,
+not by hand.</p>
+</div>
+<section class="sec"><h2>Questionnaire Administration and Quality-Control Information</h2>
+<article class="item">
+<div class="fld">
+<p class="q">Questionnaire Version</p>
+<p class="office">Completed by the app — leave blank on paper, for office use only.</p>
+</div>
+<div class="fld">
+<p class="q">Date of Version</p>
+<p class="office">Completed by the app — leave blank on paper, for office use only.</p>
+</div>
+<div class="fld">
+<p class="q">Questionnaire Control Number</p>
+<p class="office">Completed by the app — leave blank on paper, for office use only.</p>
+</div>
+<div class="fld">
+<p class="q">Comparison-Group Sampling Frame ID</p>
+<div class="writein"><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Enumerator Name / ID</p>
+<div class="writein"><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Supervisor Name / ID</p>
+<div class="writein"><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Date of Interview</p>
+<div class="writein"><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Interview Start Time</p>
+<div class="writein"><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Interview End Time</p>
+<div class="writein"><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Language Primarily Used</p>
+<ul class="opts">
+<li>☐ Filipino</li>
+<li>☐ English</li>
+<li>☐ Local language/dialect: <span class="rule short"></span></li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Interview Mode</p>
+<ul class="opts">
+<li>☐ Face-to-face</li>
+<li>☐ Other approved mode: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+</section>
+<section class="sec"><h2>Introduction and Informed Consent</h2>
+<article class="item">
+<h3><span class="code"></span>Consent to Participate</h3>
+<div class="fld">
+<p class="q">Do you voluntarily agree to participate?</p>
+<ul class="opts">
+<li>☐ Yes – Proceed</li>
+<li>☐ No – End interview and thank respondent</li>
+</ul>
+</div>
+<div class="stop"><b>STOP if Consent to Participate = No – End interview and thank respondent — Interview ends here — consent was not given.</b> Thank the respondent and close the interview. Submit this record so the refusal is counted in the sample disposition.</div>
+</article>
+<article class="item">
+<h3><span class="code"></span>Consent for Possible Validation / Back-check</h3>
+<p class="instr">A “No” response does not affect participation in this interview.</p>
+<div class="fld">
+<p class="q">May the research team contact you again, if necessary, for a brief validation or back-check?</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code"></span>Consent Confirmation</h3>
+<div class="fld">
+<p class="q">Enumerator Attestation</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ I certify that I read/explained the informed consent and that the respondent voluntarily agreed to participate.</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Respondent Signature (optional)</p>
+<div class="writein"><span></span></div>
+</div>
+</article>
+</section>
+<section class="sec"><h2>Identification and Eligibility Screening</h2>
+<article class="item">
+<h3><span class="code">A1</span>Location of Interview</h3>
+<div class="fld">
+<p class="q">Region</p>
+<ul class="opts">
+<li>☐ National Capital Region (NCR)</li>
+<li>☐ Cordillera Administrative Region (CAR)</li>
+<li>☐ Region I – Ilocos Region</li>
+<li>☐ Region II – Cagayan Valley</li>
+<li>☐ Region III – Central Luzon</li>
+<li>☐ Region IV-A – CALABARZON</li>
+<li>☐ MIMAROPA Region</li>
+<li>☐ Region V – Bicol Region</li>
+<li>☐ Region VI – Western Visayas</li>
+<li>☐ Region VII – Central Visayas</li>
+<li>☐ Region VIII – Eastern Visayas</li>
+<li>☐ Region IX – Zamboanga Peninsula</li>
+<li>☐ Region X – Northern Mindanao</li>
+<li>☐ Region XI – Davao Region</li>
+<li>☐ Region XII – SOCCSKSARGEN</li>
+<li>☐ Region XIII – Caraga</li>
+<li>☐ Negros Island Region (NIR)</li>
+<li>☐ Bangsamoro Autonomous Region in Muslim Mindanao (BARMM)</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Province</p>
+<div class="writein"><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Municipality/City</p>
+<div class="writein"><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Barangay</p>
+<div class="writein"><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Island Group</p>
+<ul class="opts">
+<li>☐ Luzon</li>
+<li>☐ Visayas</li>
+<li>☐ Mindanao</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">A2</span>Respondent Type</h3>
+<div class="fld">
+<p class="q">Based on the approved comparison-group sampling frame, is the respondent</p>
+<ul class="opts">
+<li>☐ Individual respondent</li>
+<li>☐ Organizational / enterprise respondent</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">A3</span>Respondent Segment</h3>
+<div class="fld">
+<ul class="opts">
+<li>☐ Small Farmer / Fisherfolk (SFF)</li>
+<li>☐ Agrarian Reform Beneficiary (ARB)</li>
+<li>☐ Farmers and Fisherfolk Cooperative / Association (FFCA)</li>
+<li>☐ Agrarian Reform Beneficiary Organization (ARBO)</li>
+<li>☐ Barangay Micro Business Enterprise (BMBE)</li>
+<li>☐ Small or Medium Enterprise (SME)</li>
+<li>☐ Other approved comparison category: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">A4</span>Respondent / Organization Name</h3>
+<div class="fld">
+<p class="q">Name</p>
+<p class="route">Ask only if A2 = Individual respondent</p>
+<div class="writein"><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Name of organization / enterprise</p>
+<p class="route">Ask only if A2 = Organizational / enterprise respondent</p>
+<div class="writein"><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">A5</span>Current AGRISENSO Plus Loan Agreement Verification</h3>
+<div class="fld">
+<p class="q">Does the respondent or organization currently have an AGRISENSO Plus Program loan agreement with LANDBANK?</p>
+<ul class="opts">
+<li>☐ No – Continue</li>
+<li>☐ Yes</li>
+<li>☐ Unable to verify</li>
+</ul>
+</div>
+<div class="stop"><b>STOP if A5 = Yes — Not eligible for the comparison group.</b> This respondent currently has an AGRISENSO Plus loan agreement and belongs in the borrower sample, not the comparison group. End the interview and refer the case to your supervisor.</div>
+</article>
+<article class="item">
+<h3><span class="code">A6</span>Previous AGRISENSO Plus Loan Agreement</h3>
+<div class="fld">
+<p class="q">Has the respondent or organization ever previously had an AGRISENSO Plus Program loan agreement with LANDBANK, including one that has already been fully paid, closed, or terminated?</p>
+<ul class="opts">
+<li>☐ No – Continue</li>
+<li>☐ Yes</li>
+<li>☐ Do not know / Unable to verify</li>
+</ul>
+</div>
+<div class="stop"><b>STOP if A6 = Yes — Not eligible for the comparison group.</b> This respondent previously had an AGRISENSO Plus loan agreement. End the interview and arrange a replacement respondent with your supervisor.</div>
+</article>
+<article class="item">
+<h3><span class="code">A7</span>Current AGRISENSO Plus Application Status</h3>
+<p class="instr">Enumerator Note: If Approved but no loan agreement has yet been executed, refer to the supervisor to confirm whether the respondent remains eligible under the final comparison-group protocol.</p>
+<div class="fld">
+<p class="q">Are you or your organization currently applying for, or have you previously attempted to apply for, AGRISENSO Plus financing?</p>
+<ul class="opts">
+<li>☐ Never applied</li>
+<li>☐ Made an inquiry but did not formally apply</li>
+<li>☐ Started application but did not complete it</li>
+<li>☐ Application withdrawn</li>
+<li>☐ Application declined / disapproved</li>
+<li>☐ Application currently being processed</li>
+<li>☐ Approved but no loan agreement has yet been executed</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">A8</span>Individual Respondent Eligibility</h3>
+<div class="fld">
+<p class="q">Is the respondent at least 18 years old?</p>
+<p class="route">Ask only if A2 = Individual respondent</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+</ul>
+</div>
+<div class="stop"><b>STOP if A8 = No — Interview ends here — respondent is under 18.</b> A respondent under 18 cannot be interviewed. Thank the respondent, end the interview, and arrange a replacement respondent with your supervisor.</div>
+<div class="fld">
+<p class="q">Are you directly involved in decisions concerning your farm, fishery, livelihood, or agriculture-related enterprise?</p>
+<p class="route">Ask only if A2 = Individual respondent</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">A9</span>Organizational / Enterprise Respondent Eligibility</h3>
+<div class="fld">
+<p class="q">What is your role?</p>
+<p class="route">Ask only if A2 = Organizational / enterprise respondent</p>
+<ul class="opts two">
+<li>☐ Owner / Proprietor</li>
+<li>☐ Chairperson / President</li>
+<li>☐ Board Member / Director</li>
+<li>☐ Manager</li>
+<li>☐ Treasurer / Finance Officer</li>
+<li>☐ Other Officer: <span class="rule short"></span></li>
+<li>☐ Authorized Representative</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Are you authorized or sufficiently knowledgeable to answer questions concerning the organization’s: - agricultural or enterprise operations; - financing needs; - current financing sources; - financial practices; and - production or enterprise conditions?</p>
+<p class="route">Ask only if A2 = Organizational / enterprise respondent</p>
+<ul class="opts">
+<li>☐ Yes – Continue</li>
+<li>☐ No</li>
+</ul>
+</div>
+<div class="stop"><b>STOP if A9 = No — Stop — an authorised representative is needed.</b> Identify an authorised or sufficiently knowledgeable representative of the organisation before proceeding, or schedule a callback.</div>
+</article>
+<article class="item">
+<h3><span class="code">A10</span>Final Eligibility Determination</h3>
+<div class="fld">
+<p class="office">Completed by the app — leave blank on paper, for office use only.</p>
+</div>
+</article>
+</section>
+<section class="sec"><h2>Respondent and Household / Organization Profile</h2>
+<article class="item">
+<h3><span class="code">B1</span>Respondent Sex</h3>
+<div class="fld">
+<p class="route">Ask only if A2 = Organizational / enterprise respondent</p>
+<ul class="opts">
+<li>☐ Male</li>
+<li>☐ Female</li>
+<li>☐ Prefer not to answer</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Record the sex of the representative only. Do not interpret this as the sex classification of the organization.</p>
+<p class="route">Ask only if A2 = Organizational / enterprise respondent</p>
+<div class="writein"><span></span><span></span><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B2</span>Age</h3>
+<div class="fld">
+<p class="q">Age in completed years</p>
+<p class="route">Ask only if A2 = Individual respondent</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">years &nbsp;(18–120, whole number)</span></p>
+</div>
+<div class="fld">
+<p class="route">Ask only if A2 = Individual respondent</p>
+<ul class="opts">
+<li>☐ 18–35</li>
+<li>☐ 36–50</li>
+<li>☐ 51–65</li>
+<li>☐ 66 and above</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B3</span>Highest Educational Attainment</h3>
+<div class="fld">
+<p class="route">Ask only if A2 = Individual respondent</p>
+<ul class="opts">
+<li>☐ No formal schooling</li>
+<li>☐ Elementary level</li>
+<li>☐ Elementary graduate</li>
+<li>☐ Junior High School / High School level</li>
+<li>☐ Junior High School / High School graduate</li>
+<li>☐ Senior High School level / graduate</li>
+<li>☐ Technical / Vocational</li>
+<li>☐ College level</li>
+<li>☐ College graduate</li>
+<li>☐ Postgraduate</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ Prefer not to answer</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B4</span>Civil Status</h3>
+<div class="fld">
+<p class="route">Ask only if A2 = Individual respondent</p>
+<ul class="opts two">
+<li>☐ Single</li>
+<li>☐ Married</li>
+<li>☐ Living with partner</li>
+<li>☐ Widowed</li>
+<li>☐ Separated</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ Prefer not to answer</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B5</span>Household Size</h3>
+<div class="fld">
+<p class="q">Total household members (persons)</p>
+<p class="route">Ask only if A2 = Individual respondent</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">persons &nbsp;(1–50, whole number)</span></p>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B6</span>Economically Active Household Members</h3>
+<div class="fld">
+<p class="q">Number of adult household members currently earning or engaged in farming, fishing, employment, business, or livelihood (persons)</p>
+<p class="route">Ask only if A2 = Individual respondent; Cannot exceed the answer above</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">persons &nbsp;(0–50, whole number)</span></p>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B7</span>Household Dependents</h3>
+<div class="fld">
+<p class="q">Number primarily dependent on others for financial support (persons)</p>
+<p class="route">Ask only if A2 = Individual respondent; Cannot exceed the answer above</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">persons &nbsp;(0–50, whole number)</span></p>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B8</span>Estimated Average Monthly Household Income</h3>
+<div class="fld">
+<p class="q">Estimated amount: PHP</p>
+<p class="route">Ask only if A2 = Individual respondent</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">PHP per month &nbsp;(0 or more)</span></p>
+</div>
+<div class="fld">
+<p class="route">Ask only if A2 = Individual respondent</p>
+<ul class="opts">
+<li>☐ Unable to estimate exact amount</li>
+<li>☐ Prefer not to provide exact amount</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">If necessary</p>
+<p class="route">Ask only if A2 = Individual respondent; Ask once B8 is answered</p>
+<ul class="opts two">
+<li>☐ Below PHP 10,000</li>
+<li>☐ PHP 10,000–19,999</li>
+<li>☐ PHP 20,000–39,999</li>
+<li>☐ PHP 40,000–59,999</li>
+<li>☐ PHP 60,000–99,999</li>
+<li>☐ PHP 100,000 and above</li>
+<li>☐ Do not know</li>
+<li>☐ Prefer not to answer</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B9</span>Primary Household Livelihood</h3>
+<div class="fld">
+<p class="route">Ask only if A2 = Individual respondent</p>
+<ul class="opts two">
+<li>☐ Crop farming</li>
+<li>☐ Capture fisheries</li>
+<li>☐ Aquaculture</li>
+<li>☐ Livestock</li>
+<li>☐ Poultry</li>
+<li>☐ Agricultural processing</li>
+<li>☐ Agricultural trading / marketing</li>
+<li>☐ Agricultural wage labor</li>
+<li>☐ Non-agricultural employment</li>
+<li>☐ Non-agricultural business</li>
+<li>☐ Remittances</li>
+<li>☐ Pension / retirement income</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B10</span>Indigenous Peoples Identification</h3>
+<div class="fld">
+<p class="q">Do you identify as a member of an Indigenous Cultural Community / Indigenous Peoples group?</p>
+<p class="route">Ask only if A2 = Individual respondent</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+<li>☐ Prefer not to answer</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">If Yes and willing to specify</p>
+<p class="route">Ask only if A2 = Individual respondent</p>
+<div class="writein"><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B11</span>Disability Status</h3>
+<div class="fld">
+<p class="q">Do you identify as a person with disability?</p>
+<p class="route">Ask only if A2 = Individual respondent</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+<li>☐ Prefer not to answer</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B12</span>Mobile Phone Access</h3>
+<div class="fld">
+<p class="q">Do you have regular access to a mobile phone used for communication or financial transactions?</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Is the phone</p>
+<p class="route">Ask only if B12 = Yes</p>
+<ul class="opts">
+<li>☐ Own phone</li>
+<li>☐ Shared / household phone</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">B13</span>Internet / Mobile Data Access</h3>
+<div class="fld">
+<ul class="opts">
+<li>☐ Regularly</li>
+<li>☐ Occasionally</li>
+<li>☐ Rarely</li>
+<li>☐ No access</li>
+</ul>
+</div>
+</article>
+</section>
+<section class="sec"><h2>Farm, Fishery, and Enterprise Profile</h2>
+<article class="item">
+<h3><span class="code">C1</span>Current Agricultural / Enterprise Activities</h3>
+<div class="fld">
+<p class="pick">Tick all that apply.</p>
+<ul class="opts two">
+<li>☐ Crop production</li>
+<li>☐ Capture fisheries</li>
+<li>☐ Aquaculture</li>
+<li>☐ Livestock</li>
+<li>☐ Poultry</li>
+<li>☐ Agricultural processing</li>
+<li>☐ Agricultural trading / aggregation</li>
+<li>☐ Input supply</li>
+<li>☐ Storage / warehousing</li>
+<li>☐ Marketing / retail</li>
+<li>☐ Transport / logistics</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C2</span>Principal Commodity / Enterprise Activity</h3>
+<div class="fld">
+<p class="q">Which of the activities you selected is your principal activity?</p>
+<p class="route">Choose from what was ticked at C1</p>
+<div class="writein"><span></span><span></span><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Commodity/product</p>
+<div class="writein"><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C3</span>Years in Operation</h3>
+<div class="fld">
+<p class="q">Response (years)</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">years &nbsp;(0–100)</span></p>
+</div>
+<div class="fld">
+<ul class="opts">
+<li>☐ Less than one year</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C4</span>Farm / Production Area</h3>
+<div class="fld">
+<p class="q">Total area used for the principal activity</p>
+<p class="route">Ask only for the production activities ticked at C1</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">area &nbsp;(0 or more)</span></p>
+</div>
+<div class="fld">
+<p class="q">Unit (applies to both areas above)</p>
+<p class="route">Ask only for the production activities ticked at C1</p>
+<ul class="opts">
+<li>☐ Hectares</li>
+<li>☐ Square meters</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Area actually cultivated / utilised during the most recent cycle</p>
+<p class="route">Ask only for the production activities ticked at C1; Cannot exceed the answer above</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">area &nbsp;(0 or more)</span></p>
+</div>
+<div class="fld">
+<p class="q">No land or production area applies to this activity</p>
+<p class="route">Ask only for the production activities ticked at C1</p>
+<ul class="opts">
+<li>☐ Not applicable</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C5</span>Land Tenure / Access Arrangement</h3>
+<div class="fld">
+<p class="route">Ask only for the production activities ticked at C1</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ Owned</li>
+<li>☐ Agrarian Reform Beneficiary / awarded land</li>
+<li>☐ Rented / leased</li>
+<li>☐ Tenant / share arrangement</li>
+<li>☐ Shared / communal</li>
+<li>☐ Borrowed / permitted use</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ Not applicable</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C6</span>Production Scale</h3>
+<div class="fld">
+<p class="route">Ask only for the production activities ticked at C1</p>
+<table class="grid"><tr>
+<th>Activity</th>
+<th>Area / Number</th>
+<th>Unit / Classification</th>
+</tr>
+<tr>
+<td>Crops</td>
+<td class="blank"></td>
+<td class="blank">ha / sq. m. / other</td>
+</tr>
+<tr>
+<td>Fisheries / Aquaculture</td>
+<td class="blank"></td>
+<td class="blank">ha / pond / cage / other</td>
+</tr>
+<tr>
+<td>Livestock</td>
+<td class="blank"></td>
+<td class="blank">heads; type:</td>
+</tr>
+<tr>
+<td>Poultry</td>
+<td class="blank"></td>
+<td class="blank">birds/heads; type:</td>
+</tr>
+<tr>
+<td>Other</td>
+<td class="blank"></td>
+<td class="blank"></td>
+</tr>
+</table>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C7</span>Production During Most Recent Completed Cycle</h3>
+<div class="fld">
+<p class="q">Commodity</p>
+<p class="route">Ask only for the production activities ticked at C1</p>
+<div class="writein"><span></span></div>
+</div>
+<div class="fld">
+<p class="q">Production volume</p>
+<p class="route">Ask only for the production activities ticked at C1</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">(0 or more)</span></p>
+</div>
+<div class="fld">
+<p class="q">Unit</p>
+<p class="route">Ask only for the production activities ticked at C1</p>
+<ul class="opts two">
+<li>☐ Kilograms</li>
+<li>☐ Metric tons</li>
+<li>☐ Cavans / sacks</li>
+<li>☐ Pieces</li>
+<li>☐ Heads / birds</li>
+<li>☐ Liters</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Estimated yield per hectare where applicable</p>
+<p class="route">Ask only for the production activities ticked at C1</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">(0 or more)</span></p>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C8</span>Number of Production Cycles</h3>
+<div class="fld">
+<p class="q">Past 12 months (cycles)</p>
+<p class="route">Ask only for the production activities ticked at C1</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">cycles &nbsp;(0–24)</span></p>
+</div>
+<div class="fld">
+<p class="route">Ask only for the production activities ticked at C1</p>
+<ul class="opts">
+<li>☐ Continuous production</li>
+<li>☐ Not applicable</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C9</span>Irrigation / Water Source</h3>
+<div class="fld">
+<p class="route">Ask only for the production activities ticked at C1</p>
+<ul class="opts two">
+<li>☐ Irrigation system</li>
+<li>☐ Pump / groundwater</li>
+<li>☐ Rainfed</li>
+<li>☐ River / stream</li>
+<li>☐ Farm pond / reservoir</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ Not applicable</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C10</span>Mechanization / Equipment</h3>
+<div class="fld">
+<p class="q">Did you use machinery or mechanized equipment?</p>
+<p class="route">Ask only for the production activities ticked at C1</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+<li>☐ Not applicable</li>
+</ul>
+</div>
+<div class="fld">
+<p class="route">Ask only if C10 = Yes; Ask only for the production activities ticked at C1</p>
+<ul class="opts two">
+<li>☐ Land preparation</li>
+<li>☐ Planting</li>
+<li>☐ Irrigation</li>
+<li>☐ Harvesting</li>
+<li>☐ Post-harvest</li>
+<li>☐ Processing</li>
+<li>☐ Fisheries/aquaculture</li>
+<li>☐ Livestock/poultry</li>
+<li>☐ Transport/hauling</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Mode of access</p>
+<p class="route">Ask only if C10 = Yes; Ask only for the production activities ticked at C1</p>
+<ul class="opts two">
+<li>☐ Owned</li>
+<li>☐ Rented</li>
+<li>☐ Borrowed/shared</li>
+<li>☐ Cooperative-provided</li>
+<li>☐ Government-supported</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C11</span>Major Production Inputs</h3>
+<div class="fld">
+<p class="route">Ask only for the production activities ticked at C1</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts two">
+<li>☐ Seeds / planting materials</li>
+<li>☐ Fertilizer</li>
+<li>☐ Pesticides / crop protection</li>
+<li>☐ Feeds</li>
+<li>☐ Fingerlings / fry</li>
+<li>☐ Breeding stock / animals</li>
+<li>☐ Veterinary / animal-health inputs</li>
+<li>☐ Fuel</li>
+<li>☐ Hired labor</li>
+<li>☐ Packaging</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C12</span>Extension / Technical Support</h3>
+<div class="fld">
+<p class="q">During the past 12 months, did you receive extension or technical support?</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+</ul>
+</div>
+<div class="fld">
+<p class="route">Ask only if C12 = Yes</p>
+<ul class="opts two">
+<li>☐ Production technology</li>
+<li>☐ Fisheries/aquaculture</li>
+<li>☐ Livestock/poultry</li>
+<li>☐ Mechanization</li>
+<li>☐ Post-harvest/processing</li>
+<li>☐ Marketing / market linkage</li>
+<li>☐ Enterprise development</li>
+<li>☐ Digital/technology support</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Provider</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts two">
+<li>☐ DA / attached agency</li>
+<li>☐ LGU</li>
+<li>☐ Cooperative / association</li>
+<li>☐ Financial institution</li>
+<li>☐ Private sector</li>
+<li>☐ NGO / development partner</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C13</span>Production / Operating Cost</h3>
+<div class="fld">
+<p class="q">Estimated total for most recent cycle/period PHP</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">PHP &nbsp;(0 or more)</span></p>
+</div>
+<div class="fld">
+<ul class="opts">
+<li>☐ Unable to provide exact amount</li>
+<li>☐ Prefer not to answer</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C14</span>Gross Sales / Revenue</h3>
+<div class="fld">
+<p class="q">Estimated gross sales/revenue during same period PHP</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">PHP &nbsp;(0 or more)</span></p>
+</div>
+<div class="fld">
+<ul class="opts">
+<li>☐ Unable to estimate</li>
+<li>☐ Prefer not to answer</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C15</span>Estimated Net Income / Profit</h3>
+<div class="fld">
+<p class="q">PHP</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">PHP</span></p>
+</div>
+<div class="fld">
+<ul class="opts">
+<li>☐ Break-even</li>
+<li>☐ Net loss</li>
+<li>☐ Unable to estimate</li>
+<li>☐ Prefer not to answer</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C16</span>Record Keeping</h3>
+<div class="fld">
+<ul class="opts">
+<li>☐ Yes, regularly</li>
+<li>☐ Yes, occasionally</li>
+<li>☐ No</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Record Keeping — select all that apply</p>
+<p class="route">Ask only if C16 = Yes, regularly or Yes, occasionally</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts two">
+<li>☐ Notebook / ledger</li>
+<li>☐ Receipts / invoices</li>
+<li>☐ Spreadsheet/computer</li>
+<li>☐ Mobile/digital</li>
+<li>☐ Formal bookkeeping/accounting</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C17</span>Output Disposition</h3>
+<div class="fld">
+<p class="route">Ask only for the production activities ticked at C1</p>
+<table class="grid"><tr>
+<th>Use</th>
+<th>Approximate %</th>
+</tr>
+<tr>
+<td>Sold</td>
+<td class="blank">%</td>
+</tr>
+<tr>
+<td>Consumed by household / members</td>
+<td class="blank">%</td>
+</tr>
+<tr>
+<td>Retained as seed/input/feed</td>
+<td class="blank">%</td>
+</tr>
+<tr>
+<td>Given away / other use</td>
+<td class="blank">%</td>
+</tr>
+<tr>
+<td>Lost / spoiled / wasted</td>
+<td class="blank">%</td>
+</tr>
+<tr>
+<td>Total</td>
+<td class="blank">100%</td>
+</tr>
+</table>
+</div>
+<div class="fld">
+<p class="route">Ask only for the production activities ticked at C1</p>
+<ul class="opts">
+<li>☐ Unable to estimate</li>
+<li>☐ Not applicable</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C18</span>Production / Post-Harvest Losses</h3>
+<div class="fld">
+<p class="route">Ask only for the production activities ticked at C1</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+<li>☐ Not applicable</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Approximate proportion lost (%)</p>
+<p class="route">Ask only if C18 = Yes; Ask only for the production activities ticked at C1</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">% &nbsp;(0–100)</span></p>
+</div>
+<div class="fld">
+<p class="q">Main reason</p>
+<p class="route">Ask only if C18 = Yes; Ask only for the production activities ticked at C1</p>
+<div class="writein"><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C19</span>Main Buyers / Market Outlets</h3>
+<div class="fld">
+<p class="pick">Tick all that apply.</p>
+<ul class="opts two">
+<li>☐ Local trader / consolidator</li>
+<li>☐ Cooperative / association</li>
+<li>☐ Wholesaler</li>
+<li>☐ Processor</li>
+<li>☐ Institutional buyer</li>
+<li>☐ Retailer</li>
+<li>☐ Direct-to-consumer</li>
+<li>☐ Government-supported market</li>
+<li>☐ Export</li>
+<li>☐ Online/digital platform</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C20</span>Value-Chain Participation</h3>
+<div class="fld">
+<p class="pick">Tick all that apply.</p>
+<ul class="opts two">
+<li>☐ Input supply</li>
+<li>☐ Production</li>
+<li>☐ Aggregation</li>
+<li>☐ Storage</li>
+<li>☐ Processing</li>
+<li>☐ Trading</li>
+<li>☐ Marketing</li>
+<li>☐ Retail</li>
+<li>☐ Transport/logistics</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C21</span>Major Shocks During Past 12 Months</h3>
+<div class="fld">
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ Typhoon / severe storm</li>
+<li>☐ Flood</li>
+<li>☐ Drought / insufficient water</li>
+<li>☐ Extreme heat</li>
+<li>☐ Pest / disease outbreak</li>
+<li>☐ Livestock/poultry disease/mortality</li>
+<li>☐ Fisheries/aquaculture losses</li>
+<li>☐ Input-price increase</li>
+<li>☐ Decline in selling prices</li>
+<li>☐ Difficulty accessing markets</li>
+<li>☐ Damage to equipment/facilities</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ None</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Which shock had the greatest effect?</p>
+<p class="route">Ask only for the answers ticked at C21; Choose from what was ticked at C21</p>
+<ul class="opts">
+<li>☐ Typhoon / severe storm</li>
+<li>☐ Flood</li>
+<li>☐ Drought / insufficient water</li>
+<li>☐ Extreme heat</li>
+<li>☐ Pest / disease outbreak</li>
+<li>☐ Livestock/poultry disease/mortality</li>
+<li>☐ Fisheries/aquaculture losses</li>
+<li>☐ Input-price increase</li>
+<li>☐ Decline in selling prices</li>
+<li>☐ Difficulty accessing markets</li>
+<li>☐ Damage to equipment/facilities</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Main effect of the most significant shock</p>
+<p class="route">Ask once C21 is answered</p>
+<ul class="opts">
+<li>☐ Reduced production</li>
+<li>☐ Increased costs</li>
+<li>☐ Reduced sales/revenue</li>
+<li>☐ Loss of assets</li>
+<li>☐ Difficulty meeting financial obligations</li>
+<li>☐ Need for additional financing</li>
+<li>☐ Temporary interruption</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C22</span>Selected Risk-Management Practices</h3>
+<div class="fld">
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ Diversification</li>
+<li>☐ Adjusted planting/production schedule</li>
+<li>☐ Water conservation / management</li>
+<li>☐ Climate-resilient varieties/breeds</li>
+<li>☐ Protective structures</li>
+<li>☐ Improved drainage</li>
+<li>☐ Savings / emergency fund</li>
+<li>☐ Insurance</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ None</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">C23</span>Agricultural / Enterprise Insurance</h3>
+<div class="fld">
+<p class="q">Do you currently have relevant insurance?</p>
+<p class="route">Ask only for the production activities ticked at C1</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Type — select all that apply</p>
+<p class="route">Ask only if C23 = Yes; Ask only for the production activities ticked at C1</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ Crop</li>
+<li>☐ Livestock</li>
+<li>☐ Fisheries/aquaculture</li>
+<li>☐ Property/equipment</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Provider — select all that apply</p>
+<p class="route">Ask only if C23 = Yes; Ask only for the production activities ticked at C1</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ PCIC</li>
+<li>☐ Private insurer</li>
+<li>☐ Cooperative/mutual</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Have you filed a claim?</p>
+<p class="route">Ask only if C23 = Yes; Ask only for the production activities ticked at C1</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+</ul>
+</div>
+<div class="fld">
+<p class="route">Ask only if C23 = Yes; Ask only for the production activities ticked at C1</p>
+<ul class="opts">
+<li>☐ Fully paid</li>
+<li>☐ Partially paid</li>
+<li>☐ Pending</li>
+<li>☐ Denied</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+</section>
+<section class="sec"><h2>AGRISENSO Plus Awareness and Application Experience</h2>
+<article class="item">
+<h3><span class="code">D1</span>Awareness of AGRISENSO Plus</h3>
+<div class="fld">
+<p class="q">Before this interview, had you heard of AGRISENSO Plus?</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+<li>☐ Not sure</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">D2</span>Source of Program Information</h3>
+<div class="fld">
+<p class="q">How did you first hear about AGRISENSO Plus?</p>
+<ul class="opts">
+<li>☐ LANDBANK</li>
+<li>☐ ACPC / DA</li>
+<li>☐ Cooperative / association</li>
+<li>☐ LGU / agriculture office</li>
+<li>☐ Barangay officials</li>
+<li>☐ Orientation / meeting</li>
+<li>☐ Social media / internet</li>
+<li>☐ Radio / television</li>
+<li>☐ Printed material</li>
+<li>☐ Other farmers/fisherfolk/entrepreneurs: <span class="rule short"></span></li>
+<li>☐ Family / friends</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">D3</span>Self-Assessed Understanding</h3>
+<div class="fld">
+<p class="q">How confident are you that you understand how AGRISENSO Plus works?</p>
+<p class="scale">1 = not at all confident &nbsp;·&nbsp; 5 = very confident</p>
+<p class="scale boxes">☐&nbsp;1 &nbsp;&nbsp; ☐&nbsp;2 &nbsp;&nbsp; ☐&nbsp;3 &nbsp;&nbsp; ☐&nbsp;4 &nbsp;&nbsp; ☐&nbsp;5</p>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">D4</span>Awareness of Program Features</h3>
+<div class="fld">
+<p class="q">Were you aware of</p>
+<table class="grid"><tr>
+<th>Feature</th>
+<th>Yes</th>
+<th>No</th>
+<th>Not Sure</th>
+</tr>
+<tr>
+<td>Who may qualify</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Eligible financing activities</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Loan amount / ceiling</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Interest / financing cost</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Loan term</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Grace period</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Documentary requirements</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Repayment requirements</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Where/how to apply</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+</table>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">D5</span>Application Experience</h3>
+<div class="fld">
+<p class="q">Have you ever attempted to apply for AGRISENSO Plus?</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">What happened?</p>
+<p class="route">Ask only if D5 = Yes</p>
+<ul class="opts">
+<li>☐ Started but did not complete</li>
+<li>☐ Submitted application; still pending</li>
+<li>☐ Application withdrawn</li>
+<li>☐ Application declined/disapproved</li>
+<li>☐ Approved but no loan agreement executed</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">D6</span>Reason for Declined Application</h3>
+<div class="fld">
+<p class="q">If declined: Were you told the reason?</p>
+<p class="route">Ask only if D5 = Application declined/disapproved</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+<li>☐ Do not recall</li>
+</ul>
+</div>
+<div class="fld">
+<p class="route">Ask only if D6 = Yes</p>
+<ul class="opts">
+<li>☐ Eligibility requirements</li>
+<li>☐ Incomplete documents</li>
+<li>☐ Repayment-capacity concern</li>
+<li>☐ Existing indebtedness / credit issue</li>
+<li>☐ Collateral / security</li>
+<li>☐ Co-maker/guarantor</li>
+<li>☐ Enterprise/activity did not qualify</li>
+<li>☐ Information could not be verified</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">D7</span>Reason for Withdrawal / Incomplete Application</h3>
+<div class="fld">
+<ul class="opts">
+<li>☐ Difficult documentary requirements</li>
+<li>☐ Process took too long</li>
+<li>☐ Travel/distance</li>
+<li>☐ Process difficult to understand</li>
+<li>☐ No longer needed financing</li>
+<li>☐ Obtained financing elsewhere</li>
+<li>☐ Concern about repayment</li>
+<li>☐ Loan terms/amount did not meet need</li>
+<li>☐ Application-related costs</li>
+<li>☐ Lack of ID/documentation</li>
+<li>☐ Digital application difficulty</li>
+<li>☐ Language/communication difficulty</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+</section>
+<section class="sec"><h2>Current Financing Needs, Sources, and Access Barriers</h2>
+<article class="item">
+<h3><span class="code">E1</span>Current Need for Financing</h3>
+<div class="fld">
+<p class="q">Do you or the organization currently need additional financing for the farm, fishery, or enterprise?</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ No</li>
+<li>☐ Not sure</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">E2</span>Purpose of Current / Anticipated Financing Need</h3>
+<div class="fld">
+<p class="q">If Yes or Not sure, select all that apply.</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ Inputs</li>
+<li>☐ Labor</li>
+<li>☐ Land preparation</li>
+<li>☐ Irrigation</li>
+<li>☐ Livestock / poultry / aquaculture inputs</li>
+<li>☐ Machinery/equipment</li>
+<li>☐ Production expansion</li>
+<li>☐ Post-harvest/storage</li>
+<li>☐ Processing/value addition</li>
+<li>☐ Working capital</li>
+<li>☐ Transport/logistics</li>
+<li>☐ Marketing</li>
+<li>☐ Diversification</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">E3</span>Estimated Financing Need</h3>
+<div class="fld">
+<p class="q">Approximately how much financing would currently be needed? PHP</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">PHP &nbsp;(0 or more)</span></p>
+</div>
+<div class="fld">
+<ul class="opts">
+<li>☐ Unable to estimate</li>
+<li>☐ Prefer not to answer</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">E4</span>Current Financing Sources</h3>
+<div class="fld">
+<p class="q">During the past 12 months, which sources have you used?</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ Own savings / retained earnings</li>
+<li>☐ LANDBANK loan other than AGRISENSO Plus</li>
+<li>☐ Other commercial bank: <span class="rule short"></span></li>
+<li>☐ Rural/cooperative bank</li>
+<li>☐ Cooperative credit</li>
+<li>☐ Microfinance institution</li>
+<li>☐ Other government financing program: <span class="rule short"></span></li>
+<li>☐ Informal lender</li>
+<li>☐ Trader/buyer advance</li>
+<li>☐ Input supplier credit</li>
+<li>☐ Family/friends</li>
+<li>☐ Digital/online lender</li>
+<li>☐ Grant/financial assistance</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ No external financing used</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">E5</span>Primary Financing Source</h3>
+<div class="fld">
+<p class="q">Which was your main financing source?</p>
+<div class="writein"><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">E6</span>Adequacy of Current Financing</h3>
+<div class="fld">
+<p class="q">Does your current financing fully meet your farm/fishery/enterprise needs?</p>
+<ul class="opts">
+<li>☐ Fully</li>
+<li>☐ Partly</li>
+<li>☐ No</li>
+<li>☐ Not applicable / no financing used</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">E7</span>Reason for Not Availing AGRISENSO Plus</h3>
+<div class="fld">
+<p class="q">What is the main reason you do not currently have an AGRISENSO Plus loan agreement?</p>
+<ul class="opts">
+<li>☐ Was not aware of Program</li>
+<li>☐ Do not know how/where to apply</li>
+<li>☐ Do not currently need financing</li>
+<li>☐ Prefer own funds</li>
+<li>☐ Prefer another source</li>
+<li>☐ Do not believe I/we qualify</li>
+<li>☐ Could not meet requirements</li>
+<li>☐ Concern about repayment/debt</li>
+<li>☐ Process appears difficult</li>
+<li>☐ Lending office too far/inconvenient</li>
+<li>☐ Application pending</li>
+<li>☐ Previous application declined</li>
+<li>☐ Previous application withdrawn/incomplete</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">E8</span>Barriers to Formal Agricultural Financing</h3>
+<div class="fld">
+<p class="q">Which of the following make access difficult?</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ Lack of information</li>
+<li>☐ Do not know where/how to apply</li>
+<li>☐ Documentary requirements</li>
+<li>☐ Lack of IDs</li>
+<li>☐ Eligibility requirements</li>
+<li>☐ Collateral/security</li>
+<li>☐ Co-maker/guarantor</li>
+<li>☐ Distance</li>
+<li>☐ Travel costs</li>
+<li>☐ Processing/application costs</li>
+<li>☐ Long processing time</li>
+<li>☐ Complex procedures</li>
+<li>☐ Digital platform difficulty</li>
+<li>☐ Limited digital literacy</li>
+<li>☐ Connectivity</li>
+<li>☐ Language/communication</li>
+<li>☐ Interest/financing cost</li>
+<li>☐ Concern about repayment</li>
+<li>☐ Previous negative experience</li>
+<li>☐ Preference for informal/familiar source</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ None</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">E9</span>Most Significant Barrier</h3>
+<div class="fld">
+<p class="route">Ask only for the answers ticked at E8; Choose from what was ticked at E8</p>
+<ul class="opts">
+<li>☐ No significant barrier</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">E10</span>Perceived Ease of Formal Financing Access</h3>
+<div class="fld">
+<ul class="opts two">
+<li>☐ Very difficult</li>
+<li>☐ Difficult</li>
+<li>☐ Neither difficult nor easy</li>
+<li>☐ Easy</li>
+<li>☐ Very easy</li>
+<li>☐ Never tried / cannot assess</li>
+</ul>
+</div>
+</article>
+</section>
+<section class="sec"><h2>Financial Knowledge and Capability</h2>
+<article class="item">
+<div class="fld">
+<p class="q">Use the same response scales and wording as the Borrower Survey to support valid comparison.</p>
+<div class="writein"><span></span><span></span><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F1</span>Understanding Financing Terms</h3>
+<div class="fld">
+<p class="q">Confidence in understanding interest, loan term, repayment schedules, grace periods, and fees</p>
+<p class="scale">1 = not at all confident &nbsp;·&nbsp; 5 = very confident</p>
+<p class="scale boxes">☐&nbsp;1 &nbsp;&nbsp; ☐&nbsp;2 &nbsp;&nbsp; ☐&nbsp;3 &nbsp;&nbsp; ☐&nbsp;4 &nbsp;&nbsp; ☐&nbsp;5</p>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F2</span>Comparing Financing Options</h3>
+<div class="fld">
+<p class="q">Confidence in comparing financing options</p>
+<p class="scale">1 = not at all confident &nbsp;·&nbsp; 5 = very confident</p>
+<p class="scale boxes">☐&nbsp;1 &nbsp;&nbsp; ☐&nbsp;2 &nbsp;&nbsp; ☐&nbsp;3 &nbsp;&nbsp; ☐&nbsp;4 &nbsp;&nbsp; ☐&nbsp;5</p>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F3</span>Preparing a Budget</h3>
+<div class="fld">
+<p class="q">Confidence in preparing a simple farm/enterprise budget</p>
+<p class="scale">1 = not at all confident &nbsp;·&nbsp; 5 = very confident</p>
+<p class="scale boxes">☐&nbsp;1 &nbsp;&nbsp; ☐&nbsp;2 &nbsp;&nbsp; ☐&nbsp;3 &nbsp;&nbsp; ☐&nbsp;4 &nbsp;&nbsp; ☐&nbsp;5</p>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F4</span>Understanding Cost of Borrowing</h3>
+<div class="fld">
+<p class="q">Confidence in understanding how interest, duration, and charges affect repayment</p>
+<p class="scale">1 = not at all confident &nbsp;·&nbsp; 5 = very confident</p>
+<p class="scale boxes">☐&nbsp;1 &nbsp;&nbsp; ☐&nbsp;2 &nbsp;&nbsp; ☐&nbsp;3 &nbsp;&nbsp; ☐&nbsp;4 &nbsp;&nbsp; ☐&nbsp;5</p>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F5</span>Assessing Repayment Capacity</h3>
+<div class="fld">
+<p class="q">Confidence in assessing whether expected income can meet repayments</p>
+<p class="scale">1 = not at all confident &nbsp;·&nbsp; 5 = very confident</p>
+<p class="scale boxes">☐&nbsp;1 &nbsp;&nbsp; ☐&nbsp;2 &nbsp;&nbsp; ☐&nbsp;3 &nbsp;&nbsp; ☐&nbsp;4 &nbsp;&nbsp; ☐&nbsp;5</p>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F6</span>Repayment Planning</h3>
+<div class="fld">
+<p class="q">Confidence in planning repayment against expected income/production cycles</p>
+<p class="scale">1 = not at all confident &nbsp;·&nbsp; 5 = very confident</p>
+<p class="scale boxes">☐&nbsp;1 &nbsp;&nbsp; ☐&nbsp;2 &nbsp;&nbsp; ☐&nbsp;3 &nbsp;&nbsp; ☐&nbsp;4 &nbsp;&nbsp; ☐&nbsp;5</p>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F7</span>Separation of Household and Enterprise Finances</h3>
+<div class="fld">
+<p class="route">Ask only if A2 = Individual respondent</p>
+<ul class="opts">
+<li>☐ Always</li>
+<li>☐ Often</li>
+<li>☐ Sometimes</li>
+<li>☐ Rarely</li>
+<li>☐ Never</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F8</span>Budgeting Practice</h3>
+<div class="fld">
+<ul class="opts">
+<li>☐ Always</li>
+<li>☐ Often</li>
+<li>☐ Sometimes</li>
+<li>☐ Rarely</li>
+<li>☐ Never</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F9</span>Record-Keeping Practice</h3>
+<div class="fld">
+<ul class="opts">
+<li>☐ Always</li>
+<li>☐ Often</li>
+<li>☐ Sometimes</li>
+<li>☐ Rarely</li>
+<li>☐ Never</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F10</span>Repayment Planning Practice</h3>
+<div class="fld">
+<p class="q">Ask respondents with borrowing experience. Before borrowing, do you normally identify where repayment funds will come from and when they will be available?</p>
+<ul class="opts">
+<li>☐ Yes, clearly</li>
+<li>☐ Partly</li>
+<li>☐ No</li>
+<li>☐ Have never borrowed / Not applicable</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F11</span>Savings / Financial Buffer</h3>
+<div class="fld">
+<ul class="opts">
+<li>☐ Regularly</li>
+<li>☐ Occasionally</li>
+<li>☐ No</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Savings are set aside mainly for</p>
+<p class="route">Ask only if F11 = Regularly or Occasionally</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts two">
+<li>☐ Emergency needs</li>
+<li>☐ Production costs</li>
+<li>☐ Operating costs</li>
+<li>☐ Loan repayment</li>
+<li>☐ Equipment</li>
+<li>☐ Expansion/investment</li>
+<li>☐ Disaster/production shocks</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F12</span>Digital Financial Services</h3>
+<div class="fld">
+<p class="q">During the past 12 months, have you used</p>
+<table class="grid"><tr>
+<th>Service</th>
+<th>Yes</th>
+<th>No</th>
+</tr>
+<tr>
+<td>Mobile banking</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Digital wallet</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Digital payment to supplier/worker</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Digital receipt of payment</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Online bank transfer</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Online/digital loan application</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+</table>
+</div>
+<div class="fld">
+<p class="q">Difficulties experienced with digital financial services</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts two">
+<li>☐ Connectivity</li>
+<li>☐ Device access</li>
+<li>☐ Limited digital skills</li>
+<li>☐ Difficult platform</li>
+<li>☐ Fraud/security concerns</li>
+<li>☐ Privacy concerns</li>
+<li>☐ Fees</li>
+<li>☐ Language/comprehension</li>
+<li>☐ Prefer face-to-face</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F13</span>Training / Advisory Support</h3>
+<div class="fld">
+<p class="q">During the past 12 months</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ Financial literacy / management</li>
+<li>☐ Budgeting / bookkeeping</li>
+<li>☐ Loan orientation / responsible borrowing</li>
+<li>☐ Farm/fishery management</li>
+<li>☐ Enterprise management</li>
+<li>☐ Marketing</li>
+<li>☐ Production technology</li>
+<li>☐ Digital finance</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ None</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F14</span>Training Provider</h3>
+<div class="fld">
+<p class="route">Ask only for the answers ticked at F13</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts two">
+<li>☐ ACPC / DA</li>
+<li>☐ LANDBANK</li>
+<li>☐ Other financial institution: <span class="rule short"></span></li>
+<li>☐ LGU</li>
+<li>☐ Cooperative / association</li>
+<li>☐ Other government agency: <span class="rule short"></span></li>
+<li>☐ Private sector</li>
+<li>☐ NGO / development partner</li>
+<li>☐ Training institution</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F15</span>Usefulness of Training</h3>
+<div class="fld">
+<p class="route">Ask only for the answers ticked at F13</p>
+<ul class="opts">
+<li>☐ Not at all useful</li>
+<li>☐ Slightly useful</li>
+<li>☐ Moderately useful</li>
+<li>☐ Very useful</li>
+<li>☐ Extremely useful</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Have you applied what you learned?</p>
+<p class="route">Ask only for the answers ticked at F13</p>
+<ul class="opts">
+<li>☐ Yes</li>
+<li>☐ Partly</li>
+<li>☐ No</li>
+<li>☐ Too early to assess</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F16</span>Financing and Enterprise Decision-Making</h3>
+<div class="fld">
+<p class="route">Ask only if A2 = Individual respondent</p>
+<table class="grid"><tr>
+<th>Decision</th>
+<th>Respondent</th>
+<th>Spouse/Partner</th>
+<th>Jointly</th>
+<th>Other Household Member</th>
+<th>Organization</th>
+<th>Other</th>
+</tr>
+<tr>
+<td>Whether to apply for financing</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>How borrowed funds would be used</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Major investments</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Marketing/buyer decisions</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Major expenditures</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+</table>
+</div>
+<div class="fld">
+<p class="route">Ask only if A2 = Organizational / enterprise respondent</p>
+<table class="grid"><tr>
+<th>Decision</th>
+<th>Owner/Proprietor</th>
+<th>Manager</th>
+<th>Officers</th>
+<th>Board</th>
+<th>Members / GA</th>
+<th>Joint/Other</th>
+</tr>
+<tr>
+<td>Applying for financing</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Use of borrowed funds</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Major investments</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Marketing/buyer decisions</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+<tr>
+<td>Major expenditures</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+<td class="tick">☐</td>
+</tr>
+</table>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">F17</span>Overall Financial-Management Confidence</h3>
+<div class="fld">
+<p class="scale">1 = not at all confident &nbsp;·&nbsp; 5 = very confident</p>
+<p class="scale boxes">☐&nbsp;1 &nbsp;&nbsp; ☐&nbsp;2 &nbsp;&nbsp; ☐&nbsp;3 &nbsp;&nbsp; ☐&nbsp;4 &nbsp;&nbsp; ☐&nbsp;5</p>
+</div>
+</article>
+</section>
+<section class="sec"><h2>Perceptions of AGRISENSO Plus and Agricultural Financing</h2>
+<article class="item">
+<h3><span class="code">G1</span>Potential Benefit of Affordable Formal Financing</h3>
+<div class="fld">
+<p class="q">What would be the most important potential benefit?</p>
+<ul class="opts">
+<li>☐ Ability to purchase inputs on time</li>
+<li>☐ Increased working capital</li>
+<li>☐ Ability to acquire equipment</li>
+<li>☐ Ability to expand production/business</li>
+<li>☐ Reduced reliance on informal lenders</li>
+<li>☐ More predictable financing cost</li>
+<li>☐ Processing/value addition</li>
+<li>☐ Improved market access</li>
+<li>☐ Greater financial stability</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ No significant benefit</li>
+<li>☐ Not sure</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">G2</span>Perceived Fairness of Access</h3>
+<div class="fld">
+<p class="q">Do qualified farmers, fisherfolk, organizations, and agri-enterprises in your area generally have a fair opportunity to access formal agricultural financing?</p>
+<ul class="opts">
+<li>☐ Definitely no</li>
+<li>☐ Probably no</li>
+<li>☐ Not sure</li>
+<li>☐ Probably yes</li>
+<li>☐ Definitely yes</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Why?</p>
+<div class="writein"><span></span><span></span><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">G3</span>Trust in Government-Supported Agricultural Financing</h3>
+<div class="fld">
+<p class="q">How much confidence do you have in government-supported agricultural financing programs?</p>
+<ul class="opts two">
+<li>☐ No confidence</li>
+<li>☐ Low confidence</li>
+<li>☐ Moderate confidence</li>
+<li>☐ High confidence</li>
+<li>☐ Very high confidence</li>
+<li>☐ Not familiar enough to assess</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Why?</p>
+<div class="writein"><span></span><span></span><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">G4</span>Perceived Differences Between Borrowers and Non-Borrowers</h3>
+<div class="fld">
+<p class="q">Based on what you observe, what most distinguishes farmers, fisherfolk, organizations, or enterprises that are able to obtain formal agricultural financing from those that are not?</p>
+<ul class="opts">
+<li>☐ Better access to information</li>
+<li>☐ Better financial records</li>
+<li>☐ Larger farm/enterprise</li>
+<li>☐ Cooperative/organizational membership</li>
+<li>☐ Better ability to meet requirements</li>
+<li>☐ Stronger repayment capacity</li>
+<li>☐ Previous relationship with financial institutions</li>
+<li>☐ Greater confidence in borrowing</li>
+<li>☐ Better digital access/capability</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ Cannot assess</li>
+</ul>
+</div>
+</article>
+</section>
+<section class="sec"><h2>Future Financing Intentions and Suggestions</h2>
+<article class="item">
+<h3><span class="code">H1</span>Future Interest in AGRISENSO Plus</h3>
+<div class="fld">
+<p class="q">If you need financing and are eligible, how likely are you to apply for AGRISENSO Plus in the future?</p>
+<ul class="opts">
+<li>☐ Very unlikely</li>
+<li>☐ Unlikely</li>
+<li>☐ Not sure</li>
+<li>☐ Likely</li>
+<li>☐ Very likely</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Why?</p>
+<div class="writein"><span></span><span></span><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">H2</span>What Would Encourage Application?</h3>
+<div class="fld">
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ More information</li>
+<li>☐ Clearer eligibility requirements</li>
+<li>☐ Assistance with documents</li>
+<li>☐ Simpler application procedures</li>
+<li>☐ Faster processing</li>
+<li>☐ More accessible application points</li>
+<li>☐ Digital/online option</li>
+<li>☐ Digital assistance</li>
+<li>☐ More suitable loan amount</li>
+<li>☐ More suitable repayment terms</li>
+<li>☐ Greater confidence in repayment capacity</li>
+<li>☐ Cooperative/association assistance</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">H3</span>Preferred Information Channels</h3>
+<div class="fld">
+<p class="q">How would you prefer to receive information about AGRISENSO Plus?</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts two">
+<li>☐ LANDBANK</li>
+<li>☐ ACPC / DA</li>
+<li>☐ LGU agriculture offices</li>
+<li>☐ Cooperative/association</li>
+<li>☐ Barangay/community meeting</li>
+<li>☐ SMS/text</li>
+<li>☐ Facebook/social media</li>
+<li>☐ Printed materials</li>
+<li>☐ Radio/television</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">H4</span>Most Significant Financing Challenge</h3>
+<div class="fld">
+<p class="q">What is the single most significant challenge you currently face in obtaining agricultural financing?</p>
+<div class="writein"><span></span><span></span><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">H5</span>Most Important Improvement to AGRISENSO Plus</h3>
+<div class="fld">
+<p class="q">What is the one most important improvement you would recommend?</p>
+<ul class="opts">
+<li>☐ Improve information dissemination</li>
+<li>☐ Clarify eligibility/loan terms</li>
+<li>☐ Assist with documents</li>
+<li>☐ Simplify procedures</li>
+<li>☐ Reduce processing time</li>
+<li>☐ Improve application accessibility</li>
+<li>☐ Improve digital options</li>
+<li>☐ Provide digital assistance</li>
+<li>☐ Review financing amount</li>
+<li>☐ Review repayment terms</li>
+<li>☐ Strengthen capacity building</li>
+<li>☐ Improve coordination with cooperatives/LGUs</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Why?</p>
+<div class="writein"><span></span><span></span><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">H6</span>Additional Support Needed</h3>
+<div class="fld">
+<p class="q">Aside from financing, what support would be useful?</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ Production / technical training</li>
+<li>☐ Financial-management training</li>
+<li>☐ Bookkeeping / record keeping</li>
+<li>☐ Enterprise/business management</li>
+<li>☐ Market information</li>
+<li>☐ Market linkage</li>
+<li>☐ Post-harvest support</li>
+<li>☐ Processing/value addition</li>
+<li>☐ Technology / mechanization</li>
+<li>☐ Digital-finance support</li>
+<li>☐ Insurance / risk management</li>
+<li>☐ Cooperative / organizational strengthening</li>
+<li>☐ Other: <span class="rule short"></span></li>
+<li>☐ None identified</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">H7</span>Additional Comments</h3>
+<div class="fld">
+<p class="q">Is there anything else you would like ACPC to know about your financing needs, difficulties in accessing agricultural credit, or AGRISENSO Plus?</p>
+<div class="writein"><span></span><span></span><span></span></div>
+</div>
+</article>
+</section>
+<section class="sec"><h2>Enumerator Final Review</h2>
+<article class="item">
+<div class="fld">
+<p class="q">Confirm</p>
+<p class="pick">Tick all that apply.</p>
+<ul class="opts">
+<li>☐ Respondent has no current AGRISENSO Plus loan agreement.</li>
+<li>☐ Respondent has never previously had an AGRISENSO Plus loan agreement.</li>
+<li>☐ Individual versus organizational routing was followed.</li>
+<li>☐ Application-history routing was followed correctly.</li>
+<li>☐ Common borrower/comparison questions used the same definitions and reference periods.</li>
+<li>☐ Commodity-appropriate units were used.</li>
+<li>☐ Exact monetary estimates were requested first where applicable.</li>
+<li>☐ Missing or refused responses were properly coded.</li>
+<li>☐ Questionnaire was checked for completeness.</li>
+</ul>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">QC1</span>Interview Outcome</h3>
+<p class="instr">Record how this interview actually ended. Complete this only after the respondent interview is finished.</p>
+<div class="fld">
+<ul class="opts two">
+<li>☐ Completed</li>
+<li>☐ Partially completed</li>
+<li>☐ Callback required</li>
+<li>☐ Respondent refused</li>
+<li>☐ Respondent unavailable</li>
+<li>☐ Respondent ineligible</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Callback date</p>
+<p class="route">Ask only if QC1 = Callback required or Respondent unavailable</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">YYYY-MM-DD</span></p>
+</div>
+<div class="fld">
+<p class="q">Callback time</p>
+<p class="route">Ask only if QC1 = Callback required or Respondent unavailable</p>
+<p class="rulerow"><span class="boxline">&nbsp;</span> <span class="unit">HH:MM, 24-hour</span></p>
+</div>
+<div class="fld">
+<p class="q">Callback arrangement / reason</p>
+<p class="route">Ask only if QC1 = Callback required or Respondent unavailable</p>
+<div class="writein"><span></span></div>
+</div>
+</article>
+<article class="item">
+<h3><span class="code">QC2</span>Post-Interview Quality Control</h3>
+<p class="instr">These fields are maintained by the field supervisor and the data manager after submission. Leave them at their default values — the enumerator does not verify their own interview.</p>
+<div class="fld">
+<p class="q">Supervisor Verification</p>
+<ul class="opts">
+<li>☐ Pending</li>
+<li>☐ Completed</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Data Verification Status</p>
+<ul class="opts">
+<li>☐ Pending verification</li>
+<li>☐ Verified</li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Back-check Status</p>
+<ul class="opts">
+<li>☐ Not yet selected</li>
+<li>☐ Selected for back-check</li>
+<li>☐ Completed</li>
+<li>☐ Unable to complete</li>
+<li>☐ Not selected</li>
+</ul>
+</div>
+</article>
+</section>
+<section class="sec"><h2>Enumerator Observation / Interview Notes</h2>
+<article class="item">
+<div class="fld">
+<p class="q">Record objective conditions only.</p>
+<ul class="opts">
+<li>☐ No significant issue</li>
+<li>☐ Interview interrupted</li>
+<li>☐ Other persons present: <span class="rule short"></span></li>
+<li>☐ Difficulty recalling information</li>
+<li>☐ Difficulty understanding questions</li>
+<li>☐ Interview completed in more than one session</li>
+<li>☐ Some questions incomplete</li>
+<li>☐ Language / communication difficulty</li>
+<li>☐ Other: <span class="rule short"></span></li>
+</ul>
+</div>
+<div class="fld">
+<p class="q">Brief factual notes</p>
+<div class="writein"><span></span><span></span><span></span></div>
+</div>
+</article>
+</section>
+<section class="sec"><h2>Closing Statement</h2>
+<article class="item">
+<p class="instr">Thank you very much for your time and for sharing your experience and views. The information you provided will form part of the AGRISENSO Plus Baseline Study and will help ACPC better understand the agricultural financing needs and access conditions of individuals and organizations that have not availed themselves of AGRISENSO Plus financing. Your responses will be handled in accordance with the confidentiality and data-protection arrangements explained at the beginning of the interview.</p>
+<div class="fld">
+<p class="q">End Time</p>
+<div class="writein"><span></span></div>
+</div>
+</article>
+</section>
+</body></html>

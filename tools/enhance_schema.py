@@ -69,7 +69,16 @@ DATE_FIELDS = {"QUESTIONNAIR_intro_2", "Consent_Confirmation_3"}
 # (see docs/app.js) rather than manually typed, per reviewer feedback
 # that manual entry invites avoidable timestamp errors.
 AUTO_TIMESTAMP_FIELDS = {"QUESTIONNAIR_intro_7", "QUESTIONNAIR_intro_8", "QUESTIONNAIR_intro_9", "CLOSING_STAT_intro_1"}
-MONTH_FIELDS = {"E2_1", "E2_2", "E2_3"}
+# Per instrument: the two questionnaires number their items
+# independently, and B's E2_1 is a 14-option multi-select ("Purpose
+# of Current / Anticipated Financing Need") where A's is a month.
+# A shared table retyped it to a month picker and made all 14
+# options unreachable.
+MONTH_FIELDS_BY_INSTRUMENT = {
+    "A": {"E2_1", "E2_2", "E2_3"},   # application / approval / release month
+    "B": set(),
+}
+MONTH_FIELDS = set().union(*MONTH_FIELDS_BY_INSTRUMENT.values())
 
 LOCATION_HINTS = {
     "A1_2": "e.g. Nueva Ecija",
@@ -1317,9 +1326,15 @@ def patch(path, instrument_key):
                 if fid == "A1_1":
                     f["type"] = "single_choice"
                     f["options"] = list(PH_REGIONS)
+                elif f.get("options"):
+                    # A field with options is a choice, whatever an
+                    # id-keyed table below says. This guard is what stops
+                    # the next id collision between the two instruments
+                    # from silently deleting a question's answers.
+                    pass
                 elif fid in DATE_FIELDS:
                     f["type"] = "date"
-                elif fid in MONTH_FIELDS:
+                elif fid in MONTH_FIELDS_BY_INSTRUMENT.get(instrument_key, ()):
                     f["type"] = "month"
 
                 if fid in LOCATION_HINTS:

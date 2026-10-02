@@ -2804,7 +2804,7 @@ var QUESTIONS_B = {
             {
               "field_id": "E2_1",
               "label": "If Yes or Not sure, select all that apply.",
-              "type": "month",
+              "type": "multi_choice",
               "options": [
                 "Inputs",
                 "Labor",

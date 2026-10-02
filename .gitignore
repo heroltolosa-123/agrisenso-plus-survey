@@ -19,3 +19,7 @@ tools/simulate/*.json
 # Simulation and reference build artefacts are committed deliberately
 # (see reference/README.md) — but never the macOS metadata beside them.
 reference/__pycache__/
+
+# Pandoc's input only — regenerate with reference/build_questionnaire.py.
+# The paper questionnaire itself (HTML, PDF, DOCX) is committed.
+reference/questionnaire_*_word.html
